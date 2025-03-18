@@ -1,11 +1,33 @@
 package com.nnk.springboot.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.Instant;
 
 
 @Entity
-@Table(name = "curvepoint")
+@Data
+@NoArgsConstructor
+@Table(name = "curve_point")
 public class CurvePoint {
-    // TODO: Map columns in data table CURVEPOINT with corresponding java fields
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int curvePointId;
+
+    @Column(columnDefinition = "TINYINT")
+    private int curveId;
+
+    @Column(columnDefinition = "TIMESTAMP")
+    private Instant asOfDate;
+
+    private Double term;
+
+    private Double value;
+
+    @Column(columnDefinition = "TIMESTAMP")
+    private Instant creationDate;
+
 }

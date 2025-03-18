@@ -21,25 +21,25 @@ public class RuleTests {
 
 	@Test
 	public void ruleTest() {
-		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
+		RuleName ruleName = new RuleName("RuleName Name", "Description", "Json", "Template", "SQL", "SQL Part");
 
 		// Save
-		rule = ruleNameRepository.save(rule);
-		Assert.assertNotNull(rule.getId());
-		Assert.assertTrue(rule.getName().equals("Rule Name"));
+		ruleName = ruleNameRepository.save(ruleName);
+		Assert.assertNotNull(ruleName.getId());
+		Assert.assertTrue(ruleName.getName().equals("RuleName Name"));
 
 		// Update
-		rule.setName("Rule Name Update");
-		rule = ruleNameRepository.save(rule);
-		Assert.assertTrue(rule.getName().equals("Rule Name Update"));
+		ruleName.setName("RuleName Name Update");
+		ruleName = ruleNameRepository.save(ruleName);
+		Assert.assertTrue(ruleName.getName().equals("RuleName Name Update"));
 
 		// Find
 		List<RuleName> listResult = ruleNameRepository.findAll();
 		Assert.assertTrue(listResult.size() > 0);
 
 		// Delete
-		Integer id = rule.getId();
-		ruleNameRepository.delete(rule);
+		Integer id = ruleName.getId();
+		ruleNameRepository.delete(ruleName);
 		Optional<RuleName> ruleList = ruleNameRepository.findById(id);
 		Assert.assertFalse(ruleList.isPresent());
 	}
