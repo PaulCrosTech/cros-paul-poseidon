@@ -18,9 +18,7 @@ public class BidListController {
     // TODO: Inject BidList service
 
     @RequestMapping("/bidList/list")
-    public String home(Model model)
-    {
-
+    public String home(Model model) {
         // TODO: call service find all bids to show to the view
         log.info("====> GET /bidList/list <====");
         return "bidList/list";
@@ -48,16 +46,16 @@ public class BidListController {
 
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
-                             BindingResult result, Model model) {
+                            BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update BidList and return list BidList
-        log.info("====> POST /bidList/update/{} <====",id);
+        log.info("====> POST /bidList/update/{} <====", id);
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         // TODO: Find BidList by Id and delete the bid, return to BidList list
-        log.info("====> GET /bidList/delete/{} <====",id);
+        log.info("====> GET /bidList/delete/{} <====", id);
         return "redirect:/bidList/list";
     }
 }

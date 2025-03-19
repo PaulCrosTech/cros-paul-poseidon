@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Spring security configuration
+ */
 @Configuration
 @EnableWebSecurity
 @Slf4j
@@ -40,7 +43,8 @@ public class SpringSecurityConfig {
         log.info("====> Loading Spring Security : SecurityFilterChain <====");
         return httpSecurity.authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/app/login",  "/css","/image").permitAll()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/app/login", "/css", "/image").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(
@@ -54,6 +58,10 @@ public class SpringSecurityConfig {
                         .logoutSuccessUrl("/app/login")
                         .permitAll()
                 )
+//                .exceptionHandling(
+//                        exception -> exception
+//                                .accessDeniedPage("/app/error")
+//                )
                 .build();
     }
 

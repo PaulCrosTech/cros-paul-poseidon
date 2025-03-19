@@ -22,6 +22,7 @@ public class UserController {
 
     /**
      * Constructor
+     *
      * @param userRepository userRepository
      */
     public UserController(UserRepository userRepository) {
@@ -29,8 +30,7 @@ public class UserController {
     }
 
     @RequestMapping("/user/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         log.info("====> GET /user/list <====");
         model.addAttribute("users", userRepository.findAll());
         return "user/list";
@@ -57,7 +57,7 @@ public class UserController {
 
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        log.info("====> GET /user/update/{} <====",id);
+        log.info("====> GET /user/update/{} <====", id);
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         user.setPassword("");
         model.addAttribute("user", user);
@@ -67,7 +67,7 @@ public class UserController {
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
-        log.info("====> POST /user/update/{} <====",id);
+        log.info("====> POST /user/update/{} <====", id);
         if (result.hasErrors()) {
             return "user/update";
         }
@@ -82,7 +82,7 @@ public class UserController {
 
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
-        log.info("====> GET /user/delete/{} <====",id);
+        log.info("====> GET /user/delete/{} <====", id);
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userRepository.delete(user);
         model.addAttribute("users", userRepository.findAll());

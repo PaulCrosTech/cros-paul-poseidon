@@ -17,6 +17,7 @@ public class LoginController {
 
     /**
      * Constructor
+     *
      * @param userRepository userRepository
      */
     public LoginController(UserRepository userRepository) {
@@ -40,13 +41,13 @@ public class LoginController {
         return mav;
     }
 
-    @GetMapping("error")
-    public ModelAndView error() {
-        log.info("====> GET /app/error <====");
-        ModelAndView mav = new ModelAndView();
-        String errorMessage= "You are not authorized for the requested data.";
-        mav.addObject("errorMsg", errorMessage);
-        mav.setViewName("403");
-        return mav;
-    }
+//    @GetMapping("error")
+//    public ModelAndView error() {
+//        log.info("====> GET /app/error <====");
+//        ModelAndView mav = new ModelAndView();
+//        String errorMessage = "You are not authorized for the requested data.";
+//        mav.addObject("errorMsg", errorMessage);
+//        mav.setViewName("error/403");
+//        return mav;
+//    }
 }
