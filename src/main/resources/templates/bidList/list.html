@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/authenticated_layout.html}">
 <head>
-    <meta charset="utf-8"/>
-    <title>Home</title>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
+<div class="container" layout:fragment="content">
     <div class="row">
         <div class="col-6">
             <a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
@@ -38,16 +36,16 @@
             </tr>
             </thead>
             <tbody>
-            <!--				<tr th:each="bidList : ${bidLists}">-->
-            <!--					<td style="width: 10%" th:text="${bidList.id}"></td>-->
-            <!--					<td th:text="${bidList.account}"></td>-->
-            <!--					<td th:text="${bidList.type}"></td>-->
-            <!--					<td th:text="${bidList.bidQuantity}"></td>-->
-            <!--					<td style="width: 15%" class="text-center">-->
-            <!--						<a th:href="@{/bidList/update/{id}(id=${bidList.id})}">Edit</a>&nbsp;|&nbsp;-->
-            <!--						<a th:href="@{/bidList/delete/{id}(id=${bidList.id})}">Delete</a>-->
-            <!--					</td>-->
-            <!--				</tr>-->
+            <tr th:each="bidList : ${bidLists}">
+                <td style="width: 10%" th:text="${bidList.id}"></td>
+                <td th:text="${bidList.account}"></td>
+                <td th:text="${bidList.type}"></td>
+                <td th:text="${bidList.bidQuantity}"></td>
+                <td style="width: 15%" class="text-center">
+                    <a th:href="@{/bidList/update/{id}(id=${bidList.id})}">Edit</a>&nbsp;|&nbsp;
+                    <a th:href="@{/bidList/delete/{id}(id=${bidList.id})}">Delete</a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

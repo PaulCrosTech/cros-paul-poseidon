@@ -12,17 +12,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-
 @Controller
 @Slf4j
 public class CurveController {
     // TODO: Inject Curve Point service
 
     @RequestMapping("/curvePoint/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // TODO: find all Curve Point, add to model
         log.info("====> GET /curvePoint/list <====");
+        model.addAttribute("menuActivated", "curvePoint");
         return "curvePoint/list";
     }
 
@@ -48,16 +47,16 @@ public class CurveController {
 
     @PostMapping("/curvePoint/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
-                             BindingResult result, Model model) {
+                            BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Curve and return Curve list
-        log.info("====> POST /curvePoint/update/{} <====",id);
+        log.info("====> POST /curvePoint/update/{} <====", id);
         return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Curve by Id and delete the Curve, return to Curve list
-        log.info("====> GET /curvePoint/delete{} <====",id);
+        log.info("====> GET /curvePoint/delete{} <====", id);
         return "redirect:/curvePoint/list";
     }
 }

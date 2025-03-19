@@ -18,10 +18,10 @@ public class RatingController {
     // TODO: Inject Rating service
 
     @RequestMapping("/rating/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // TODO: find all Rating, add to model
         log.info("====> GET /rating/list <====");
+        model.addAttribute("menuActivated", "rating");
         return "rating/list";
     }
 
@@ -41,22 +41,22 @@ public class RatingController {
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Rating by Id and to model then show to the form
-        log.info("====> GET /rating/update/{} <====",id);
+        log.info("====> GET /rating/update/{} <====", id);
         return "rating/update";
     }
 
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
-                             BindingResult result, Model model) {
+                               BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
-        log.info("====> POST /rating/update/{} <====",id);
+        log.info("====> POST /rating/update/{} <====", id);
         return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Rating by Id and delete the Rating, return to Rating list
-        log.info("====> GET /rating/delete/{} <====",id);
+        log.info("====> GET /rating/delete/{} <====", id);
         return "redirect:/rating/list";
     }
 }

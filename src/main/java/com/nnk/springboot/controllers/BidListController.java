@@ -21,6 +21,7 @@ public class BidListController {
     public String home(Model model) {
         // TODO: call service find all bids to show to the view
         log.info("====> GET /bidList/list <====");
+        model.addAttribute("menuActivated", "bidList");
         return "bidList/list";
     }
 

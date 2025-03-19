@@ -18,10 +18,10 @@ public class RuleNameController {
     // TODO: Inject RuleName service
 
     @RequestMapping("/ruleName/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // TODO: find all RuleName, add to model
         log.info("====> GET /ruleName/list <====");
+        model.addAttribute("menuActivated", "ruleName");
         return "ruleName/list";
     }
 
@@ -41,22 +41,22 @@ public class RuleNameController {
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get RuleName by Id and to model then show to the form
-        log.info("====> GET /ruleName/update/{} <====",id);
+        log.info("====> GET /ruleName/update/{} <====", id);
         return "ruleName/update";
     }
 
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
-                             BindingResult result, Model model) {
+                                 BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update RuleName and return RuleName list
-        log.info("====> POST /ruleName/update/{} <====",id);
+        log.info("====> POST /ruleName/update/{} <====", id);
         return "redirect:/ruleName/list";
     }
 
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
         // TODO: Find RuleName by Id and delete the RuleName, return to RuleName list
-        log.info("====> GET /ruleName/delete/{} <====",id);
+        log.info("====> GET /ruleName/delete/{} <====", id);
         return "redirect:/ruleName/list";
     }
 }

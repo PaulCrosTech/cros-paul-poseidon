@@ -1,59 +1,58 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/authenticated_layout.html}">
 <head>
-    <title> Spring Boot </title>
-    <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-<h3> HOME PAGE </h3>
-<p>
-    <a href="/login">Login</a> or create one <a href="/user/list">User management</a>
-</p>
-<hr>
-<br>
+<div class="container" layout:fragment="content">
+    <h3> HOME PAGE </h3>
+    <p>
+        <a href="/app/login">Login</a> or create one <a href="/user/list">User management</a>
+    </p>
+    <hr>
+    <br>
 
-<form id="form-logout" th:action="@{/app/logout}" method="post" style="display: none;">
-</form>
+    <form id="form-logout" th:action="@{/app/logout}" method="post" style="display: none;">
+    </form>
 
-<a href="#" class="nav-link"
-   onclick="document.getElementById('form-logout').submit(); return false;">
-    Se déconnecter
-</a>
+    <a href="#" class="nav-link"
+       onclick="document.getElementById('form-logout').submit(); return false;">
+        Se déconnecter
+    </a>
 
-<hr>
-<br>
+    <hr>
+    <br>
 
-<!--<sec:authorize access="hasRole('ADMIN')">-->
-<a th:href="@{/admin/home}">Admin</a>
-<!--</sec:authorize>-->
-<hr>
+    <!--<sec:authorize access="hasRole('ADMIN')">-->
+    <a th:href="@{/admin/home}">Admin</a>
+    <!--</sec:authorize>-->
+    <hr>
 
-<h2>SEC:</h2>
-<p>Spring Security Thymeleaf tutorial</p>
-<div sec:authorize="hasRole('USER')">Text visible to user.</div>
-<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
-<div sec:authorize="isAuthenticated()">Text visible only to authenticated users.</div>
-Authenticated username:
-<div sec:authentication="name"></div>
-Authenticated user roles:
-<div sec:authentication="principal.authorities"></div>
+    <h2>SEC:</h2>
+    <p>Spring Security Thymeleaf tutorial</p>
+    <div sec:authorize="hasRole('USER')">Text visible to user.</div>
+    <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+    <div sec:authorize="isAuthenticated()">Text visible only to authenticated users.</div>
+    Authenticated username:
+    <div sec:authentication="name"></div>
+    Authenticated user roles:
+    <div sec:authentication="principal.authorities"></div>
 
-<h2>TH:</h2>
-<div th:text="${#authentication.name}"></div>
+    <h2>TH:</h2>
+    <div th:text="${#authentication.name}"></div>
 
-<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-    This will only be displayed if authenticated user has role ROLE_ADMIN.
+    <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+        This will only be displayed if authenticated user has role ROLE_ADMIN.
+    </div>
+
+    <div th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+        This will only be displayed if authenticated user has role ROLE_USER.
+    </div>
+
+    <div th:if="${#authorization.expression('isAuthenticated()')}">
+        This will only be displayed if user is authenticated
+    </div>
 </div>
-
-<div th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-    This will only be displayed if authenticated user has role ROLE_USER.
-</div>
-
-<div th:if="${#authorization.expression('isAuthenticated()')}">
-    This will only be displayed if user is authenticated
-</div>
-
 </body>
 </html>

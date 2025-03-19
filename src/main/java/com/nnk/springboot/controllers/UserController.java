@@ -33,6 +33,7 @@ public class UserController {
     public String home(Model model) {
         log.info("====> GET /user/list <====");
         model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("menuIsActive", true);
         return "user/list";
     }
 

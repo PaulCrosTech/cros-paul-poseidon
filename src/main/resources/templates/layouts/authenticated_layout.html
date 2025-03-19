@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Poseidon</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/image/favicon/favicon.ico}"/>
+    <link rel="icon" type="image/png" sizes="192x192" th:href="@{/image/favicon/android-chrome-192x192.png}"/>
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/image/favicon/favicon-16x16.png}"/>
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/image/favicon/favicon-32x32.png}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e7126630d0.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header class="bg-light py-3 shadow-sm">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="d-flex align-items-center">
+
+                <a href="/" class="d-flex align-items-center text-decoration-none">
+                    <img src="/image/logo.png" alt="Logo" width="40" class="me-2">
+                    <h1 class="h4 mb-0 text-dark">Poseidon</h1>
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+
+                    <li class="nav-item">
+                        <a th:href="@{/bidList/list}" class="nav-link"
+                           th:classappend="${menuActivated == 'bidList'} ? 'fw-bold text-primary' : ''">Bid List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/curvePoint/list}" class="nav-link"
+                           th:classappend="${menuActivated == 'curvePoint'} ? 'fw-bold text-primary' : ''">Curve
+                            Points</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/rating/list}" class="nav-link"
+                           th:classappend="${menuActivated == 'rating'} ? 'fw-bold text-primary' : ''">Ratings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/trade/list}" class="nav-link"
+                           th:classappend="${menuActivated == 'trade'} ? 'fw-bold text-primary' : ''">Trade</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/ruleName/list}" class="nav-link"
+                           th:classappend="${menuActivated == 'ruleName'} ? 'fw-bold text-primary' : ''">Rule</a>
+                    </li>
+                    <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                        <a th:href="@{/user/list}" class="nav-link"
+                           th:classappend="${menuActivated == 'user'} ? 'fw-bold text-primary' : ''">Users</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center">
+                    <span class="me-3">Logged : '<b sec:authentication="name"></b>'</span>
+                    <form id="form-logout" th:action="@{/app/logout}" method="post" style="display: none;">
+                    </form>
+                    <a href="#" class="btn btn-sm btn-outline-danger"
+                       onclick="document.getElementById('form-logout').submit(); return false;">
+                        Se déconnecter
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="container" layout:fragment="content">
+    <h1>Page content here</h1>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+</html>

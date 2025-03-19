@@ -17,10 +17,10 @@ public class TradeController {
     // TODO: Inject Trade service
 
     @RequestMapping("/trade/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // TODO: find all Trade, add to model
         log.info("====> GET /trade/list <====");
+        model.addAttribute("menuActivated", "trade");
         return "trade/list";
     }
 
@@ -40,22 +40,22 @@ public class TradeController {
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Trade by Id and to model then show to the form
-        log.info("====> GET /trade/update/{} <====",id);
+        log.info("====> GET /trade/update/{} <====", id);
         return "trade/update";
     }
 
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
-                             BindingResult result, Model model) {
+                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Trade and return Trade list
-        log.info("====> POST /trade/update/{} <====",id);
+        log.info("====> POST /trade/update/{} <====", id);
         return "redirect:/trade/list";
     }
 
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Trade by Id and delete the Trade, return to Trade list
-        log.info("====> GET /trade/delete/{} <====",id);
+        log.info("====> GET /trade/delete/{} <====", id);
         return "redirect:/trade/list";
     }
 }
