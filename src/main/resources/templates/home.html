@@ -9,5 +9,11 @@
 <p>
     <a href="/login">Login</a> or create one <a href="/user/list">User management</a>
 </p>
+<form id="form-logout" th:action="@{/app/logout}" method="post" style="display: none;">
+</form>
+<a href="#" class="nav-link"
+   onclick="document.getElementById('form-logout').submit(); return false;">
+    Se déconnecter
+</a>
 </body>
 </html>

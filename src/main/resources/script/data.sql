@@ -100,7 +100,7 @@ CREATE TABLE user
     PRIMARY KEY (user_id)
 );
 
-INSERT INTO `user` (`fullname`, `password`, `role`, `username`) VALUES ('Administrator', 'admin', '$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa', 'ADMIN');
-INSERT INTO `user` (`fullname`, `password`, `role`, `username`) VALUES ('User', 'user', '$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa', 'USER');
-INSERT INTO `user` (`fullname`, `password`, `role`, `username`) VALUES ('User Fullname', '$2a$10$sUlcQ2JEzBvNmEhHA/2gJeBuRYKDyETYT2fzYB6csZBaR7K8I7UXS', 'USER', 'user');
-INSERT INTO `user` (`fullname`, `password`, `role`, `username`) VALUES ('Admin  Fullname', '$2a$10$sUlcQ2JEzBvNmEhHA/2gJeBuRYKDyETYT2fzYB6csZBaR7K8I7UXS', 'ADMIN', 'admin');
+INSERT INTO `user` (`fullname`, `password`, `role`, `username`) VALUES ('Administrator', '$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa', 'ADMIN', 'admin');
+INSERT INTO `user` (`fullname`, `password`, `role`, `username`) VALUES ('User', '$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa', 'USER', 'user');
+INSERT INTO `user` (`fullname`, `password`, `role`, `username`) VALUES ('User Fullname', '$2a$10$sUlcQ2JEzBvNmEhHA/2gJeBuRYKDyETYT2fzYB6csZBaR7K8I7UXS', 'USER', 'user.user');
+INSERT INTO `user` (`fullname`, `password`, `role`, `username`) VALUES ('Admin  Fullname', '$2a$10$sUlcQ2JEzBvNmEhHA/2gJeBuRYKDyETYT2fzYB6csZBaR7K8I7UXS', 'ADMIN', 'admin.admin');
