@@ -41,7 +41,10 @@ public class LoginController {
         return mav;
     }
 
-//    @GetMapping("error")
+
+    // TODO : inutile il suffit de mettre les pages dans le dossier resources/templates/error
+
+//        @GetMapping("error")
 //    public ModelAndView error() {
 //        log.info("====> GET /app/error <====");
 //        ModelAndView mav = new ModelAndView();

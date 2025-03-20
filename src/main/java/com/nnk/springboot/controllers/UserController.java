@@ -8,14 +8,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
-@Slf4j
 @Controller
+@Slf4j
+@RequestMapping(path = "/user")
 public class UserController {
 
     private final UserRepository userRepository;
@@ -29,34 +27,57 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @RequestMapping("/user/list")
+    /**
+     * Add generic attributes to the model
+     *
+     * @param model the model
+     */
+    @ModelAttribute
+    private void addAttributes(Model model) {
+        model.addAttribute("menuActivated", "user");
+    }
+
+    /**
+     * Display the user list page.
+     *
+     * @param model the model
+     * @return the user list page
+     */
+    @GetMapping("/list")
     public String home(Model model) {
         log.info("====> GET /user/list <====");
         model.addAttribute("users", userRepository.findAll());
-        model.addAttribute("menuIsActive", true);
         return "user/list";
     }
 
-    @GetMapping("/user/add")
+
+    /**
+     * Display the user add page.
+     *
+     * @return the user add page
+     */
+    @GetMapping("/add")
     public String addUser(User bid) {
         log.info("====> GET /user/add <====");
         return "user/add";
     }
 
-    @PostMapping("/user/validate")
+    @PostMapping("/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
         log.info("====> POST /user/validate <====");
         if (!result.hasErrors()) {
+
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
             userRepository.save(user);
+
             model.addAttribute("users", userRepository.findAll());
             return "redirect:/user/list";
         }
         return "user/add";
     }
 
-    @GetMapping("/user/update/{id}")
+    @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         log.info("====> GET /user/update/{} <====", id);
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
@@ -65,7 +86,7 @@ public class UserController {
         return "user/update";
     }
 
-    @PostMapping("/user/update/{id}")
+    @PostMapping("/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
         log.info("====> POST /user/update/{} <====", id);
@@ -81,7 +102,7 @@ public class UserController {
         return "redirect:/user/list";
     }
 
-    @GetMapping("/user/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
         log.info("====> GET /user/delete/{} <====", id);
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
