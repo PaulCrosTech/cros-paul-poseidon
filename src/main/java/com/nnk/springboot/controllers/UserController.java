@@ -5,6 +5,8 @@ import com.nnk.springboot.dto.UserDto;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.IUserService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -57,9 +59,8 @@ public class UserController {
         return "user/list";
     }
 
-
     /**
-     * Display the user add page.
+     * Display the form for creating a new user.
      *
      * @return the user add page
      */
@@ -70,6 +71,14 @@ public class UserController {
         return "user/add";
     }
 
+    /**
+     * Validate the form for creating a new user
+     *
+     * @param userDto the user to create
+     * @param result  the binding result
+     * @param model   the model
+     * @return redirect to the user list page
+     */
     @PostMapping("/validate")
     public String validate(@Valid UserDto userDto, BindingResult result, Model model) {
         log.info("====> POST /user/validate <====");
@@ -78,7 +87,7 @@ public class UserController {
             log.debug("====> POST /user/validate : form contains error <====");
             return "user/add";
         }
-        
+
         try {
             userService.addUser(userDto);
         } catch (UserWithSameUserNameExistsException e) {
@@ -88,7 +97,6 @@ public class UserController {
         }
 
         log.info("====> POST /user/validate : user is created <====");
-        model.addAttribute("users", userRepository.findAll());
         return "redirect:/user/list";
     }
 
@@ -117,12 +125,23 @@ public class UserController {
         return "redirect:/user/list";
     }
 
+    /**
+     * Delete a user
+     *
+     * @param id                 the id of the user to delete
+     * @param httpServletRequest the http servlet request
+     * @return redirect to the user list page
+     */
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, Model model) {
+    public String deleteUser(@PathVariable("id") Integer id, HttpServletRequest httpServletRequest) throws ServletException {
         log.info("====> GET /user/delete/{} <====", id);
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userRepository.delete(user);
-        model.addAttribute("users", userRepository.findAll());
+        try {
+            userService.deleteUser(id);
+        } catch (Exception e) {
+            log.error("====> GET /user/delete/{} : exception while deleting user  {} <====", id, e.getMessage());
+            log.info("====> GET /user/delete/{} : logout the user for security <====", id);
+            httpServletRequest.logout();
+        }
         return "redirect:/user/list";
     }
 }

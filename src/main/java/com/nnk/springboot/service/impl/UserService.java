@@ -75,6 +75,22 @@ public class UserService implements IUserService {
     }
 
     /**
+     * Delete a user
+     *
+     * @param id the id of the user to delete
+     * @throws UserNotFoundException if the user is not found
+     */
+    @Transactional
+    @Override
+    public void deleteUser(Integer id) throws UserNotFoundException {
+        User user = userRepository.findById(id)
+                .orElseThrow(
+                        () -> new UserNotFoundException("Invalid user Id:" + id)
+                );
+        userRepository.delete(user);
+    }
+
+    /**
      * Check if a user exists with the same username
      *
      * @param userName the username to check

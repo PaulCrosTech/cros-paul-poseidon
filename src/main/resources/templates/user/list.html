@@ -36,15 +36,47 @@
                     <a th:href="@{/user/update/{id}(id=${user.userId})}" class="btn btn-warning btn-sm">
                         <i class="fa-solid fa-pencil"></i> Edit
                     </a>
-                    <a th:href="@{/user/delete/{id}(id=${user.userId})}" class="btn btn-danger btn-sm">
-                        <i class="fa-solid fa-trash-can"></i>
-                        Delete
-                    </a>
+
+                    <button type="button" class="btn btn-danger btn-sm"
+                            th:attr="onclick='modalDeleteShow(' + ${user.userId} + ',\'' + ${user.fullname} + '\')'">
+                        <i class="fa-solid fa-trash-can"></i> Delete
+                    </button>
+
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+
+    <!-- Modal : delete user confirmation  -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this user '<b id="modalDeleteFullname"></b>'?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a id="modalDeleteA" href="#" class="btn btn-danger">Confirm Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function modalDeleteShow(userId, fullname) {
+            document.getElementById("modalDeleteA").href = "/user/delete/" + userId;
+            document.getElementById("modalDeleteFullname").textContent = fullname;
+            var myModal = new bootstrap.Modal(document.getElementById('modalDelete'));
+            myModal.show();
+        }
+    </script>
+
 </div>
 </body>
 </html>
