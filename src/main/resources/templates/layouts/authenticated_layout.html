@@ -17,6 +17,7 @@
 </head>
 <body>
 
+<!--Main Menu-->
 <header class="bg-light py-3 shadow-sm">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -75,6 +76,17 @@
     </div>
 </header>
 
+<!--Flash Messages-->
+<div class="row mt-3" th:if="${flashMessage != null}">
+    <div class="col-6 mx-auto">
+        <div role="alert" class="alert text-center"
+             th:classappend="${flashMessage.alertClass.value}"
+             th:text="${flashMessage.message}">
+        </div>
+    </div>
+</div>
+
+<!--Layout content-->
 <div class="container" layout:fragment="content">
     <h1>Page content here</h1>
 </div>

@@ -13,6 +13,8 @@ import lombok.Data;
 @Data
 public class UserDto {
 
+    private Integer userId;
+
     @ValidUsername
     private String username;
 

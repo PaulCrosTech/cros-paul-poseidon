@@ -18,7 +18,6 @@ public interface UserMapper {
      * @param userDto the userDto
      * @return the user
      */
-    @Mapping(target = "userId", ignore = true)
     @Mapping(target = "password", ignore = true)
     User toUser(UserDto userDto);
 

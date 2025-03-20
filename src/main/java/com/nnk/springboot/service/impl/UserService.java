@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 @Slf4j
 public class UserService implements IUserService {
@@ -36,20 +37,19 @@ public class UserService implements IUserService {
         this.userMapper = userMapper;
     }
 
-
     /**
-     * Find a user by username
+     * Find a user by user id
      *
-     * @param userName the username
+     * @param id the id of the user
      * @return the userDto
      * @throws UserNotFoundException if the user is not found
      */
     @Override
-    public UserDto findByUserName(String userName) throws UserNotFoundException {
-        log.debug("====> find user by user name {} <====", userName);
-        User dbUser = userRepository.findByUsername(userName)
-                .orElseThrow(() -> new UserNotFoundException("User not found with username : " + userName));
-        return userMapper.toUserDto(dbUser);
+    public UserDto findByUserId(Integer id) throws UserNotFoundException {
+        log.debug("====> find user by user id {} <====", id);
+        User user = userRepository.findByUserId(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id : " + id));
+        return userMapper.toUserDto(user);
     }
 
     /**
@@ -63,7 +63,7 @@ public class UserService implements IUserService {
     public void addUser(UserDto userDto) throws UserWithSameUserNameExistsException {
         log.debug("====> creating new user {} <====", userDto.getUsername());
 
-        if (isUserExistWithSameUserName(userDto.getUsername())) {
+        if (userRepository.existsByUsername(userDto.getUsername())) {
             throw new UserWithSameUserNameExistsException(userDto.getUsername());
         }
 
@@ -72,6 +72,27 @@ public class UserService implements IUserService {
         userRepository.save(user);
         log.debug("====> user created <====");
 
+    }
+
+    /**
+     * Update a user
+     *
+     * @param userDto the user to update
+     * @throws UserWithSameUserNameExistsException if a user with the same username already exists
+     */
+    @Transactional
+    @Override
+    public void updateUser(UserDto userDto) throws UserWithSameUserNameExistsException {
+        log.debug("====> update the user with id {} <====", userDto.getUserId());
+
+        if (userRepository.existsByUsernameAndUserIdNot(userDto.getUsername(), userDto.getUserId())) {
+            throw new UserWithSameUserNameExistsException(userDto.getUsername());
+        }
+
+        User user = userMapper.toUser(userDto);
+        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        userRepository.save(user);
+        log.debug("====> user updated <====");
     }
 
     /**
@@ -90,18 +111,4 @@ public class UserService implements IUserService {
         userRepository.delete(user);
     }
 
-    /**
-     * Check if a user exists with the same username
-     *
-     * @param userName the username to check
-     * @return true if the user exists, false otherwise
-     */
-    private boolean isUserExistWithSameUserName(String userName) {
-        try {
-            findByUserName(userName);
-            return true;
-        } catch (UserNotFoundException e) {
-            return false;
-        }
-    }
 }

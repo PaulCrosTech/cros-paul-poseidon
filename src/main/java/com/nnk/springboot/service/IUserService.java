@@ -8,15 +8,15 @@ import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
  * The interface User service.
  */
 public interface IUserService {
-
+    
     /**
-     * Find user by username
+     * Find user by user id
      *
-     * @param userName the username
+     * @param id the id of the user
      * @return the userDto
      * @throws UserNotFoundException the user not found exception
      */
-    UserDto findByUserName(String userName) throws UserNotFoundException;
+    UserDto findByUserId(Integer id) throws UserNotFoundException;
 
     /**
      * Add a user in the database
@@ -26,6 +26,14 @@ public interface IUserService {
      */
     void addUser(UserDto userDto) throws UserWithSameUserNameExistsException;
 
+
+    /**
+     * Update user
+     *
+     * @param userDto the user to update
+     * @throws UserWithSameUserNameExistsException the user with the same username exists exception
+     */
+    void updateUser(UserDto userDto) throws UserWithSameUserNameExistsException;
 
     /**
      * Delete user

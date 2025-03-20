@@ -1,19 +1,19 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.entity.User;
+import com.nnk.springboot.dto.AlertClass;
+import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.UserDto;
+import com.nnk.springboot.exceptions.UserNotFoundException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.IUserService;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -71,16 +71,17 @@ public class UserController {
         return "user/add";
     }
 
+
     /**
      * Validate the form for creating a new user
      *
-     * @param userDto the user to create
-     * @param result  the binding result
-     * @param model   the model
+     * @param userDto            the user to create
+     * @param result             the binding result
+     * @param redirectAttributes the redirect attributes
      * @return redirect to the user list page
      */
     @PostMapping("/validate")
-    public String validate(@Valid UserDto userDto, BindingResult result, Model model) {
+    public String validate(@Valid UserDto userDto, BindingResult result, RedirectAttributes redirectAttributes) {
         log.info("====> POST /user/validate <====");
 
         if (result.hasErrors()) {
@@ -97,51 +98,93 @@ public class UserController {
         }
 
         log.info("====> POST /user/validate : user is created <====");
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "User created successfully");
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/user/list";
     }
 
+
+    /**
+     * Display the form for updating a user
+     *
+     * @param id                 the id of the user to update
+     * @param model              the model
+     * @param redirectAttributes the redirect attributes
+     * @return the user update page
+     */
     @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Integer id,
+                                 Model model,
+                                 RedirectAttributes redirectAttributes
+    ) {
         log.info("====> GET /user/update/{} <====", id);
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        user.setPassword("");
-        model.addAttribute("user", user);
+
+        try {
+            UserDto userDto = userService.findByUserId(id);
+            model.addAttribute("userDto", userDto);
+
+        } catch (UserNotFoundException e) {
+            log.error("====> GET /user/update/{} : user with id {} not found <====", id, e.getMessage());
+            FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_DANGER, "An error occurred. Please try again later.");
+            redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+        }
         return "user/update";
     }
 
+    /**
+     * Validate the form for updating a user
+     *
+     * @param id                 the id of the user to update
+     * @param userDto            the user to update
+     * @param result             the binding result
+     * @param redirectAttributes the redirect attributes
+     * @return redirect to the user list page
+     */
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid User user,
-                             BindingResult result, Model model) {
+    public String updateUser(@PathVariable("id") Integer id,
+                             @Valid UserDto userDto,
+                             BindingResult result,
+                             RedirectAttributes redirectAttributes) {
         log.info("====> POST /user/update/{} <====", id);
         if (result.hasErrors()) {
             return "user/update";
         }
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setUserId(id);
-        userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
+        try {
+            userService.updateUser(userDto);
+        } catch (UserWithSameUserNameExistsException e) {
+            log.debug("====> POST /user/update/{} : exception while updating user  {} <====", id, e.getMessage());
+            result.rejectValue("username", "error.userDto", e.getMessage());
+            return "user/update";
+        }
+
+        log.info("====> POST /user/update/{} : user is updated <====", id);
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "User updated successfully");
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/user/list";
     }
 
     /**
      * Delete a user
      *
-     * @param id                 the id of the user to delete
-     * @param httpServletRequest the http servlet request
+     * @param id the id of the user to delete
      * @return redirect to the user list page
      */
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, HttpServletRequest httpServletRequest) throws ServletException {
+    public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
         log.info("====> GET /user/delete/{} <====", id);
         try {
             userService.deleteUser(id);
-        } catch (Exception e) {
-            log.error("====> GET /user/delete/{} : exception while deleting user  {} <====", id, e.getMessage());
-            log.info("====> GET /user/delete/{} : logout the user for security <====", id);
-            httpServletRequest.logout();
+        } catch (UserNotFoundException e) {
+            log.error("====> GET /user/delete/{} : user with id {} not found <====", id, e.getMessage());
+            FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_DANGER, "An error occurred. Please try again later.");
+            redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+            return "redirect:/user/list";
         }
+
+        log.info("====> POST /user/delete/{} : user is deleted <====", id);
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "User deleted successfully");
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/user/list";
     }
 }
