@@ -1,22 +1,22 @@
-2025-03-20 09:15:39.616 : [background-preinit] - [INFO ] - o.h.validator.internal.util.Version - [36m<clinit>[0;39m - HV000001: Hibernate Validator 8.0.2.Final
-2025-03-20 09:15:39.649 : [main] - [INFO ] - c.nnk.springboot.PoseidonApplication - [36mlogStarting[0;39m - Starting PoseidonApplication using Java 21.0.5 with PID 79344 (G:\Openclassrooms\ProjetsParcoursJava\Projet7\poseidon\target\classes started by Paul in G:\Openclassrooms\ProjetsParcoursJava\Projet7\poseidon)
-2025-03-20 09:15:39.650 : [main] - [INFO ] - c.nnk.springboot.PoseidonApplication - [36mlogStartupProfileInfo[0;39m - The following 1 profile is active: "dev"
-2025-03-20 09:15:40.237 : [main] - [INFO ] - o.s.d.r.c.RepositoryConfigurationDelegate - [36mregisterRepositoriesIn[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-20 09:15:40.269 : [main] - [INFO ] - o.s.d.r.c.RepositoryConfigurationDelegate - [36mregisterRepositoriesIn[0;39m - Finished Spring Data repository scanning in 28 ms. Found 6 JPA repository interfaces.
-2025-03-20 09:15:40.555 : [main] - [INFO ] - o.s.b.w.e.tomcat.TomcatWebServer - [36minitialize[0;39m - Tomcat initialized with port 8080 (http)
-2025-03-20 09:15:40.563 : [main] - [INFO ] - o.a.coyote.http11.Http11NioProtocol - [36mlog[0;39m - Initializing ProtocolHandler ["http-nio-8080"]
-2025-03-20 09:15:40.564 : [main] - [INFO ] - o.a.catalina.core.StandardService - [36mlog[0;39m - Starting service [Tomcat]
-2025-03-20 09:15:40.564 : [main] - [INFO ] - o.a.catalina.core.StandardEngine - [36mlog[0;39m - Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-20 09:15:40.593 : [main] - [INFO ] - o.a.c.c.C.[Tomcat].[localhost].[/] - [36mlog[0;39m - Initializing Spring embedded WebApplicationContext
-2025-03-20 09:15:40.593 : [main] - [INFO ] - o.s.b.w.s.c.ServletWebServerApplicationContext - [36mprepareWebApplicationContext[0;39m - Root WebApplicationContext: initialization completed in 793 ms
-2025-03-20 09:15:40.676 : [main] - [INFO ] - o.h.jpa.internal.util.LogHelper - [36mlogPersistenceUnitInformation[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-20 09:15:40.713 : [main] - [INFO ] - org.hibernate.Version - [36mlogVersion[0;39m - HHH000412: Hibernate ORM core version 6.6.8.Final
-2025-03-20 09:15:40.734 : [main] - [INFO ] - o.h.c.i.RegionFactoryInitiator - [36minitiateService[0;39m - HHH000026: Second-level cache disabled
-2025-03-20 09:15:40.894 : [main] - [INFO ] - o.s.o.j.p.SpringPersistenceUnitInfo - [36maddTransformer[0;39m - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-20 09:15:40.911 : [main] - [INFO ] - com.zaxxer.hikari.HikariDataSource - [36mgetConnection[0;39m - HikariPool-1 - Starting...
-2025-03-20 09:15:41.139 : [main] - [INFO ] - com.zaxxer.hikari.pool.HikariPool - [36mcheckFailFast[0;39m - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6fc28e5b
-2025-03-20 09:15:41.140 : [main] - [INFO ] - com.zaxxer.hikari.HikariDataSource - [36mgetConnection[0;39m - HikariPool-1 - Start completed.
-2025-03-20 09:15:41.198 : [main] - [INFO ] - o.hibernate.orm.connections.pooling - [36minitiateService[0;39m - HHH10001005: Database info:
+2025-03-20 10:54:16.506 : [background-preinit] - [INFO ] - o.h.validator.internal.util.Version - [36m<clinit>[0;39m - HV000001: Hibernate Validator 8.0.2.Final
+2025-03-20 10:54:16.531 : [main] - [INFO ] - c.nnk.springboot.PoseidonApplication - [36mlogStarting[0;39m - Starting PoseidonApplication using Java 21.0.5 with PID 298660 (G:\Openclassrooms\ProjetsParcoursJava\Projet7\poseidon\target\classes started by Paul in G:\Openclassrooms\ProjetsParcoursJava\Projet7\poseidon)
+2025-03-20 10:54:16.532 : [main] - [INFO ] - c.nnk.springboot.PoseidonApplication - [36mlogStartupProfileInfo[0;39m - The following 1 profile is active: "dev"
+2025-03-20 10:54:16.955 : [main] - [INFO ] - o.s.d.r.c.RepositoryConfigurationDelegate - [36mregisterRepositoriesIn[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-20 10:54:16.987 : [main] - [INFO ] - o.s.d.r.c.RepositoryConfigurationDelegate - [36mregisterRepositoriesIn[0;39m - Finished Spring Data repository scanning in 28 ms. Found 6 JPA repository interfaces.
+2025-03-20 10:54:17.232 : [main] - [INFO ] - o.s.b.w.e.tomcat.TomcatWebServer - [36minitialize[0;39m - Tomcat initialized with port 8080 (http)
+2025-03-20 10:54:17.238 : [main] - [INFO ] - o.a.coyote.http11.Http11NioProtocol - [36mlog[0;39m - Initializing ProtocolHandler ["http-nio-8080"]
+2025-03-20 10:54:17.239 : [main] - [INFO ] - o.a.catalina.core.StandardService - [36mlog[0;39m - Starting service [Tomcat]
+2025-03-20 10:54:17.239 : [main] - [INFO ] - o.a.catalina.core.StandardEngine - [36mlog[0;39m - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-20 10:54:17.264 : [main] - [INFO ] - o.a.c.c.C.[Tomcat].[localhost].[/] - [36mlog[0;39m - Initializing Spring embedded WebApplicationContext
+2025-03-20 10:54:17.265 : [main] - [INFO ] - o.s.b.w.s.c.ServletWebServerApplicationContext - [36mprepareWebApplicationContext[0;39m - Root WebApplicationContext: initialization completed in 606 ms
+2025-03-20 10:54:17.330 : [main] - [INFO ] - o.h.jpa.internal.util.LogHelper - [36mlogPersistenceUnitInformation[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-20 10:54:17.352 : [main] - [INFO ] - org.hibernate.Version - [36mlogVersion[0;39m - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-20 10:54:17.367 : [main] - [INFO ] - o.h.c.i.RegionFactoryInitiator - [36minitiateService[0;39m - HHH000026: Second-level cache disabled
+2025-03-20 10:54:17.487 : [main] - [INFO ] - o.s.o.j.p.SpringPersistenceUnitInfo - [36maddTransformer[0;39m - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-20 10:54:17.500 : [main] - [INFO ] - com.zaxxer.hikari.HikariDataSource - [36mgetConnection[0;39m - HikariPool-1 - Starting...
+2025-03-20 10:54:17.663 : [main] - [INFO ] - com.zaxxer.hikari.pool.HikariPool - [36mcheckFailFast[0;39m - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@625f5712
+2025-03-20 10:54:17.665 : [main] - [INFO ] - com.zaxxer.hikari.HikariDataSource - [36mgetConnection[0;39m - HikariPool-1 - Start completed.
+2025-03-20 10:54:17.706 : [main] - [INFO ] - o.hibernate.orm.connections.pooling - [36minitiateService[0;39m - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 9.1
@@ -24,25 +24,47 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-03-20 09:15:41.737 : [main] - [INFO ] - o.h.e.t.j.p.i.JtaPlatformInitiator - [36minitiateService[0;39m - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-20 09:15:41.779 : [main] - [INFO ] - o.s.o.j.LocalContainerEntityManagerFactoryBean - [36mbuildNativeEntityManagerFactory[0;39m - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-20 09:15:41.943 : [main] - [INFO ] - c.n.s.s.config.SpringSecurityConfig - [36m<init>[0;39m - ====> Loading Spring Security Configuration<====
-2025-03-20 09:15:41.988 : [main] - [WARN ] - o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - [36mopenEntityManagerInViewInterceptor[0;39m - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-03-20 09:15:41.995 : [main] - [INFO ] - c.n.s.s.config.SpringSecurityConfig - [36mpasswordEncoder[0;39m - ====> Loading Spring Security : BCryptPasswordEncoder <====
-2025-03-20 09:15:41.998 : [main] - [INFO ] - o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - [36mconfigure[0;39m - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-03-20 09:15:42.130 : [main] - [INFO ] - c.n.s.s.config.SpringSecurityConfig - [36mfilterChain[0;39m - ====> Loading Spring Security : SecurityFilterChain <====
-2025-03-20 09:15:42.161 : [main] - [INFO ] - c.n.s.s.config.SpringSecurityConfig - [36mauthenticationManager[0;39m - ====> Loading Spring Security : AuthenticationManager <====
-2025-03-20 09:15:42.320 : [main] - [INFO ] - o.a.coyote.http11.Http11NioProtocol - [36mlog[0;39m - Starting ProtocolHandler ["http-nio-8080"]
-2025-03-20 09:15:42.330 : [main] - [INFO ] - o.s.b.w.e.tomcat.TomcatWebServer - [36mstart[0;39m - Tomcat started on port 8080 (http) with context path '/'
-2025-03-20 09:15:42.335 : [main] - [INFO ] - c.nnk.springboot.PoseidonApplication - [36mlogStarted[0;39m - Started PoseidonApplication in 3.002 seconds (process running for 3.716)
-2025-03-20 09:15:42.336 : [main] - [INFO ] - c.nnk.springboot.PoseidonApplication - [36mmain[0;39m - ====> Application Poseidon started <====
-2025-03-20 09:15:46.359 : [http-nio-8080-exec-1] - [INFO ] - o.a.c.c.C.[Tomcat].[localhost].[/] - [36mlog[0;39m - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-03-20 09:15:46.359 : [http-nio-8080-exec-1] - [INFO ] - o.s.web.servlet.DispatcherServlet - [36minitServletBean[0;39m - Initializing Servlet 'dispatcherServlet'
-2025-03-20 09:15:46.360 : [http-nio-8080-exec-1] - [INFO ] - o.s.web.servlet.DispatcherServlet - [36minitServletBean[0;39m - Completed initialization in 1 ms
-2025-03-20 09:15:46.396 : [http-nio-8080-exec-2] - [INFO ] - c.n.s.controllers.LoginController - [36mlogin[0;39m - ====> GET /app/login <====
-2025-03-20 09:15:48.156 : [http-nio-8080-exec-4] - [INFO ] - c.n.s.s.s.CustomUserDetailsService - [36mloadUserByUsername[0;39m - ====> Authenticate user with username 'admin' <====
-2025-03-20 09:15:48.229 : [http-nio-8080-exec-4] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - select u1_0.user_id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0 where u1_0.username=?
-2025-03-20 09:15:48.306 : [http-nio-8080-exec-6] - [INFO ] - c.n.s.controllers.HomeController - [36mhome[0;39m - ====> GET / <====
-2025-03-20 09:15:52.465 : [http-nio-8080-exec-7] - [INFO ] - c.n.s.controllers.UserController - [36mhome[0;39m - ====> GET /user/list <====
-2025-03-20 09:15:52.473 : [http-nio-8080-exec-7] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - select u1_0.user_id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0
-2025-03-20 09:15:53.779 : [http-nio-8080-exec-9] - [INFO ] - c.n.s.controllers.UserController - [36maddUser[0;39m - ====> GET /user/add <====
+2025-03-20 10:54:18.177 : [main] - [INFO ] - o.h.e.t.j.p.i.JtaPlatformInitiator - [36minitiateService[0;39m - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-20 10:54:18.203 : [main] - [INFO ] - o.s.o.j.LocalContainerEntityManagerFactoryBean - [36mbuildNativeEntityManagerFactory[0;39m - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-20 10:54:18.328 : [main] - [INFO ] - c.n.s.s.config.SpringSecurityConfig - [36m<init>[0;39m - ====> Loading Spring Security Configuration<====
+2025-03-20 10:54:18.329 : [main] - [INFO ] - c.n.s.s.config.SpringSecurityConfig - [36mpasswordEncoder[0;39m - ====> Loading Spring Security : BCryptPasswordEncoder <====
+2025-03-20 10:54:18.375 : [main] - [WARN ] - o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - [36mopenEntityManagerInViewInterceptor[0;39m - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-20 10:54:18.384 : [main] - [INFO ] - o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - [36mconfigure[0;39m - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-03-20 10:54:18.489 : [main] - [INFO ] - c.n.s.s.config.SpringSecurityConfig - [36mfilterChain[0;39m - ====> Loading Spring Security : SecurityFilterChain <====
+2025-03-20 10:54:18.515 : [main] - [INFO ] - c.n.s.s.config.SpringSecurityConfig - [36mauthenticationManager[0;39m - ====> Loading Spring Security : AuthenticationManager <====
+2025-03-20 10:54:18.654 : [main] - [INFO ] - o.a.coyote.http11.Http11NioProtocol - [36mlog[0;39m - Starting ProtocolHandler ["http-nio-8080"]
+2025-03-20 10:54:18.662 : [main] - [INFO ] - o.s.b.w.e.tomcat.TomcatWebServer - [36mstart[0;39m - Tomcat started on port 8080 (http) with context path '/'
+2025-03-20 10:54:18.667 : [main] - [INFO ] - c.nnk.springboot.PoseidonApplication - [36mlogStarted[0;39m - Started PoseidonApplication in 2.38 seconds (process running for 2.692)
+2025-03-20 10:54:18.668 : [main] - [INFO ] - c.nnk.springboot.PoseidonApplication - [36mmain[0;39m - ====> Application Poseidon started <====
+2025-03-20 10:54:19.612 : [http-nio-8080-exec-1] - [INFO ] - o.a.c.c.C.[Tomcat].[localhost].[/] - [36mlog[0;39m - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-20 10:54:19.612 : [http-nio-8080-exec-1] - [INFO ] - o.s.web.servlet.DispatcherServlet - [36minitServletBean[0;39m - Initializing Servlet 'dispatcherServlet'
+2025-03-20 10:54:19.613 : [http-nio-8080-exec-1] - [INFO ] - o.s.web.servlet.DispatcherServlet - [36minitServletBean[0;39m - Completed initialization in 1 ms
+2025-03-20 10:54:19.645 : [http-nio-8080-exec-2] - [INFO ] - c.n.s.controllers.LoginController - [36mlogin[0;39m - ====> GET /app/login <====
+2025-03-20 10:54:20.966 : [http-nio-8080-exec-4] - [INFO ] - c.n.s.s.s.CustomUserDetailsService - [36mloadUserByUsername[0;39m - ====> Authenticate user with username 'admin.admin' <====
+2025-03-20 10:54:21.032 : [http-nio-8080-exec-4] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - select u1_0.user_id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0 where u1_0.username=?
+2025-03-20 10:54:21.107 : [http-nio-8080-exec-5] - [INFO ] - c.n.s.controllers.HomeController - [36mhome[0;39m - ====> GET / <====
+2025-03-20 10:54:23.123 : [http-nio-8080-exec-7] - [INFO ] - c.n.s.controllers.UserController - [36mhome[0;39m - ====> GET /user/list <====
+2025-03-20 10:54:23.129 : [http-nio-8080-exec-7] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - select u1_0.user_id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0
+2025-03-20 10:54:23.775 : [http-nio-8080-exec-6] - [INFO ] - c.n.s.controllers.UserController - [36maddUser[0;39m - ====> GET /user/add <====
+2025-03-20 10:54:31.730 : [http-nio-8080-exec-1] - [INFO ] - c.n.s.controllers.UserController - [36mvalidate[0;39m - ====> POST /user/validate <====
+2025-03-20 10:54:31.732 : [http-nio-8080-exec-1] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - select u1_0.user_id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0 where u1_0.username=?
+2025-03-20 10:54:31.733 : [http-nio-8080-exec-1] - [ERROR] - c.n.s.e.UserWithSameUserNameExistsException - [36m<init>[0;39m - ====> <exception> UserWithSameUserNameExistsException : user.user <====
+2025-03-20 10:54:40.893 : [http-nio-8080-exec-3] - [INFO ] - c.n.s.controllers.UserController - [36mvalidate[0;39m - ====> POST /user/validate <====
+2025-03-20 10:54:40.895 : [http-nio-8080-exec-3] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - select u1_0.user_id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0 where u1_0.username=?
+2025-03-20 10:54:40.896 : [http-nio-8080-exec-3] - [ERROR] - c.n.s.e.UserNotFoundException - [36m<init>[0;39m - ====> <exception> UserNotFoundException : User not found with username : alice.alice <====
+2025-03-20 10:54:40.964 : [http-nio-8080-exec-3] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - insert into user (fullname,password,role,username) values (?,?,?,?)
+2025-03-20 10:54:40.974 : [http-nio-8080-exec-3] - [INFO ] - c.n.s.controllers.UserController - [36mvalidate[0;39m - ====> POST /user/validate : user is created <====
+2025-03-20 10:54:40.975 : [http-nio-8080-exec-3] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - select u1_0.user_id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0
+2025-03-20 10:54:40.979 : [http-nio-8080-exec-4] - [INFO ] - c.n.s.controllers.UserController - [36mhome[0;39m - ====> GET /user/list <====
+2025-03-20 10:54:40.980 : [http-nio-8080-exec-4] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - select u1_0.user_id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0
+2025-03-20 10:54:43.523 : [http-nio-8080-exec-9] - [INFO ] - c.n.s.controllers.UserController - [36mdeleteUser[0;39m - ====> GET /user/delete/5 <====
+2025-03-20 10:54:43.527 : [http-nio-8080-exec-9] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - select u1_0.user_id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0 where u1_0.user_id=?
+2025-03-20 10:54:43.532 : [http-nio-8080-exec-9] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - delete from user where user_id=?
+2025-03-20 10:54:43.536 : [http-nio-8080-exec-9] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - select u1_0.user_id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0
+2025-03-20 10:54:43.539 : [http-nio-8080-exec-7] - [INFO ] - c.n.s.controllers.UserController - [36mhome[0;39m - ====> GET /user/list <====
+2025-03-20 10:54:43.539 : [http-nio-8080-exec-7] - [DEBUG] - org.hibernate.SQL - [36mlogStatement[0;39m - select u1_0.user_id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0
+2025-03-20 10:55:23.501 : [SpringApplicationShutdownHook] - [INFO ] - o.s.b.w.e.tomcat.GracefulShutdown - [36mshutDownGracefully[0;39m - Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-20 10:55:23.506 : [tomcat-shutdown] - [INFO ] - o.s.b.w.e.tomcat.GracefulShutdown - [36mdoShutdown[0;39m - Graceful shutdown complete
+2025-03-20 10:55:23.508 : [SpringApplicationShutdownHook] - [INFO ] - o.s.o.j.LocalContainerEntityManagerFactoryBean - [36mdestroy[0;39m - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-20 10:55:23.509 : [SpringApplicationShutdownHook] - [INFO ] - com.zaxxer.hikari.HikariDataSource - [36mclose[0;39m - HikariPool-1 - Shutdown initiated...
+2025-03-20 10:55:23.513 : [SpringApplicationShutdownHook] - [INFO ] - com.zaxxer.hikari.HikariDataSource - [36mclose[0;39m - HikariPool-1 - Shutdown completed.

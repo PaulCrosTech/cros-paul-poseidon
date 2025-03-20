@@ -1,6 +1,6 @@
 package com.nnk.springboot.security.service;
 
-import com.nnk.springboot.domain.User;
+import com.nnk.springboot.entity.User;
 import com.nnk.springboot.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,6 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     /**
      * Constructor
+     *
      * @param userRepository userRepository
      */
     public CustomUserDetailsService(UserRepository userRepository) {
@@ -34,6 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     /**
      * Load user by username from database
+     *
      * @param userName username
      * @return UserDetails
      * @throws UsernameNotFoundException UsernameNotFoundException
@@ -46,7 +48,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("User with username " + userName + " is not found");
         }
-        return new org.springframework.security.core.userdetails.User (
+        return new org.springframework.security.core.userdetails.User(
                 user.get().getUsername(),
                 user.get().getPassword(),
                 getGrantedAuthorities(user.get().getRole())
@@ -56,6 +58,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     /**
      * Get granted authorities
+     *
      * @param role role
      * @return List<GrantedAuthority>
      */

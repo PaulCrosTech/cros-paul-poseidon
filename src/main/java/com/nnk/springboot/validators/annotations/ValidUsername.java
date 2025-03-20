@@ -20,14 +20,14 @@ public @interface ValidUsername {
      *
      * @return String
      */
-    String message() default "The username must be between 3 and 125 characters long (letters and digits only).";
+    String message() default "The username must be between 3 and 125 characters long (letters, digits and point).";
 
     /**
      * pattern
      *
      * @return String
      */
-    String pattern() default "^[a-zA-Z0-9]{3,125}$";
+    String pattern() default "^[.a-zA-Z0-9]{3,125}$";
 
     /**
      * groups
