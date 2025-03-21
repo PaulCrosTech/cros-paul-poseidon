@@ -2,7 +2,7 @@ package com.nnk.springboot.service.impl;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.dto.UserDto;
-import com.nnk.springboot.exceptions.UserNotFoundException;
+import com.nnk.springboot.exceptions.EntityNotFoundException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
 import com.nnk.springboot.mapper.UserMapper;
 import com.nnk.springboot.repositories.UserRepository;
@@ -43,17 +43,17 @@ public class UserService implements IUserService {
     }
 
     /**
-     * Find a user by user id
+     * Find user by id
      *
      * @param id the id of the user
      * @return the userDto
-     * @throws UserNotFoundException if the user is not found
+     * @throws EntityNotFoundException if the user is not found
      */
     @Override
-    public UserDto findById(Integer id) throws UserNotFoundException {
+    public UserDto findById(Integer id) throws EntityNotFoundException {
         log.debug("====> find user by user id {} <====", id);
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id : " + id));
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id : " + id));
         return userMapper.toUserDto(user);
     }
 
@@ -81,7 +81,7 @@ public class UserService implements IUserService {
      */
     @Transactional
     @Override
-    public void addUser(UserDto userDto) throws UserWithSameUserNameExistsException {
+    public void create(UserDto userDto) throws UserWithSameUserNameExistsException {
         log.debug("====> creating new user {} <====", userDto.getUsername());
 
         if (userRepository.existsByUsername(userDto.getUsername())) {
@@ -103,7 +103,7 @@ public class UserService implements IUserService {
      */
     @Transactional
     @Override
-    public void updateUser(UserDto userDto) throws UserWithSameUserNameExistsException {
+    public void update(UserDto userDto) throws UserWithSameUserNameExistsException {
         log.debug("====> update the user with id {} <====", userDto.getId());
 
         if (userRepository.existsByUsernameAndIdNot(userDto.getUsername(), userDto.getId())) {
@@ -116,18 +116,19 @@ public class UserService implements IUserService {
         log.debug("====> user updated <====");
     }
 
+
     /**
      * Delete a user
      *
      * @param id the id of the user to delete
-     * @throws UserNotFoundException if the user is not found
+     * @throws EntityNotFoundException if the user is not found
      */
     @Transactional
     @Override
-    public void deleteUser(Integer id) throws UserNotFoundException {
+    public void delete(Integer id) throws EntityNotFoundException {
         User user = userRepository.findById(id)
                 .orElseThrow(
-                        () -> new UserNotFoundException("Invalid user Id:" + id)
+                        () -> new EntityNotFoundException("Invalid user Id:" + id)
                 );
         userRepository.delete(user);
     }

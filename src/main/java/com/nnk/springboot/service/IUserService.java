@@ -1,7 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.dto.UserDto;
-import com.nnk.springboot.exceptions.UserNotFoundException;
+import com.nnk.springboot.exceptions.EntityNotFoundException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
 
 import java.util.List;
@@ -11,14 +11,15 @@ import java.util.List;
  */
 public interface IUserService {
 
+
     /**
      * Find user by user id
      *
-     * @param id the id of the user
+     * @param id the id of the user to find
      * @return the userDto
-     * @throws UserNotFoundException the user not found exception
+     * @throws EntityNotFoundException the user not found exception
      */
-    UserDto findById(Integer id) throws UserNotFoundException;
+    UserDto findById(Integer id) throws EntityNotFoundException;
 
     /**
      * Find all users except the user with the given username
@@ -28,12 +29,12 @@ public interface IUserService {
     List<UserDto> findAllExceptUserWithUsername(String username);
 
     /**
-     * Add a user in the database
+     * Create a user in the database
      *
      * @param userDto the user to add
      * @throws UserWithSameUserNameExistsException the user with the same username exists exception
      */
-    void addUser(UserDto userDto) throws UserWithSameUserNameExistsException;
+    void create(UserDto userDto) throws UserWithSameUserNameExistsException;
 
 
     /**
@@ -42,13 +43,13 @@ public interface IUserService {
      * @param userDto the user to update
      * @throws UserWithSameUserNameExistsException the user with the same username exists exception
      */
-    void updateUser(UserDto userDto) throws UserWithSameUserNameExistsException;
+    void update(UserDto userDto) throws UserWithSameUserNameExistsException;
 
     /**
-     * Delete user
+     * Delete a user from the database
      *
      * @param id the id of the user to delete
-     * @throws UserNotFoundException the user not found exception
+     * @throws EntityNotFoundException the user not found exception
      */
-    void deleteUser(Integer id) throws UserNotFoundException;
+    void delete(Integer id) throws EntityNotFoundException;
 }

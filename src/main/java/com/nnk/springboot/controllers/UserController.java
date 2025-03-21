@@ -3,7 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.dto.AlertClass;
 import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.UserDto;
-import com.nnk.springboot.exceptions.UserNotFoundException;
+import com.nnk.springboot.exceptions.EntityNotFoundException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
 import com.nnk.springboot.service.IUserService;
 import jakarta.validation.Valid;
@@ -89,7 +89,7 @@ public class UserController {
         }
 
         try {
-            userService.addUser(userDto);
+            userService.create(userDto);
         } catch (UserWithSameUserNameExistsException e) {
             log.debug("====> POST /user/validate : exception while creating user  {} <====", e.getMessage());
             result.rejectValue("username", "error.userDto", e.getMessage());
@@ -122,10 +122,9 @@ public class UserController {
             UserDto userDto = userService.findById(id);
             model.addAttribute("userDto", userDto);
 
-        } catch (UserNotFoundException e) {
-            log.error("====> GET /user/update/{} : user with id {} not found <====", id, e.getMessage());
-            FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_DANGER, "An error occurred. Please try again later.");
-            redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+        } catch (EntityNotFoundException e) {
+            log.error("====> GET /user/update/{} : {} <====", id, e.getMessage());
+            redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage());
         }
         return "user/update";
     }
@@ -150,7 +149,7 @@ public class UserController {
         }
 
         try {
-            userService.updateUser(userDto);
+            userService.update(userDto);
         } catch (UserWithSameUserNameExistsException e) {
             log.debug("====> POST /user/update/{} : exception while updating user  {} <====", id, e.getMessage());
             result.rejectValue("username", "error.userDto", e.getMessage());
@@ -173,11 +172,10 @@ public class UserController {
     public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
         log.info("====> GET /user/delete/{} <====", id);
         try {
-            userService.deleteUser(id);
-        } catch (UserNotFoundException e) {
-            log.error("====> GET /user/delete/{} : user with id {} not found <====", id, e.getMessage());
-            FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_DANGER, "An error occurred. Please try again later.");
-            redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+            userService.delete(id);
+        } catch (EntityNotFoundException e) {
+            log.error("====> GET /user/delete/{} : {} <====", id, e.getMessage());
+            redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage());
             return "redirect:/user/list";
         }
 

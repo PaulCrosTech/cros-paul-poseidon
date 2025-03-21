@@ -3,6 +3,7 @@ package com.nnk.springboot.service.impl;
 
 import com.nnk.springboot.domain.Bid;
 import com.nnk.springboot.dto.BidDto;
+import com.nnk.springboot.exceptions.EntityNotFoundException;
 import com.nnk.springboot.mapper.BidMapper;
 import com.nnk.springboot.repositories.BidListRepository;
 import com.nnk.springboot.service.IBidListService;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The BidList service
@@ -44,15 +46,30 @@ public class BidListService implements IBidListService {
     @Override
     public List<BidDto> findAll() {
         List<Bid> bids = bidListRepository.findAll();
-        
+
         List<BidDto> bidDtoList = new ArrayList<>();
 
         bids.forEach(bid -> {
-            bidDtoList.add(bidMapper.toBidDtoList(bid));
+            bidDtoList.add(bidMapper.toBidDto(bid));
         });
 
         return bidDtoList;
 
+    }
+
+    /**
+     * Find bid by id
+     *
+     * @param id the id of the bid to find
+     * @return the bidDto
+     * @throws EntityNotFoundException the bid not found exception
+     */
+    @Override
+    public BidDto findById(Integer id) throws EntityNotFoundException {
+        log.debug("====> find bid by id {} <====", id);
+        Bid bid = bidListRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Bid not found with id : " + id));
+        return bidMapper.toBidDto(bid);
     }
 
     /**
@@ -62,12 +79,52 @@ public class BidListService implements IBidListService {
      */
     @Transactional
     @Override
-    public void add(BidDto bidDto) {
+    public void create(BidDto bidDto) {
         log.debug("====> creating a new bid <====");
 
         bidListRepository.save(bidMapper.toBid(bidDto));
 
         log.debug("====> bid created <====");
 
+    }
+
+    /**
+     * Update a bid in the database
+     *
+     * @param bidDto the bid to update
+     * @throws EntityNotFoundException the bid not found exception
+     */
+    @Transactional
+    @Override
+    public void update(BidDto bidDto) throws EntityNotFoundException {
+        log.debug("====> update the bid with id {} <====", bidDto.getId());
+
+        Bid bid = bidListRepository.findById(bidDto.getId())
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Bid not found with id : " + bidDto.getId())
+                );
+
+        bid.setAccount(bidDto.getAccount());
+        bid.setType(bidDto.getType());
+        bid.setBidQuantity(bidDto.getBidQuantity());
+        bidListRepository.save(bid);
+        log.debug("====> bid updated <====");
+    }
+
+
+    /**
+     * Delete a bid from the database
+     *
+     * @param id the id of the bid to delete
+     * @throws EntityNotFoundException the bid not found exception
+     */
+    @Transactional
+    @Override
+    public void delete(Integer id) throws EntityNotFoundException {
+        Bid bid = bidListRepository.findById(id)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Bid not found with id : " + id)
+                );
+        bidListRepository.delete(bid);
     }
 }

@@ -27,5 +27,5 @@ public interface BidMapper {
      * @param bid the bid to convert
      * @return the BidDto
      */
-    BidDto toBidDtoList(Bid bid);
+    BidDto toBidDto(Bid bid);
 }
