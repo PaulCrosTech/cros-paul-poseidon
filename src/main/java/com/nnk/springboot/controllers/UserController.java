@@ -9,6 +9,8 @@ import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.IUserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,16 +51,15 @@ public class UserController {
     }
 
     /**
-     * Display the user list page.
+     * Display the user list page (except the current user)
      *
      * @param model the model
      * @return the user list page
      */
     @GetMapping("/list")
-    public String home(Model model) {
-        // TODO : dans la liste des users, ne pas afficher le user connecté pour ne pas qu'il se delete ou update
+    public String home(Model model, @AuthenticationPrincipal User user) {
         log.info("====> GET /user/list <====");
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userService.findAllExceptUserWithUsername(user.getUsername()));
         return "user/list";
     }
 
@@ -123,7 +124,7 @@ public class UserController {
         log.info("====> GET /user/update/{} <====", id);
 
         try {
-            UserDto userDto = userService.findByUserId(id);
+            UserDto userDto = userService.findById(id);
             model.addAttribute("userDto", userDto);
 
         } catch (UserNotFoundException e) {

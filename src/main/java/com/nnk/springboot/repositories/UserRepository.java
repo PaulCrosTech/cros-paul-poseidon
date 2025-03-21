@@ -3,6 +3,7 @@ package com.nnk.springboot.repositories;
 import com.nnk.springboot.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,4 +35,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return the boolean
      */
     boolean existsByUsername(String username);
+
+    /**
+     * Find all users except the user with the given username
+     *
+     * @param username the username
+     * @return the list of user
+     */
+    List<User> findAllByUsernameNot(String username);
 }

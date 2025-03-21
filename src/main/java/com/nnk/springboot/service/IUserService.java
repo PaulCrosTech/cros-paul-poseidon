@@ -4,6 +4,8 @@ import com.nnk.springboot.dto.UserDto;
 import com.nnk.springboot.exceptions.UserNotFoundException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
 
+import java.util.List;
+
 /**
  * The interface User service.
  */
@@ -16,8 +18,14 @@ public interface IUserService {
      * @return the userDto
      * @throws UserNotFoundException the user not found exception
      */
-    // TODO : modifier en findById
-    UserDto findByUserId(Integer id) throws UserNotFoundException;
+    UserDto findById(Integer id) throws UserNotFoundException;
+
+    /**
+     * Find all users except the user with the given username
+     *
+     * @return the list of userDto
+     */
+    List<UserDto> findAllExceptUserWithUsername(String username);
 
     /**
      * Add a user in the database

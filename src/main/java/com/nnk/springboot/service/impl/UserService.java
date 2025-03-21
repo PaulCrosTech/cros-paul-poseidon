@@ -12,6 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The User service
  */
@@ -47,11 +50,27 @@ public class UserService implements IUserService {
      * @throws UserNotFoundException if the user is not found
      */
     @Override
-    public UserDto findByUserId(Integer id) throws UserNotFoundException {
+    public UserDto findById(Integer id) throws UserNotFoundException {
         log.debug("====> find user by user id {} <====", id);
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id : " + id));
         return userMapper.toUserDto(user);
+    }
+
+
+    /**
+     * Find all users except the user with the given username
+     *
+     * @param username the username
+     * @return the list of userDto
+     */
+    @Override
+    public List<UserDto> findAllExceptUserWithUsername(String username) {
+        log.debug("====> find all users except the user with username '{}' <====", username);
+        List<User> users = userRepository.findAllByUsernameNot(username);
+        List<UserDto> userDtos = new ArrayList<>();
+        users.forEach(user -> userDtos.add(userMapper.toUserDto(user)));
+        return userDtos;
     }
 
     /**
