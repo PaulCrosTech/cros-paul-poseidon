@@ -15,7 +15,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+/**
+ * User Controller
+ */
 @Controller
 @Slf4j
 @RequestMapping(path = "/user")
@@ -54,6 +56,7 @@ public class UserController {
      */
     @GetMapping("/list")
     public String home(Model model) {
+        // TODO : dans la liste des users, ne pas afficher le user connecté pour ne pas qu'il se delete ou update
         log.info("====> GET /user/list <====");
         model.addAttribute("users", userRepository.findAll());
         return "user/list";

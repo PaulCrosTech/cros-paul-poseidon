@@ -1,6 +1,6 @@
 package com.nnk.springboot.service.impl;
 
-import com.nnk.springboot.entity.User;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.dto.UserDto;
 import com.nnk.springboot.exceptions.UserNotFoundException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
@@ -12,7 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+/**
+ * The User service
+ */
 @Service
 @Slf4j
 public class UserService implements IUserService {
@@ -47,7 +49,7 @@ public class UserService implements IUserService {
     @Override
     public UserDto findByUserId(Integer id) throws UserNotFoundException {
         log.debug("====> find user by user id {} <====", id);
-        User user = userRepository.findByUserId(id)
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id : " + id));
         return userMapper.toUserDto(user);
     }
@@ -83,9 +85,9 @@ public class UserService implements IUserService {
     @Transactional
     @Override
     public void updateUser(UserDto userDto) throws UserWithSameUserNameExistsException {
-        log.debug("====> update the user with id {} <====", userDto.getUserId());
+        log.debug("====> update the user with id {} <====", userDto.getId());
 
-        if (userRepository.existsByUsernameAndUserIdNot(userDto.getUsername(), userDto.getUserId())) {
+        if (userRepository.existsByUsernameAndIdNot(userDto.getUsername(), userDto.getId())) {
             throw new UserWithSameUserNameExistsException(userDto.getUsername());
         }
 

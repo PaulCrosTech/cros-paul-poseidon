@@ -7,6 +7,8 @@ target/
 ### .Env file ###
 .env
 
+### Logs ###
+/logs/application.log
 
 ### STS ###
 .apt_generated

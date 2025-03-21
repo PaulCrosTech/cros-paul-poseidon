@@ -1,10 +1,14 @@
-package com.nnk.springboot.entity;
+package com.nnk.springboot.domain;
 
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+/**
+ * The Rating entity
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -13,7 +17,8 @@ public class Rating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ratingId;
+    @Column(name = "rating_id")
+    private Integer id;
 
     @Column(length = 125)
     private String moodysRating;
@@ -25,6 +30,6 @@ public class Rating {
     private String fitchRating;
 
     @Column(columnDefinition = "TINYINT")
-    private int orderNumber;
+    private Integer orderNumber;
 
 }

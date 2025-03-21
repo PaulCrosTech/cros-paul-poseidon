@@ -8,7 +8,7 @@ import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
  * The interface User service.
  */
 public interface IUserService {
-    
+
     /**
      * Find user by user id
      *
@@ -16,6 +16,7 @@ public interface IUserService {
      * @return the userDto
      * @throws UserNotFoundException the user not found exception
      */
+    // TODO : modifier en findById
     UserDto findByUserId(Integer id) throws UserNotFoundException;
 
     /**

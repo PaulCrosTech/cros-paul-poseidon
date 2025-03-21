@@ -1,19 +1,23 @@
-package com.nnk.springboot.entity;
+package com.nnk.springboot.domain;
 
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The Rule entity
+ */
 @Entity
 @Data
 @NoArgsConstructor
 @Table(name = "rule_name")
-public class RuleName {
+public class Rule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ruleNameId;
+    @Column(name = "rule_name_id")
+    private Integer id;
 
     @Column(length = 125)
     private String name;

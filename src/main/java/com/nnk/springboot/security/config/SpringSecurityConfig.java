@@ -44,7 +44,9 @@ public class SpringSecurityConfig {
         return httpSecurity.authorizeHttpRequests(
                         authorize -> authorize
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/app/login", "/css", "/image/**").permitAll()
+                                .requestMatchers("/app/secure/article-details").hasRole("ADMIN")
+                                .requestMatchers("/user/**").hasRole("ADMIN")
+                                .requestMatchers("/app/login", "/image/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(
@@ -58,10 +60,11 @@ public class SpringSecurityConfig {
                         .logoutSuccessUrl("/app/login")
                         .permitAll()
                 )
-//                .exceptionHandling(
-//                        exception -> exception
-//                                .accessDeniedPage("/app/error")
-//                )
+                // TODO : Gestion erreur 403 - possibilité de remplacer par le méthode standard de spring security (cf. LoginController)
+                .exceptionHandling(
+                        exception -> exception
+                                .accessDeniedPage("/app/error")
+                )
                 .build();
     }
 

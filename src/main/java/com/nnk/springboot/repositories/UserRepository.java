@@ -1,6 +1,6 @@
 package com.nnk.springboot.repositories;
 
-import com.nnk.springboot.entity.User;
+import com.nnk.springboot.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -19,21 +19,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByUsername(String username);
 
     /**
-     * Find by user id
-     *
-     * @param userId the user id
-     * @return the user (optional)
-     */
-    Optional<User> findByUserId(Integer userId);
-
-    /**
      * Verify if a user exist with username and different user id
      *
      * @param username the username
      * @param userId   the user id
      * @return the boolean
      */
-    boolean existsByUsernameAndUserIdNot(String username, Integer userId);
+    boolean existsByUsernameAndIdNot(String username, Integer userId);
 
     /**
      * Verify if a user exist with username

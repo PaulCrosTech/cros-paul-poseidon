@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 public class UserDto {
 
-    private Integer userId;
+    private Integer id;
 
     @ValidUsername
     private String username;

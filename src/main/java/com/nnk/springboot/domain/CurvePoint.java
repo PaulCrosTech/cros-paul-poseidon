@@ -1,4 +1,4 @@
-package com.nnk.springboot.entity;
+package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
-
+/**
+ * The CurvePoint entity
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -15,10 +17,11 @@ public class CurvePoint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int curvePointId;
+    @Column(name = "curve_point_id")
+    private Integer id;
 
     @Column(columnDefinition = "TINYINT")
-    private int curveId;
+    private Integer curveId;
 
     @Column(columnDefinition = "TIMESTAMP")
     private Instant asOfDate;

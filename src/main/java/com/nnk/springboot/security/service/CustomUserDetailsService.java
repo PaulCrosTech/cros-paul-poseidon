@@ -1,6 +1,6 @@
 package com.nnk.springboot.security.service;
 
-import com.nnk.springboot.entity.User;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;

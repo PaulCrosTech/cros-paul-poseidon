@@ -1,4 +1,4 @@
-package com.nnk.springboot.entity;
+package com.nnk.springboot.domain;
 
 
 import jakarta.persistence.*;
@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
-
+/**
+ * The Trade entity
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -16,7 +18,8 @@ public class Trade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int tradeId;
+    @Column(name = "trade_id")
+    private Integer id;
 
     @Column(nullable = false, length = 30)
     private String account;

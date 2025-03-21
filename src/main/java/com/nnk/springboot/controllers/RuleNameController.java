@@ -1,6 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.entity.RuleName;
+import com.nnk.springboot.domain.Rule;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,13 +26,13 @@ public class RuleNameController {
     }
 
     @GetMapping("/ruleName/add")
-    public String addRuleForm(RuleName bid) {
+    public String addRuleForm(Rule bid) {
         log.info("====> GET /ruleName/add <====");
         return "ruleName/add";
     }
 
     @PostMapping("/ruleName/validate")
-    public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
+    public String validate(@Valid Rule rule, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return RuleName list
         log.info("====> POST /ruleName/validate <====");
         return "ruleName/add";
@@ -46,7 +46,7 @@ public class RuleNameController {
     }
 
     @PostMapping("/ruleName/update/{id}")
-    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
+    public String updateRuleName(@PathVariable("id") Integer id, @Valid Rule rule,
                                  BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update RuleName and return RuleName list
         log.info("====> POST /ruleName/update/{} <====", id);

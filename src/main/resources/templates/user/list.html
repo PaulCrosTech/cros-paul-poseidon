@@ -28,17 +28,17 @@
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
-                <td style="width: 10%" th:text="${user.userId}"></td>
+                <td style="width: 10%" th:text="${user.id}"></td>
                 <td th:text="${user.fullname}"></td>
                 <td th:text="${user.username}"></td>
                 <td style="width: 25%" th:text="${user.role}"></td>
                 <td style="width: 15%" class="text-center">
-                    <a th:href="@{/user/update/{id}(id=${user.userId})}" class="btn btn-warning btn-sm">
+                    <a th:href="@{/user/update/{id}(id=${user.id})}" class="btn btn-warning btn-sm">
                         <i class="fa-solid fa-pencil"></i> Edit
                     </a>
 
                     <button type="button" class="btn btn-danger btn-sm"
-                            th:attr="onclick='modalDeleteShow(' + ${user.userId} + ',\'' + ${user.fullname} + '\')'">
+                            th:attr="onclick='modalDeleteShow(' + ${user.id} + ',\'' + ${user.fullname} + '\')'">
                         <i class="fa-solid fa-trash-can"></i> Delete
                     </button>
 

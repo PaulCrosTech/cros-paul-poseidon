@@ -1,4 +1,4 @@
-package com.nnk.springboot.entity;
+package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -6,15 +6,19 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
+/**
+ * Bid entity
+ */
 @Entity
 @Data
 @NoArgsConstructor
 @Table(name = "bid_list")
-public class BidList {
+public class Bid {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bidId;
+    @Column(name = "bid_id")
+    private Integer id;
 
     @Column(nullable = false, length = 30)
     private String account;

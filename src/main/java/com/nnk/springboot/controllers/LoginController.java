@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-@Slf4j
+
+/**
+ * Controller for login
+ */
 @Controller
+@Slf4j
 @RequestMapping("app")
 public class LoginController {
 
@@ -24,6 +28,11 @@ public class LoginController {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Display the login page
+     *
+     * @return the login page
+     */
     @GetMapping("login")
     public ModelAndView login() {
         log.info("====> GET /app/login <====");
@@ -32,6 +41,12 @@ public class LoginController {
         return mav;
     }
 
+    /**
+     * Display the article-details page (similar to the user list page)
+     *
+     * @return the article-details page
+     */
+    // TODO : url sécurisée mais non accessible depuis l'interface, voir pour la supprimer si inutile
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {
         log.info("====> GET /app/secure/article-details <====");
@@ -42,15 +57,20 @@ public class LoginController {
     }
 
 
-    // TODO : inutile il suffit de mettre les pages dans le dossier resources/templates/error
+    /**
+     * Display the error page (403)
+     *
+     * @return the error page (403)
+     */
+    // TODO : Gestion erreur 403 - possibilité de remplacer par le méthode standard de spring security (cf. SpringSecurityConfig)
+    @GetMapping("error")
+    public ModelAndView error() {
+        log.info("====> GET /app/error <====");
+        ModelAndView mav = new ModelAndView();
+        String errorMessage = "You are not authorized for the requested data.";
+        mav.addObject("errorMsg", errorMessage);
+        mav.setViewName("403");
+        return mav;
+    }
 
-//        @GetMapping("error")
-//    public ModelAndView error() {
-//        log.info("====> GET /app/error <====");
-//        ModelAndView mav = new ModelAndView();
-//        String errorMessage = "You are not authorized for the requested data.";
-//        mav.addObject("errorMsg", errorMessage);
-//        mav.setViewName("error/403");
-//        return mav;
-//    }
 }

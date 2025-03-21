@@ -1,6 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.entity.BidList;
+import com.nnk.springboot.domain.Bid;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,13 +26,13 @@ public class BidListController {
     }
 
     @GetMapping("/bidList/add")
-    public String addBidForm(BidList bidList) {
+    public String addBidForm(Bid bid) {
         log.info("====> GET /bidList/add <====");
         return "bidList/add";
     }
 
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidList bidList, BindingResult result, Model model) {
+    public String validate(@Valid Bid bid, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return bidList list
         log.info("====> POST /bidList/validate <====");
         return "bidList/add";
@@ -46,7 +46,7 @@ public class BidListController {
     }
 
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
+    public String updateBid(@PathVariable("id") Integer id, @Valid Bid bid,
                             BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update BidList and return list BidList
         log.info("====> POST /bidList/update/{} <====", id);

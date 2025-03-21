@@ -1,10 +1,13 @@
-package com.nnk.springboot.entity;
+package com.nnk.springboot.domain;
 
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The User entity
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -18,7 +21,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
+    @Column(name = "user_id")
+    private Integer id;
 
     @Column(length = 125)
     private String username;
