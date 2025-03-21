@@ -5,7 +5,6 @@ import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.UserDto;
 import com.nnk.springboot.exceptions.UserNotFoundException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
-import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.IUserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -25,18 +24,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(path = "/user")
 public class UserController {
 
-    private final UserRepository userRepository;
     private final IUserService userService;
-
 
     /**
      * Constructor
      *
-     * @param userRepository userRepository
+     * @param userService the user service
      */
-    public UserController(UserRepository userRepository,
-                          IUserService userService) {
-        this.userRepository = userRepository;
+    public UserController(IUserService userService) {
         this.userService = userService;
     }
 
