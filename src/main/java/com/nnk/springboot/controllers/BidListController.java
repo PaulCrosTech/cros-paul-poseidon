@@ -3,7 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.dto.AlertClass;
 import com.nnk.springboot.dto.BidDto;
 import com.nnk.springboot.dto.FlashMessage;
-import com.nnk.springboot.exceptions.EntityNotFoundException;
+import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.service.impl.BidListService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -96,9 +96,8 @@ public class BidListController {
 
         bidListService.create(bidDto);
 
-        log.info("====> POST /bidList/validate : bid is created <====");
-        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Bid created successfully");
-        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+        log.info("====> POST /bidList/validate : Bid created successfully <====");
+        redirectAttributes.addFlashAttribute("flashMessage", "Bid created successfully");
         return "redirect:/bidList/list";
     }
 
@@ -119,19 +118,28 @@ public class BidListController {
         try {
             BidDto bidDto = bidListService.findById(id);
             model.addAttribute("bidDto", bidDto);
-        } catch (EntityNotFoundException e) {
+        } catch (EntityMissingException e) {
             log.error("====> GET /user/update/{} : {} <====", id, e.getMessage());
             redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage());
+            return "redirect:/bidList/list";
         }
 
         return "bidList/update";
     }
 
+    /**
+     * Update a bid by Id
+     *
+     * @param id                 the id of the bid to update
+     * @param bidDto             the bid to update
+     * @param result             the result
+     * @param redirectAttributes the redirectAttributes
+     * @return the bid list page
+     */
     @PostMapping("/update/{id}")
     public String updateBid(@PathVariable("id") Integer id,
                             @Valid BidDto bidDto,
                             BindingResult result,
-                            Model model,
                             RedirectAttributes redirectAttributes) {
         log.info("====> POST /bidList/update/{} <====", id);
 
@@ -139,16 +147,17 @@ public class BidListController {
             return "bidList/update";
         }
 
+        String logMessage = "Bid updated successfully";
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Bid updated successfully");
+
         try {
             bidListService.update(bidDto);
-        } catch (EntityNotFoundException e) {
-            log.error("====> GET /bidList/update/{} : {} <====", id, e.getMessage());
-            redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage());
-            return "redirect:/bidList/list";
+        } catch (EntityMissingException e) {
+            logMessage = e.getMessage();
+            flashMessage = new FlashMessage();
         }
 
-        log.info("====> POST /bidList/update/{} : bid is updated <====", id);
-        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Bid updated successfully");
+        log.info("====> POST /bidList/update/{} : {} <====", id, logMessage);
         redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/bidList/list";
     }
@@ -169,10 +178,9 @@ public class BidListController {
         String logMessage = "Bid deleted successfully";
         FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Bid deleted successfully");
 
-        // TODO : faire
         try {
             bidListService.delete(id);
-        } catch (EntityNotFoundException e) {
+        } catch (EntityMissingException e) {
             logMessage = e.getMessage();
             flashMessage = new FlashMessage();
         }

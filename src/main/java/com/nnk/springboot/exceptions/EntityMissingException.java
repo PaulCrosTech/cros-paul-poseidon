@@ -2,17 +2,18 @@ package com.nnk.springboot.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
 
+
 /**
- * Exception for not found entity
+ * Exception for entity not found
  */
 @Slf4j
-public class EntityNotFoundException extends RuntimeException {
+public class EntityMissingException extends RuntimeException {
     /**
      * Constructor
      *
      * @param message (String) : Message of the exception
      */
-    public EntityNotFoundException(String message) {
+    public EntityMissingException(String message) {
         super(message);
         log.error("====> <exception> NotFoundException for entity - {} <====", message);
     }

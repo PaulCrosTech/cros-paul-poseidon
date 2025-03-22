@@ -1,7 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.dto.UserDto;
-import com.nnk.springboot.exceptions.EntityNotFoundException;
+import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
 
 import java.util.List;
@@ -17,9 +17,9 @@ public interface IUserService {
      *
      * @param id the id of the user to find
      * @return the userDto
-     * @throws EntityNotFoundException the user not found exception
+     * @throws EntityMissingException the user not found exception
      */
-    UserDto findById(Integer id) throws EntityNotFoundException;
+    UserDto findById(Integer id) throws EntityMissingException;
 
     /**
      * Find all users except the user with the given username
@@ -49,7 +49,7 @@ public interface IUserService {
      * Delete a user from the database
      *
      * @param id the id of the user to delete
-     * @throws EntityNotFoundException the user not found exception
+     * @throws EntityMissingException the user not found exception
      */
-    void delete(Integer id) throws EntityNotFoundException;
+    void delete(Integer id) throws EntityMissingException;
 }

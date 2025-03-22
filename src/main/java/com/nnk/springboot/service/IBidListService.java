@@ -2,7 +2,7 @@ package com.nnk.springboot.service;
 
 
 import com.nnk.springboot.dto.BidDto;
-import com.nnk.springboot.exceptions.EntityNotFoundException;
+import com.nnk.springboot.exceptions.EntityMissingException;
 
 import java.util.List;
 
@@ -24,9 +24,9 @@ public interface IBidListService {
      *
      * @param id the id of the bid to find
      * @return the bidDto
-     * @throws EntityNotFoundException the bid not found exception
+     * @throws EntityMissingException the bid not found exception
      */
-    BidDto findById(Integer id) throws EntityNotFoundException;
+    BidDto findById(Integer id) throws EntityMissingException;
 
     /**
      * Create a bid in the database
@@ -39,15 +39,15 @@ public interface IBidListService {
      * Update a bid in the database
      *
      * @param bidDto the bid to update
-     * @throws EntityNotFoundException the bid not found exception
+     * @throws EntityMissingException the bid not found exception
      */
-    void update(BidDto bidDto) throws EntityNotFoundException;
+    void update(BidDto bidDto) throws EntityMissingException;
 
     /**
      * Delete a bid in the database
      *
      * @param id the id of the bid to delete
      */
-    void delete(Integer id) throws EntityNotFoundException;
+    void delete(Integer id) throws EntityMissingException;
 
 }

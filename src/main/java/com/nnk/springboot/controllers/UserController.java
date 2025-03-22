@@ -3,7 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.dto.AlertClass;
 import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.UserDto;
-import com.nnk.springboot.exceptions.EntityNotFoundException;
+import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
 import com.nnk.springboot.service.IUserService;
 import jakarta.validation.Valid;
@@ -54,6 +54,7 @@ public class UserController {
     @GetMapping("/list")
     public String home(Model model, @AuthenticationPrincipal User user) {
         log.info("====> GET /user/list <====");
+
         model.addAttribute("users", userService.findAllExceptUserWithUsername(user.getUsername()));
         return "user/list";
     }
@@ -121,10 +122,10 @@ public class UserController {
         try {
             UserDto userDto = userService.findById(id);
             model.addAttribute("userDto", userDto);
-
-        } catch (EntityNotFoundException e) {
+        } catch (EntityMissingException e) {
             log.error("====> GET /user/update/{} : {} <====", id, e.getMessage());
             redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage());
+            return "redirect:/user/list";
         }
         return "user/update";
     }
@@ -148,16 +149,21 @@ public class UserController {
             return "user/update";
         }
 
+        String logMessage = "User updated successfully";
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "User updated successfully");
+
         try {
             userService.update(userDto);
+        } catch (EntityMissingException e) {
+            logMessage = e.getMessage();
+            flashMessage = new FlashMessage();
         } catch (UserWithSameUserNameExistsException e) {
             log.debug("====> POST /user/update/{} : exception while updating user  {} <====", id, e.getMessage());
             result.rejectValue("username", "error.userDto", e.getMessage());
             return "user/update";
         }
 
-        log.info("====> POST /user/update/{} : user is updated <====", id);
-        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "User updated successfully");
+        log.info("====> POST /user/update/{} : {} <====", id, logMessage);
         redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/user/list";
     }
@@ -171,16 +177,18 @@ public class UserController {
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
         log.info("====> GET /user/delete/{} <====", id);
+
+        String logMessage = "User deleted successfully";
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "User deleted successfully");
+
         try {
             userService.delete(id);
-        } catch (EntityNotFoundException e) {
-            log.error("====> GET /user/delete/{} : {} <====", id, e.getMessage());
-            redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage());
-            return "redirect:/user/list";
+        } catch (EntityMissingException e) {
+            logMessage = e.getMessage();
+            flashMessage = new FlashMessage();
         }
 
-        log.info("====> POST /user/delete/{} : user is deleted <====", id);
-        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "User deleted successfully");
+        log.info("====> POST /user/delete/{} : {} <====", id, logMessage);
         redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/user/list";
     }

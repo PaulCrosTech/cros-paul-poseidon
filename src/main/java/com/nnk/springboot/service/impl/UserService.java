@@ -2,7 +2,7 @@ package com.nnk.springboot.service.impl;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.dto.UserDto;
-import com.nnk.springboot.exceptions.EntityNotFoundException;
+import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
 import com.nnk.springboot.mapper.UserMapper;
 import com.nnk.springboot.repositories.UserRepository;
@@ -47,13 +47,13 @@ public class UserService implements IUserService {
      *
      * @param id the id of the user
      * @return the userDto
-     * @throws EntityNotFoundException if the user is not found
+     * @throws EntityMissingException if the user is not found
      */
     @Override
-    public UserDto findById(Integer id) throws EntityNotFoundException {
+    public UserDto findById(Integer id) throws EntityMissingException {
         log.debug("====> find user by user id {} <====", id);
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id : " + id));
+                .orElseThrow(() -> new EntityMissingException("User not found with id : " + id));
         return userMapper.toUserDto(user);
     }
 
@@ -121,14 +121,14 @@ public class UserService implements IUserService {
      * Delete a user
      *
      * @param id the id of the user to delete
-     * @throws EntityNotFoundException if the user is not found
+     * @throws EntityMissingException if the user is not found
      */
     @Transactional
     @Override
-    public void delete(Integer id) throws EntityNotFoundException {
+    public void delete(Integer id) throws EntityMissingException {
         User user = userRepository.findById(id)
                 .orElseThrow(
-                        () -> new EntityNotFoundException("Invalid user Id:" + id)
+                        () -> new EntityMissingException("Invalid user Id:" + id)
                 );
         userRepository.delete(user);
     }
