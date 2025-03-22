@@ -1,8 +1,8 @@
 package com.nnk.springboot.service.impl;
 
-
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.dto.CurvePointDto;
+import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.mapper.CurveMapper;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.service.ICurveService;
@@ -56,6 +56,21 @@ public class CurveService implements ICurveService {
     }
 
     /**
+     * Find CurvePoint by id
+     *
+     * @param id the id of the curve point to find
+     * @return the curve point
+     * @throws EntityMissingException the curve point not found exception
+     */
+    @Override
+    public CurvePointDto findById(Integer id) throws EntityMissingException {
+        log.debug("====> find curve point by id {} <====", id);
+        CurvePoint curvePoint = curvePointRepository.findById(id)
+                .orElseThrow(() -> new EntityMissingException("Curve point not found with id : " + id));
+        return curveMapper.toCurvePointDto(curvePoint);
+    }
+
+    /**
      * Create a curve point in the database
      *
      * @param curvePointDto the curve point to add
@@ -69,5 +84,43 @@ public class CurveService implements ICurveService {
 
         log.debug("====> curve point created <====");
 
+    }
+
+    /**
+     * Update a curve point in the database
+     *
+     * @param curvePointDto the curve point to update
+     * @throws EntityMissingException the curve point not found exception
+     */
+    @Transactional
+    @Override
+    public void update(CurvePointDto curvePointDto) throws EntityMissingException {
+        log.debug("====> update the curve point with id {} <====", curvePointDto.getId());
+
+        CurvePoint curvePoint = curvePointRepository.findById(curvePointDto.getId())
+                .orElseThrow(
+                        () -> new EntityMissingException("Curve point not found with id : " + curvePointDto.getId())
+                );
+
+        curvePoint.setTerm(curvePointDto.getTerm());
+        curvePoint.setValue(curvePointDto.getValue());
+        curvePointRepository.save(curvePoint);
+        log.debug("====> curve point updated <====");
+    }
+
+    /**
+     * Delete a curve point in the database
+     *
+     * @param id the id of the curve point to delete
+     * @throws EntityMissingException the curve point not found exception
+     */
+    @Transactional
+    @Override
+    public void delete(Integer id) throws EntityMissingException {
+        CurvePoint curvePoint = curvePointRepository.findById(id)
+                .orElseThrow(
+                        () -> new EntityMissingException("Curve point not found with id : " + id)
+                );
+        curvePointRepository.delete(curvePoint);
     }
 }

@@ -1,9 +1,9 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.dto.AlertClass;
 import com.nnk.springboot.dto.CurvePointDto;
 import com.nnk.springboot.dto.FlashMessage;
+import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.service.ICurveService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +20,7 @@ import java.util.List;
  */
 @Controller
 @Slf4j
+@RequestMapping(path = "/curvePoint")
 public class CurveController {
 
 
@@ -52,7 +53,7 @@ public class CurveController {
      * @param model the model
      * @return the Curve list page
      */
-    @RequestMapping("/curvePoint/list")
+    @RequestMapping("/list")
     public String home(Model model) {
         log.info("====> GET /curvePoint/list <====");
 
@@ -70,7 +71,7 @@ public class CurveController {
      * @param model the model
      * @return the Curve add page
      */
-    @GetMapping("/curvePoint/add")
+    @GetMapping("/add")
     public String addBidForm(Model model) {
         log.info("====> GET /curvePoint/add <====");
         model.addAttribute("curvePointDto", new CurvePointDto());
@@ -86,7 +87,7 @@ public class CurveController {
      * @param redirectAttributes the redirectAttributes
      * @return the Curve add page
      */
-    @PostMapping("/curvePoint/validate")
+    @PostMapping("/validate")
     public String validate(@Valid CurvePointDto curvePointDto,
                            BindingResult result,
                            RedirectAttributes redirectAttributes) {
@@ -94,37 +95,108 @@ public class CurveController {
         log.info("====> POST /curvePoint/validate <====");
 
         if (result.hasErrors()) {
-            log.debug("====> POST /curvePoint/validate : form contains error <====");
+            log.debug("====> Form contains error <====");
             return "curvePoint/add";
         }
 
         curveService.create(curvePointDto);
 
-        log.info("====> POST /curvePoint/validate : Curve Point created successfully <====");
+        log.info("====> Curve Point created successfully <====");
         FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Curve Point created successfully");
         redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/curvePoint/list";
     }
 
-    @GetMapping("/curvePoint/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
-        log.info("====> GET /curvePoint/update <====");
+    /**
+     * Display the Curve update form
+     *
+     * @param id                 the id of the curve to update
+     * @param model              the model
+     * @param redirectAttributes the redirectAttributes
+     * @return the Curve update page
+     */
+    @GetMapping("/update/{id}")
+    public String showUpdateForm(@PathVariable("id") Integer id,
+                                 Model model,
+                                 RedirectAttributes redirectAttributes) {
+        log.info("====> GET /curvePoint/update/{} <====", id);
+
+        try {
+            CurvePointDto curvePointDto = curveService.findById(id);
+            model.addAttribute("curvePointDto", curvePointDto);
+        } catch (EntityMissingException e) {
+            log.error("====> Error : {} <====", e.getMessage());
+            redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage());
+            return "redirect:/curvePoint/list";
+        }
+
         return "curvePoint/update";
     }
 
-    @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
-                            BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
+    /**
+     * Validate the Curve update and save it to the database
+     *
+     * @param id                 the id of the curve to update
+     * @param curvePointDto      the curvePointDto
+     * @param result             the result
+     * @param redirectAttributes the redirectAttributes
+     * @return the Curve update page
+     */
+    @PostMapping("/update/{id}")
+    public String updateBid(@PathVariable("id") Integer id,
+                            @Valid CurvePointDto curvePointDto,
+                            BindingResult result,
+                            RedirectAttributes redirectAttributes) {
+
         log.info("====> POST /curvePoint/update/{} <====", id);
+
+        if (result.hasErrors()) {
+            return "curvePoint/update";
+        }
+
+        String logMessage = "Curve point updated successfully";
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Curve point updated successfully");
+
+        try {
+            curveService.update(curvePointDto);
+        } catch (EntityMissingException e) {
+            logMessage = e.getMessage();
+            flashMessage = new FlashMessage();
+        }
+
+        log.info("====> {} <====", logMessage);
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+
         return "redirect:/curvePoint/list";
     }
 
-    @GetMapping("/curvePoint/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
-        log.info("====> GET /curvePoint/delete{} <====", id);
+
+    /**
+     * Delete a Curve
+     *
+     * @param id                 the id of the curve to delete
+     * @param redirectAttributes the redirectAttributes
+     * @return the Curve list page
+     */
+    @GetMapping("/delete/{id}")
+    public String deleteBid(@PathVariable("id") Integer id,
+                            RedirectAttributes redirectAttributes) {
+
+        log.info("====> GET /curvePoint/delete/{} <====", id);
+
+        String logMessage = "Curve point deleted successfully";
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Curve point deleted successfully");
+
+        try {
+            curveService.delete(id);
+        } catch (EntityMissingException e) {
+            logMessage = e.getMessage();
+            flashMessage = new FlashMessage();
+        }
+
+        log.info("====> {} <====", logMessage);
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+
         return "redirect:/curvePoint/list";
     }
 }

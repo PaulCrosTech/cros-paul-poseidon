@@ -173,7 +173,8 @@ public class BidListController {
      * @return the bid list page
      */
     @GetMapping("/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+    public String deleteBid(@PathVariable("id") Integer id,
+                            RedirectAttributes redirectAttributes) {
         log.info("====> GET /bidList/delete/{} <====", id);
 
 
