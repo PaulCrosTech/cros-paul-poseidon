@@ -8,6 +8,7 @@ import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.service.ICurveService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,22 @@ public class CurveService implements ICurveService {
         });
 
         return curvePointDtoList;
+
+    }
+
+    /**
+     * Create a curve point in the database
+     *
+     * @param curvePointDto the curve point to add
+     */
+    @Transactional
+    @Override
+    public void create(CurvePointDto curvePointDto) {
+        log.debug("====> creating a new curve point <====");
+
+        curvePointRepository.save(curveMapper.toCurvePoint(curvePointDto));
+
+        log.debug("====> curve point created <====");
 
     }
 }

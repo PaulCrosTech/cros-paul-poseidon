@@ -17,4 +17,12 @@ public interface ICurveService {
      */
     List<CurvePointDto> findAll();
 
+
+    /**
+     * Create a curve point in the database
+     *
+     * @param curvePointDto the curve point to add
+     */
+    void create(CurvePointDto curvePointDto);
+
 }

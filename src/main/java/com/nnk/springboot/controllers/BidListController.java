@@ -98,7 +98,8 @@ public class BidListController {
         bidListService.create(bidDto);
 
         log.info("====> POST /bidList/validate : Bid created successfully <====");
-        redirectAttributes.addFlashAttribute("flashMessage", "Bid created successfully");
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Bid created successfully");
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/bidList/list";
     }
 

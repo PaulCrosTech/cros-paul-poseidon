@@ -1,7 +1,9 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.dto.AlertClass;
 import com.nnk.springboot.dto.CurvePointDto;
+import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.service.ICurveService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -60,17 +63,47 @@ public class CurveController {
         return "curvePoint/list";
     }
 
+
+    /**
+     * Display the Curve add form
+     *
+     * @param model the model
+     * @return the Curve add page
+     */
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePoint bid) {
+    public String addBidForm(Model model) {
         log.info("====> GET /curvePoint/add <====");
+        model.addAttribute("curvePointDto", new CurvePointDto());
         return "curvePoint/add";
     }
 
+
+    /**
+     * Validate the Curve and save it to the database
+     *
+     * @param curvePointDto      the curvePointDto
+     * @param result             the result
+     * @param redirectAttributes the redirectAttributes
+     * @return the Curve add page
+     */
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list
+    public String validate(@Valid CurvePointDto curvePointDto,
+                           BindingResult result,
+                           RedirectAttributes redirectAttributes) {
+
         log.info("====> POST /curvePoint/validate <====");
-        return "curvePoint/add";
+
+        if (result.hasErrors()) {
+            log.debug("====> POST /curvePoint/validate : form contains error <====");
+            return "curvePoint/add";
+        }
+
+        curveService.create(curvePointDto);
+
+        log.info("====> POST /curvePoint/validate : Curve Point created successfully <====");
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Curve Point created successfully");
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+        return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/update/{id}")
