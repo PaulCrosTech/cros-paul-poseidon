@@ -91,13 +91,13 @@ public class BidListController {
         log.info("====> POST /bidList/validate <====");
 
         if (result.hasErrors()) {
-            log.debug("====> POST /bidList/validate : form contains error <====");
+            log.debug("====> form contains error <====");
             return "bidList/add";
         }
 
         bidListService.create(bidDto);
 
-        log.info("====> POST /bidList/validate : Bid created successfully <====");
+        log.info("====>  Bid created successfully <====");
         FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Bid created successfully");
         redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/bidList/list";
@@ -121,7 +121,7 @@ public class BidListController {
             BidDto bidDto = bidListService.findById(id);
             model.addAttribute("bidDto", bidDto);
         } catch (EntityMissingException e) {
-            log.error("====> GET /user/update/{} : {} <====", id, e.getMessage());
+            log.error("====> Error : {} <====", e.getMessage());
             redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage());
             return "redirect:/bidList/list";
         }
@@ -159,7 +159,7 @@ public class BidListController {
             flashMessage = new FlashMessage();
         }
 
-        log.info("====> POST /bidList/update/{} : {} <====", id, logMessage);
+        log.info("====> {} <====", logMessage);
         redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/bidList/list";
     }
@@ -188,7 +188,7 @@ public class BidListController {
             flashMessage = new FlashMessage();
         }
 
-        log.info("====> POST /bidList/delete/{} : {} <====", id, logMessage);
+        log.info("====> {} <====", logMessage);
         redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/bidList/list";
     }

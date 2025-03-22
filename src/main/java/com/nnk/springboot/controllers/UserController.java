@@ -85,19 +85,19 @@ public class UserController {
         log.info("====> POST /user/validate <====");
 
         if (result.hasErrors()) {
-            log.debug("====> POST /user/validate : form contains error <====");
+            log.debug("====> form contains error <====");
             return "user/add";
         }
 
         try {
             userService.create(userDto);
         } catch (UserWithSameUserNameExistsException e) {
-            log.debug("====> POST /user/validate : exception while creating user  {} <====", e.getMessage());
+            log.debug("====> Error : {} <====", e.getMessage());
             result.rejectValue("username", "error.userDto", e.getMessage());
             return "user/add";
         }
 
-        log.info("====> POST /user/validate : user is created <====");
+        log.info("====> User created successfully <====");
         FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "User created successfully");
         redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/user/list";
@@ -123,7 +123,7 @@ public class UserController {
             UserDto userDto = userService.findById(id);
             model.addAttribute("userDto", userDto);
         } catch (EntityMissingException e) {
-            log.error("====> GET /user/update/{} : {} <====", id, e.getMessage());
+            log.error("====> Error : {} <====", e.getMessage());
             redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage());
             return "redirect:/user/list";
         }
@@ -158,12 +158,12 @@ public class UserController {
             logMessage = e.getMessage();
             flashMessage = new FlashMessage();
         } catch (UserWithSameUserNameExistsException e) {
-            log.debug("====> POST /user/update/{} : exception while updating user  {} <====", id, e.getMessage());
+            log.debug("====> Error : {} <====", e.getMessage());
             result.rejectValue("username", "error.userDto", e.getMessage());
             return "user/update";
         }
 
-        log.info("====> POST /user/update/{} : {} <====", id, logMessage);
+        log.info("====> {} <====", logMessage);
         redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/user/list";
     }
@@ -188,7 +188,7 @@ public class UserController {
             flashMessage = new FlashMessage();
         }
 
-        log.info("====> POST /user/delete/{} : {} <====", id, logMessage);
+        log.info("====> {} <====", logMessage);
         redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "redirect:/user/list";
     }
