@@ -13,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The Rating service
+ */
 @Service
 @Slf4j
 public class RatingService implements IRatingService {
@@ -78,7 +82,6 @@ public class RatingService implements IRatingService {
 
     }
 
-
     /**
      * Update a rating in the database
      *
@@ -103,7 +106,7 @@ public class RatingService implements IRatingService {
 
         log.debug("====> rating updated <====");
     }
-    
+
     /**
      * Delete a rating in the database
      *
