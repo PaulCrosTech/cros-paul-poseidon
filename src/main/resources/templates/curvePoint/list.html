@@ -1,30 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/authenticated_layout.html}">
 <head>
 </head>
 <body>
 <div class="container" layout:fragment="content">
+
     <div class="row">
-        <div class="col-6">
-            <a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
-            <a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-            <a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
-            <a href="/trade/list">Trade</a>&nbsp;|&nbsp;
-            <a href="/ruleName/list">Rule</a>
-        </div>
-        <div class="col-6 text-right">
-            Logged in user: <b th:inline="text" class="user" sec:authentication="name"></b>
-            <form th:action="@{/app-logout}" method="POST">
-                <input type="submit" value="Logout"/>
-            </form>
+        <h2>Curve Point List</h2>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <a href="/curvePoint/add" class="btn btn-primary btn-sm">Add New</a>
         </div>
     </div>
-    <div class="row"><h2>Curve Point List</h2></div>
     <div class="row">
-        <a href="/curvePoint/add" class="btn btn-primary btn-sm">Add New</a>
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -36,19 +27,56 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="curvePoint : ${curvePoints}">
-                <td style="width: 10%" th:text="${curvePoint.id}"></td>
+            <tr th:each="curvePoint : ${curvePointList}">
+                <td style="width: 10%" th:text="*{curvePoint.id}"></td>
                 <td th:text="${curvePoint.id}"></td>
                 <td th:text="${curvePoint.term}"></td>
                 <td th:text="${curvePoint.value}"></td>
                 <td style="width: 15%" class="text-center">
-                    <a th:href="@{/curvePoint/update/{id}(id=${curvePoint.id})}">Edit</a>&nbsp;|&nbsp;
-                    <a th:href="@{/curvePoint/delete/{id}(id=${curvePoint.id})}">Delete</a>
+
+                    <a th:href="@{/curvePoint/update/{id}(id=${curvePoint.id})}"
+                       class="btn btn-warning btn-sm text-white">
+                        <i class="fa-solid fa-pencil"></i> Edit
+                    </a>
+
+                    <button type="button" class="btn btn-danger btn-sm"
+                            th:attr="onclick='modalDeleteShow(' + ${curvePoint.id} + ')'">
+                        <i class="fa-solid fa-trash-can"></i> Delete
+                    </button>
+
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+    <!-- Modal : delete bid confirmation  -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the curve point <b id="modalDeleteCurveId"></b> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a id="modalDeleteA" href="#" class="btn btn-danger">Confirm Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function modalDeleteShow(id) {
+            document.getElementById("modalDeleteA").href = "/curvePoint/delete/" + id;
+            document.getElementById("modalDeleteCurveId").textContent = id;
+            var myModal = new bootstrap.Modal(document.getElementById('modalDelete'));
+            myModal.show();
+        }
+    </script>
 </div>
 </body>
 </html>

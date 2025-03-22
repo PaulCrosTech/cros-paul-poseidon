@@ -4,6 +4,7 @@ import com.nnk.springboot.dto.AlertClass;
 import com.nnk.springboot.dto.BidDto;
 import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.exceptions.EntityMissingException;
+import com.nnk.springboot.service.IBidListService;
 import com.nnk.springboot.service.impl.BidListService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ import java.util.List;
 public class BidListController {
 
 
-    private final BidListService bidListService;
+    private final IBidListService bidListService;
 
     /**
      * Constructor
