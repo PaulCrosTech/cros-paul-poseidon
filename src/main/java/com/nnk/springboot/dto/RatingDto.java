@@ -1,6 +1,7 @@
 package com.nnk.springboot.dto;
 
-import com.nnk.springboot.validators.annotations.ValidNotNullAndPositive;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -21,7 +22,8 @@ public class RatingDto {
     @Length(min = 1, max = 125, message = "Fitch Rating should be between 1 and 125 characters")
     private String fitchRating;
 
-    @ValidNotNullAndPositive
+    @NotNull(message = "Order Number is mandatory")
+    @Positive(message = "Order Number should be a positive number")
     private Integer orderNumber;
 
 }

@@ -1,7 +1,8 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.dto.CurvePointDto;
+import com.nnk.springboot.dto.AlertClass;
+import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.RatingDto;
 import com.nnk.springboot.service.impl.RatingService;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -60,17 +62,46 @@ public class RatingController {
         return "rating/list";
     }
 
+    /**
+     * Display the Rating add form
+     *
+     * @param model the model
+     * @return the Rating add form
+     */
     @GetMapping("/add")
-    public String addRatingForm(Rating rating) {
+    public String addRatingForm(Model model) {
         log.info("====> GET /rating/add <====");
+        model.addAttribute("ratingDto", new RatingDto());
         return "rating/add";
     }
 
+    /**
+     * Validate the Rating form
+     *
+     * @param ratingDto          the ratingDto
+     * @param result             the result
+     * @param redirectAttributes the redirectAttributes
+     * @return the Rating add form
+     */
     @PostMapping("/validate")
-    public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Rating list
+    public String validate(@Valid RatingDto ratingDto,
+                           BindingResult result,
+                           RedirectAttributes redirectAttributes) {
+
         log.info("====> POST /rating/validate <====");
-        return "rating/add";
+
+        if (result.hasErrors()) {
+            log.debug("====> Form contains error <====");
+            return "rating/add";
+        }
+
+        ratingService.create(ratingDto);
+
+        log.info("====> Rating created successfully <====");
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Rating created successfully");
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+
+        return "redirect:/rating/list";
     }
 
     @GetMapping("/update/{id}")
