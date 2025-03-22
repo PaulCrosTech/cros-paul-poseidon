@@ -166,10 +166,31 @@ public class RatingController {
         return "redirect:/rating/list";
     }
 
+    /**
+     * Delete the Rating
+     *
+     * @param id                 the id of the rating to delete
+     * @param redirectAttributes the redirectAttributes
+     * @return the Rating list page
+     */
     @GetMapping("/delete/{id}")
-    public String deleteRating(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
+    public String deleteRating(@PathVariable("id") Integer id,
+                               RedirectAttributes redirectAttributes) {
         log.info("====> GET /rating/delete/{} <====", id);
+
+        String logMessage = "Rating deleted successfully";
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Rating deleted successfully");
+
+        try {
+            ratingService.delete(id);
+        } catch (EntityMissingException e) {
+            logMessage = e.getMessage();
+            flashMessage = new FlashMessage();
+        }
+
+        log.info("====> {} <====", logMessage);
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+
         return "redirect:/rating/list";
     }
 }
