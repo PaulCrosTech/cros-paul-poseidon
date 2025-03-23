@@ -1,7 +1,9 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rule;
+import com.nnk.springboot.dto.AlertClass;
 import com.nnk.springboot.dto.CurvePointDto;
+import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.RuleDto;
 import com.nnk.springboot.service.IRuleService;
 import jakarta.validation.Valid;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -60,17 +63,47 @@ public class RuleNameController {
         return "ruleName/list";
     }
 
+    /**
+     * Display the RuleName add form
+     *
+     * @param model the model
+     * @return the RuleName add form
+     */
     @GetMapping("/add")
-    public String addRuleForm(Rule bid) {
+    public String addRuleForm(Model model) {
         log.info("====> GET /ruleName/add <====");
+
+        model.addAttribute("ruleDto", new RuleDto());
+
         return "ruleName/add";
     }
 
+    /**
+     * Validate the RuleName form
+     *
+     * @param ruleDto            the RuleName to validate
+     * @param result             the result
+     * @param redirectAttributes the redirectAttributes
+     * @return the RuleName list page
+     */
     @PostMapping("/validate")
-    public String validate(@Valid Rule rule, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return RuleName list
+    public String validate(@Valid RuleDto ruleDto,
+                           BindingResult result,
+                           RedirectAttributes redirectAttributes) {
+
         log.info("====> POST /ruleName/validate <====");
-        return "ruleName/add";
+
+        if (result.hasErrors()) {
+            log.debug("====> Form contains error <====");
+            return "ruleName/add";
+        }
+
+        ruleService.create(ruleDto);
+
+        log.info("====> Rule created successfully <====");
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Rule created successfully");
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+        return "redirect:/ruleName/list";
     }
 
     @GetMapping("/update/{id}")

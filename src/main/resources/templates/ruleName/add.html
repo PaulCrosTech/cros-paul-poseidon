@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/authenticated_layout.html}">
 <head>
-    <meta charset="utf-8"/>
-    <title>Home</title>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
+<div class="container" layout:fragment="content">
+    <div class="row col-6 mx-auto">
 
     <div class="row">
         <h2>Add New Rule</h2>
     </div>
 
     <div class="row">
-        <form action="#" th:action="@{/ruleName/validate}" th:object="${RuleDto}" method="post" class="form-horizontal"
+        <form action="#" th:action="@{/ruleName/validate}" th:object="${ruleDto}" method="post" class="form-horizontal"
               style="width: 100%">
             <div class="form-group">
                 <label for="name" class="col-sm-2 control-label">Name</label>
