@@ -1,8 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.dto.AlertClass;
-import com.nnk.springboot.dto.CurvePointDto;
 import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.TradeDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
@@ -161,10 +159,31 @@ public class TradeController {
         return "redirect:/trade/list";
     }
 
+    /**
+     * Delete the Trade
+     *
+     * @param id                 the id of the Trade to delete
+     * @param redirectAttributes the redirectAttributes
+     * @return the Trade list page
+     */
     @GetMapping("/delete/{id}")
-    public String deleteTrade(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Trade by Id and delete the Trade, return to Trade list
+    public String deleteTrade(@PathVariable("id") Integer id,
+                              RedirectAttributes redirectAttributes) {
         log.info("====> GET /trade/delete/{} <====", id);
+
+        String logMessage = "Trade deleted successfully";
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Trade deleted successfully");
+
+        try {
+            tradeService.delete(id);
+        } catch (EntityMissingException e) {
+            logMessage = e.getMessage();
+            flashMessage = new FlashMessage();
+        }
+
+        log.info("====> {} <====", logMessage);
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+
         return "redirect:/trade/list";
     }
 }
