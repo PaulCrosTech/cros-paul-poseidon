@@ -2,8 +2,10 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.dto.AlertClass;
+import com.nnk.springboot.dto.CurvePointDto;
 import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.TradeDto;
+import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.service.ITradeService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -97,18 +99,65 @@ public class TradeController {
         return "redirect:/trade/list";
     }
 
+    /**
+     * Display the Trade update form
+     *
+     * @param id                 the id of the Trade to update
+     * @param model              the model
+     * @param redirectAttributes the redirectAttributes
+     * @return the Trade update page
+     */
     @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
+    public String showUpdateForm(@PathVariable("id") Integer id,
+                                 Model model,
+                                 RedirectAttributes redirectAttributes) {
         log.info("====> GET /trade/update/{} <====", id);
+
+        try {
+            TradeDto tradeDto = tradeService.findById(id);
+            model.addAttribute("tradeDto", tradeDto);
+        } catch (EntityMissingException e) {
+            log.error("====> Error : {} <====", e.getMessage());
+            redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage());
+            return "redirect:/trade/list";
+        }
+
         return "trade/update";
     }
 
+    /**
+     * Update the Trade information
+     *
+     * @param id                 the id of the Trade to update
+     * @param tradeDto           the TradeDto
+     * @param result             the result
+     * @param redirectAttributes the redirectAttributes
+     * @return the Trade list page
+     */
     @PostMapping("/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
-                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
+    public String updateTrade(@PathVariable("id") Integer id,
+                              @Valid TradeDto tradeDto,
+                              BindingResult result,
+                              RedirectAttributes redirectAttributes) {
         log.info("====> POST /trade/update/{} <====", id);
+
+        if (result.hasErrors()) {
+            return "trade/update";
+        }
+
+        String logMessage = "Trade updated successfully";
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Trade updated successfully");
+
+        try {
+            tradeService.update(tradeDto);
+        } catch (EntityMissingException e) {
+            logMessage = e.getMessage();
+            flashMessage = new FlashMessage();
+        }
+
+        log.info("====> {} <====", logMessage);
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+
         return "redirect:/trade/list";
     }
 
