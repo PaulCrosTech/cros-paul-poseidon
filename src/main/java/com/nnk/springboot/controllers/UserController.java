@@ -49,6 +49,7 @@ public class UserController {
      * Display the user list page (except the current user)
      *
      * @param model the model
+     * @param user  the current user
      * @return the user list page
      */
     @GetMapping("/list")
@@ -59,9 +60,11 @@ public class UserController {
         return "user/list";
     }
 
+
     /**
      * Display the form for creating a new user.
      *
+     * @param model the model
      * @return the user add page
      */
     @GetMapping("/add")
@@ -168,10 +171,12 @@ public class UserController {
         return "redirect:/user/list";
     }
 
+
     /**
      * Delete a user
      *
-     * @param id the id of the user to delete
+     * @param id                 the id of the user to delete
+     * @param redirectAttributes the redirect attributes
      * @return redirect to the user list page
      */
     @GetMapping("/delete/{id}")

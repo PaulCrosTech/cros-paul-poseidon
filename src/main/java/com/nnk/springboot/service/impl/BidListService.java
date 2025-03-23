@@ -25,10 +25,12 @@ public class BidListService implements IBidListService {
     private final BidMapper bidMapper;
     private final BidListRepository bidListRepository;
 
+
     /**
      * Constructor
      *
-     * @param bidListRepository the bidListRepository
+     * @param bidListRepository the bidList repository
+     * @param bidMapper         the bid mapper
      */
     public BidListService(BidListRepository bidListRepository,
                           BidMapper bidMapper) {

@@ -9,8 +9,17 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum AlertClass {
+    /**
+     * Alert success alert class.
+     */
     ALERT_SUCCESS("alert-success"),
+    /**
+     * Alert info alert class.
+     */
     ALERT_DANGER("alert-danger"),
+    /**
+     * Alert warning alert class.
+     */
     ALERT_WARNING("alert-warning");
 
     private final String value;

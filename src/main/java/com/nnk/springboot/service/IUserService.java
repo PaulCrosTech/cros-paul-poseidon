@@ -21,10 +21,12 @@ public interface IUserService {
      */
     UserDto findById(Integer id) throws EntityMissingException;
 
+
     /**
      * Find all users except the user with the given username
      *
-     * @return the list of userDto
+     * @param username the username of the user to exclude
+     * @return the list of users
      */
     List<UserDto> findAllExceptUserWithUsername(String username);
 

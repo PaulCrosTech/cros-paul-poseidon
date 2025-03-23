@@ -61,8 +61,8 @@ public class UserService implements IUserService {
     /**
      * Find all users except the user with the given username
      *
-     * @param username the username
-     * @return the list of userDto
+     * @param username the username of the user to exclude
+     * @return the list of users
      */
     @Override
     public List<UserDto> findAllExceptUserWithUsername(String username) {

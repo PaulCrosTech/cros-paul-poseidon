@@ -17,6 +17,9 @@ import org.testcontainers.utility.DockerImageName;
 @AutoConfigureMockMvc
 public abstract class AbstractContainerDB {
 
+    /**
+     * Mock MVC.
+     */
     @Autowired
     protected MockMvc mockMvc;
 
