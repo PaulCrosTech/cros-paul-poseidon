@@ -5,6 +5,7 @@ import com.nnk.springboot.dto.AlertClass;
 import com.nnk.springboot.dto.CurvePointDto;
 import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.RuleDto;
+import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.service.IRuleService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -106,18 +107,67 @@ public class RuleNameController {
         return "redirect:/ruleName/list";
     }
 
+    /**
+     * Display the RuleName update form
+     *
+     * @param id                 the id of the RuleName to update
+     * @param model              the model
+     * @param redirectAttributes the redirectAttributes
+     * @return the RuleName update page
+     */
     @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
+    public String showUpdateForm(@PathVariable("id") Integer id,
+                                 Model model,
+                                 RedirectAttributes redirectAttributes) {
+
         log.info("====> GET /ruleName/update/{} <====", id);
+
+        try {
+            RuleDto ruleDto = ruleService.findById(id);
+            model.addAttribute("ruleDto", ruleDto);
+        } catch (EntityMissingException e) {
+            log.error("====> Error : {} <====", e.getMessage());
+            redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage());
+            return "redirect:/ruleName/list";
+        }
+
         return "ruleName/update";
     }
 
+    /**
+     * Update the RuleName
+     *
+     * @param id                 the id of the RuleName to update
+     * @param ruleDto            the RuleName to update
+     * @param result             the result
+     * @param redirectAttributes the redirectAttributes
+     * @return the RuleName list page
+     */
     @PostMapping("/update/{id}")
-    public String updateRuleName(@PathVariable("id") Integer id, @Valid Rule rule,
-                                 BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update RuleName and return RuleName list
+    public String updateRuleName(@PathVariable("id") Integer id,
+                                 @Valid RuleDto ruleDto,
+                                 BindingResult result,
+                                 RedirectAttributes redirectAttributes) {
+
         log.info("====> POST /ruleName/update/{} <====", id);
+
+        if (result.hasErrors()) {
+            return "ruleName/update";
+        }
+
+        String logMessage = "Rule updated successfully";
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Rule updated successfully");
+
+        try {
+            ruleService.update(ruleDto);
+        } catch (EntityMissingException e) {
+            logMessage = e.getMessage();
+            flashMessage = new FlashMessage();
+        }
+
+        log.info("====> {} <====", logMessage);
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+
         return "redirect:/ruleName/list";
     }
 
