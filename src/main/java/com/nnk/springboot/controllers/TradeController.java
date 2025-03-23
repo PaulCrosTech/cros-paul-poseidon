@@ -1,6 +1,8 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.dto.AlertClass;
+import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.TradeDto;
 import com.nnk.springboot.service.ITradeService;
 import jakarta.validation.Valid;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -54,17 +57,44 @@ public class TradeController {
         return "trade/list";
     }
 
+    /**
+     * Display the Trade add form
+     *
+     * @param model the model
+     * @return the Trade add form
+     */
     @GetMapping("/add")
-    public String addUser(Trade bid) {
+    public String addTrade(Model model) {
         log.info("====> GET /trade/add <====");
+        model.addAttribute("tradeDto", new TradeDto());
         return "trade/add";
     }
 
+    /**
+     * Validate Trade information and save it to the database
+     *
+     * @param tradeDto           the TradeDto
+     * @param result             the result
+     * @param redirectAttributes the redirectAttributes
+     * @return the Trade list page
+     */
     @PostMapping("/validate")
-    public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
+    public String validate(@Valid TradeDto tradeDto,
+                           BindingResult result,
+                           RedirectAttributes redirectAttributes) {
         log.info("====> POST /trade/validate <====");
-        return "trade/add";
+
+        if (result.hasErrors()) {
+            log.debug("====> Form contains error <====");
+            return "trade/add";
+        }
+
+        tradeService.create(tradeDto);
+
+        log.info("====> Trade created successfully <====");
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Trade created successfully");
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+        return "redirect:/trade/list";
     }
 
     @GetMapping("/update/{id}")
