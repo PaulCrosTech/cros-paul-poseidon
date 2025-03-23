@@ -1,8 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.Rule;
 import com.nnk.springboot.dto.AlertClass;
-import com.nnk.springboot.dto.CurvePointDto;
 import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.RuleDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
@@ -171,10 +169,31 @@ public class RuleNameController {
         return "redirect:/ruleName/list";
     }
 
+    /**
+     * Delete the RuleName
+     *
+     * @param id                 the id of the RuleName to delete
+     * @param redirectAttributes the redirectAttributes
+     * @return the RuleName list page
+     */
     @GetMapping("/delete/{id}")
-    public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find RuleName by Id and delete the RuleName, return to RuleName list
+    public String deleteRuleName(@PathVariable("id") Integer id,
+                                 RedirectAttributes redirectAttributes) {
         log.info("====> GET /ruleName/delete/{} <====", id);
+
+        String logMessage = "Rule deleted successfully";
+        FlashMessage flashMessage = new FlashMessage(AlertClass.ALERT_SUCCESS, "Rule deleted successfully");
+
+        try {
+            ruleService.delete(id);
+        } catch (EntityMissingException e) {
+            logMessage = e.getMessage();
+            flashMessage = new FlashMessage();
+        }
+
+        log.info("====> {} <====", logMessage);
+        redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
+
         return "redirect:/ruleName/list";
     }
 }
