@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Rule service
+ */
 @Service
 @Slf4j
 public class RuleServiceService implements IRuleService {

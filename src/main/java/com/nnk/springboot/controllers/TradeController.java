@@ -15,6 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+/**
+ * The Trade controller
+ */
 @Controller
 @Slf4j
 @RequestMapping(path = "/trade")

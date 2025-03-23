@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The interface User repository.
+ * UserRepository
  */
 public interface UserRepository extends JpaRepository<User, Integer> {
 

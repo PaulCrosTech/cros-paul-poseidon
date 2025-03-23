@@ -5,15 +5,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * The Home controller
+ */
 @Controller
 @Slf4j
 public class HomeController {
+
+    /**
+     * Display the home page
+     *
+     * @param model the model
+     * @return the home page
+     */
     @RequestMapping("/")
     public String home(Model model) {
         log.info("====> GET / <====");
         return "home";
     }
 
+    /**
+     * Display the admin home page
+     *
+     * @param model the model
+     * @return the admin home page
+     */
     // TODO : url sécurisée mais non accessible depuis l'interface, voir pour la supprimer si inutile
     @RequestMapping("/admin/home")
     public String adminHome(Model model) {

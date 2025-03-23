@@ -24,8 +24,13 @@ public class RatingService implements IRatingService {
 
     private final RatingMapper ratingMapper;
     private final RatingRepository ratingRepository;
-
-
+    
+    /**
+     * Constructor
+     *
+     * @param ratingMapper     the ratingMapper
+     * @param ratingRepository the ratingRepository
+     */
     public RatingService(RatingMapper ratingMapper,
                          RatingRepository ratingRepository) {
         this.ratingMapper = ratingMapper;
