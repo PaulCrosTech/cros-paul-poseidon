@@ -1,0 +1,91 @@
+package com.nnk.springboot.unit.mapper;
+
+import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.dto.TradeDto;
+import com.nnk.springboot.mapper.TradeMapper;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.factory.Mappers;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/**
+ * TradeMapper unit tests.
+ */
+@ExtendWith(MockitoExtension.class)
+public class TradeMapperTest {
+
+    private Trade trade;
+    private TradeDto tradeDto;
+
+    private static TradeMapper tradeMapper;
+
+    /**
+     * Sets up for all tests.
+     */
+    @BeforeAll
+    public static void setUp() {
+        tradeMapper = Mappers.getMapper(TradeMapper.class);
+    }
+
+
+    /**
+     * Sets up before each test.
+     */
+    @BeforeEach
+    public void setUpPerTest() {
+
+        trade = new Trade();
+        trade.setId(1);
+        trade.setAccount("account");
+        trade.setType("type");
+        trade.setBuyQuantity(1d);
+
+        tradeDto = new TradeDto();
+        tradeDto.setId(1);
+        tradeDto.setAccount("account");
+        tradeDto.setType("type");
+        tradeDto.setBuyQuantity(1d);
+    }
+
+    /**
+     * Test toTradeDto
+     * Given: A Trade
+     * When: toTradeDto
+     * Then: Return a TradeDto
+     */
+    @Test
+    public void givenTrade_whenToTradeDto_thenReturnTradeDto() {
+
+        // When
+        TradeDto tradeDtoActual = tradeMapper.toTradeDto(trade);
+
+        // Then
+        assertEquals(tradeDto.getId(), tradeDtoActual.getId());
+        assertEquals(tradeDto.getAccount(), tradeDtoActual.getAccount());
+        assertEquals(tradeDto.getType(), tradeDtoActual.getType());
+        assertEquals(tradeDto.getBuyQuantity(), tradeDtoActual.getBuyQuantity());
+    }
+
+    /**
+     * Test toTrade
+     * Given: A TradeDto
+     * When: toTrade
+     * Then: Return a Trade
+     */
+    @Test
+    public void givenTradeDto_whenToTrade_thenReturnTrade() {
+
+        // When
+        Trade tradeActual = tradeMapper.toTrade(tradeDto);
+
+        // Then
+        assertEquals(trade.getId(), tradeActual.getId());
+        assertEquals(trade.getAccount(), tradeActual.getAccount());
+        assertEquals(trade.getType(), tradeActual.getType());
+        assertEquals(trade.getBuyQuantity(), tradeActual.getBuyQuantity());
+    }
+}
