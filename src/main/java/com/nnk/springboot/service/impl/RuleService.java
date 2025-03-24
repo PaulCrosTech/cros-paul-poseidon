@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class RuleServiceService implements IRuleService {
+public class RuleService implements IRuleService {
 
     private final RuleNameRepository ruleNameRepository;
     private final RuleMapper ruleMapper;
@@ -29,7 +29,7 @@ public class RuleServiceService implements IRuleService {
      * @param ruleNameRepository the ruleNameRepository
      * @param ruleMapper         the ruleMapper
      */
-    public RuleServiceService(RuleNameRepository ruleNameRepository, RuleMapper ruleMapper) {
+    public RuleService(RuleNameRepository ruleNameRepository, RuleMapper ruleMapper) {
         this.ruleNameRepository = ruleNameRepository;
         this.ruleMapper = ruleMapper;
     }
