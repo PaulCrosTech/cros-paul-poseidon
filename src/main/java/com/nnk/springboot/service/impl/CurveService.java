@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * The Curve service
  */
-@Service
 @Slf4j
+@Service
 public class CurveService implements ICurveService {
 
 

@@ -17,8 +17,8 @@ import java.util.List;
 /**
  * The BidList service
  */
-@Service
 @Slf4j
+@Service
 public class BidListService implements IBidListService {
 
 

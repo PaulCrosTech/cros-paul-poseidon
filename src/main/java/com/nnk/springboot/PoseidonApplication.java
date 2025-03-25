@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * PoseidonApplication Class
  */
-@SpringBootApplication
 @Slf4j
+@SpringBootApplication
 public class PoseidonApplication {
 
     /**

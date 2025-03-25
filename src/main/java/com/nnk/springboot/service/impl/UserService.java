@@ -57,6 +57,20 @@ public class UserService implements IUserService {
         return userMapper.toUserDto(user);
     }
 
+    /**
+     * Find all users
+     *
+     * @return the list of users
+     */
+    @Override
+    public List<UserDto> findAll() {
+        log.debug("====> find all users <====");
+        List<User> users = userRepository.findAll();
+        List<UserDto> userDtos = new ArrayList<>();
+        users.forEach(user -> userDtos.add(userMapper.toUserDto(user)));
+        return userDtos;
+    }
+
 
     /**
      * Find all users except the user with the given username

@@ -23,6 +23,13 @@ public interface IUserService {
 
 
     /**
+     * Find all users
+     *
+     * @return the list of users
+     */
+    List<UserDto> findAll();
+
+    /**
      * Find all users except the user with the given username
      *
      * @param username the username of the user to exclude

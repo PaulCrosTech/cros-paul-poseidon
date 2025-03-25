@@ -1,6 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +16,15 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(path = "/app")
 public class LoginController {
 
-
-    private final UserRepository userRepository;
+    private final IUserService userService;
 
     /**
      * Constructor
      *
-     * @param userRepository userRepository
+     * @param userService the user service
      */
-    public LoginController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public LoginController(IUserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -51,7 +50,7 @@ public class LoginController {
     public ModelAndView getAllUserArticles() {
         log.info("====> GET /app/secure/article-details <====");
         ModelAndView mav = new ModelAndView();
-        mav.addObject("users", userRepository.findAll());
+        mav.addObject("users", userService.findAll());
         mav.setViewName("user/list");
         return mav;
     }

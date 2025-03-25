@@ -72,12 +72,11 @@ public class CurveController {
      * @return the Curve add page
      */
     @GetMapping("/add")
-    public String addBidForm(Model model) {
+    public String addCurveForm(Model model) {
         log.info("====> GET /curvePoint/add <====");
         model.addAttribute("curvePointDto", new CurvePointDto());
         return "curvePoint/add";
     }
-
 
     /**
      * Validate the Curve and save it to the database
@@ -143,10 +142,10 @@ public class CurveController {
      * @return the Curve update page
      */
     @PostMapping("/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id,
-                            @Valid CurvePointDto curvePointDto,
-                            BindingResult result,
-                            RedirectAttributes redirectAttributes) {
+    public String updateCurvePoint(@PathVariable("id") Integer id,
+                                   @Valid CurvePointDto curvePointDto,
+                                   BindingResult result,
+                                   RedirectAttributes redirectAttributes) {
 
         log.info("====> POST /curvePoint/update/{} <====", id);
 
@@ -179,8 +178,8 @@ public class CurveController {
      * @return the Curve list page
      */
     @GetMapping("/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id,
-                            RedirectAttributes redirectAttributes) {
+    public String deleteCurvePoint(@PathVariable("id") Integer id,
+                                   RedirectAttributes redirectAttributes) {
 
         log.info("====> GET /curvePoint/delete/{} <====", id);
 

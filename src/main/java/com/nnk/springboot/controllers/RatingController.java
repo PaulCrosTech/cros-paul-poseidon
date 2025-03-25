@@ -4,7 +4,7 @@ import com.nnk.springboot.dto.AlertClass;
 import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.RatingDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
-import com.nnk.springboot.service.impl.RatingService;
+import com.nnk.springboot.service.IRatingService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -25,14 +25,14 @@ import java.util.List;
 public class RatingController {
 
 
-    private final RatingService ratingService;
+    private final IRatingService ratingService;
 
     /**
      * Constructor
      *
      * @param ratingService the ratingService
      */
-    public RatingController(RatingService ratingService) {
+    public RatingController(IRatingService ratingService) {
         this.ratingService = ratingService;
     }
 

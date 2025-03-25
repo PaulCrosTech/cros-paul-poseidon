@@ -5,7 +5,6 @@ import com.nnk.springboot.dto.BidDto;
 import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.service.IBidListService;
-import com.nnk.springboot.service.impl.BidListService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -33,7 +32,7 @@ public class BidListController {
      *
      * @param bidListService the bidListService
      */
-    public BidListController(BidListService bidListService) {
+    public BidListController(IBidListService bidListService) {
         this.bidListService = bidListService;
     }
 
