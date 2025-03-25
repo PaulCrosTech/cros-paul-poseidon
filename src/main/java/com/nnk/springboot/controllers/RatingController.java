@@ -52,7 +52,7 @@ public class RatingController {
      * @param model the model
      * @return the Rating list page
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public String home(Model model) {
         log.info("====> GET /rating/list <====");
 

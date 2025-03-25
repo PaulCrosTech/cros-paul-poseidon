@@ -52,7 +52,7 @@ public class RuleNameController {
      * @param model the model
      * @return the RuleName list page
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public String home(Model model) {
         log.info("====> GET /ruleName/list <====");
 

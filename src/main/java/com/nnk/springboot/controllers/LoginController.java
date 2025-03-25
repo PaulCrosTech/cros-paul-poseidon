@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @Slf4j
-@RequestMapping("app")
+@RequestMapping(path = "/app")
 public class LoginController {
 
 

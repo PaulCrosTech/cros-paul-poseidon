@@ -53,7 +53,7 @@ public class CurveController {
      * @param model the model
      * @return the Curve list page
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public String home(Model model) {
         log.info("====> GET /curvePoint/list <====");
 

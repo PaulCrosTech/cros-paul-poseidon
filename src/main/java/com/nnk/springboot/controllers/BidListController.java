@@ -53,7 +53,7 @@ public class BidListController {
      * @param model the model
      * @return the bid list page
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public String home(Model model) {
         log.info("====> GET /bidList/list <====");
 

@@ -3,7 +3,7 @@ package com.nnk.springboot.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * The Home controller
@@ -18,7 +18,7 @@ public class HomeController {
      * @param model the model
      * @return the home page
      */
-    @RequestMapping("/")
+    @GetMapping("/")
     public String home(Model model) {
         log.info("====> GET / <====");
         return "home";
@@ -31,7 +31,7 @@ public class HomeController {
      * @return the admin home page
      */
     // TODO : url sécurisée mais non accessible depuis l'interface, voir pour la supprimer si inutile
-    @RequestMapping("/admin/home")
+    @GetMapping("/admin/home")
     public String adminHome(Model model) {
         log.info("====> GET /admin/home redirect to /bidList/list <====");
         return "redirect:/bidList/list";
