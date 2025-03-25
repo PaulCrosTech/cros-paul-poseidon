@@ -1,6 +1,7 @@
 package com.nnk.springboot.unit.service;
 
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.dto.BidDto;
 import com.nnk.springboot.dto.UserDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
@@ -15,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +48,26 @@ public class IUserServiceTest {
     public void setUp() {
         userService = new UserService(userRepository, bCryptPasswordEncoder, userMapper);
     }
+
+
+    /**
+     * Test findAll
+     * Given: A list of user
+     * When: findAll
+     * Then: Return the UserDto list
+     */
+    @Test
+    public void givenUserList_whenFindAll_thenReturnUserListDto() {
+        // Given
+        when(userRepository.findAll()).thenReturn(List.of());
+
+        // When
+        List<UserDto> userDtoActual = userService.findAll();
+
+        // Then
+        assertEquals(0, userDtoActual.size());
+    }
+
 
     /**
      * Test findById
