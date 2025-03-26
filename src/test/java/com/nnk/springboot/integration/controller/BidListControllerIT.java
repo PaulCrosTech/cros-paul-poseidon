@@ -35,9 +35,10 @@ public class BidListControllerIT extends AbstractContainerDB {
     @Autowired
     private BidListRepository bidListRepository;
 
+
     /**
-     * Récupère le dernier Bid crée en base de données
-     * Méthode utilitaire
+     * Get the last Bid created in the database
+     * Utility method
      *
      * @return Bid or null
      */
