@@ -86,6 +86,7 @@ public class TradeControllerIT extends AbstractContainerDB {
         assertEquals(tradeDto.getAccount(), tradeCreated.getAccount());
         assertEquals(tradeDto.getType(), tradeCreated.getType());
         assertEquals(tradeDto.getBuyQuantity(), tradeCreated.getBuyQuantity());
+        assertNotNull(tradeCreated.getCreationDate());
     }
 
     /**
@@ -130,6 +131,7 @@ public class TradeControllerIT extends AbstractContainerDB {
         assertEquals(account, tradeUpdated.getAccount());
         assertEquals(type, tradeUpdated.getType());
         assertEquals(Double.valueOf(buyQuantity), tradeUpdated.getBuyQuantity());
+        assertEquals(trade.getCreationDate(), tradeUpdated.getCreationDate());
 
     }
 

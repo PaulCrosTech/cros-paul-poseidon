@@ -115,28 +115,28 @@ INSERT INTO `bid_list` (`bid_id`, `account`, `ask`, `ask_quantity`, `benchmark`,
                         `book`, `commentary`, `creation_date`, `creation_name`, `deal_name`, `deal_type`,
                         `revision_date`, `revision_name`, `security`, `side`, `source_list_id`, `status`, `trader`,
                         `type`)
-VALUES (19, 'Account 1', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+VALUES (19, 'Account 1', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NOW(), NULL, NULL, NULL, NULL, NULL, NULL, NULL,
         NULL, NULL, NULL, 'Type 1');
 INSERT INTO `bid_list` (`bid_id`, `account`, `ask`, `ask_quantity`, `benchmark`, `bid`, `bid_list_date`, `bid_quantity`,
                         `book`, `commentary`, `creation_date`, `creation_name`, `deal_name`, `deal_type`,
                         `revision_date`, `revision_name`, `security`, `side`, `source_list_id`, `status`, `trader`,
                         `type`)
-VALUES (20, 'Account 2', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+VALUES (20, 'Account 2', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NOW(), NULL, NULL, NULL, NULL, NULL, NULL, NULL,
         NULL, NULL, NULL, 'Type 2');
 INSERT INTO `bid_list` (`bid_id`, `account`, `ask`, `ask_quantity`, `benchmark`, `bid`, `bid_list_date`, `bid_quantity`,
                         `book`, `commentary`, `creation_date`, `creation_name`, `deal_name`, `deal_type`,
                         `revision_date`, `revision_name`, `security`, `side`, `source_list_id`, `status`, `trader`,
                         `type`)
-VALUES (21, 'Account 3', NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+VALUES (21, 'Account 3', NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NOW(), NULL, NULL, NULL, NULL, NULL, NULL, NULL,
         NULL, NULL, NULL, 'Type 3');
 
 
 INSERT INTO `curve_point` (`curve_point_id`, `as_of_date`, `creation_date`, `curve_id`, `term`, `value`)
-VALUES (1, NULL, NULL, 10, 11, 12);
+VALUES (1, NULL, NOW(), 10, 11, 12);
 INSERT INTO `curve_point` (`curve_point_id`, `as_of_date`, `creation_date`, `curve_id`, `term`, `value`)
-VALUES (2, NULL, NULL, 20, 21, 22);
+VALUES (2, NULL, NOW(), 20, 21, 22);
 INSERT INTO `curve_point` (`curve_point_id`, `as_of_date`, `creation_date`, `curve_id`, `term`, `value`)
-VALUES (6, NULL, NULL, 30, 31, 32);
+VALUES (6, NULL, NOW(), 30, 31, 32);
 
 
 INSERT INTO `rating` (`rating_id`, `fitch_rating`, `moodys_rating`, `order_number`, `sand_p_rating`)
@@ -156,15 +156,15 @@ VALUES (4, 'Desc 3', 'Json 3', 'Name 3', 'SQL PART 3', 'SQL STR 3', 'T 3');
 INSERT INTO `trade` (`trade_id`, `account`, `benchmark`, `book`, `buy_price`, `buy_quantity`, `creation_date`,
                      `creation_name`, `deal_name`, `deal_type`, `revision_date`, `revision_name`, `security`,
                      `sell_price`, `sell_quantity`, `side`, `source_list_id`, `status`, `trade_date`, `trader`, `type`)
-VALUES (1, 'T Account 1', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+VALUES (1, 'T Account 1', NULL, NULL, NULL, 1, NOW(), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
         NULL, NULL, 'T Type 1');
 INSERT INTO `trade` (`trade_id`, `account`, `benchmark`, `book`, `buy_price`, `buy_quantity`, `creation_date`,
                      `creation_name`, `deal_name`, `deal_type`, `revision_date`, `revision_name`, `security`,
                      `sell_price`, `sell_quantity`, `side`, `source_list_id`, `status`, `trade_date`, `trader`, `type`)
-VALUES (3, 'T Account 2', NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+VALUES (3, 'T Account 2', NULL, NULL, NULL, 2, NOW(), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
         NULL, NULL, 'T Type 2');
 INSERT INTO `trade` (`trade_id`, `account`, `benchmark`, `book`, `buy_price`, `buy_quantity`, `creation_date`,
                      `creation_name`, `deal_name`, `deal_type`, `revision_date`, `revision_name`, `security`,
                      `sell_price`, `sell_quantity`, `side`, `source_list_id`, `status`, `trade_date`, `trader`, `type`)
-VALUES (4, 'T Account 3', NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+VALUES (4, 'T Account 3', NULL, NULL, NULL, 3, NOW(), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
         NULL, NULL, 'T Type 3');

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +78,9 @@ public class TradeService implements ITradeService {
     public void create(TradeDto tradeDto) {
         log.debug("====> creating a new trade <====");
 
-        tradeRepository.save(tradeMapper.toTrade(tradeDto));
+        Trade trade = tradeMapper.toTrade(tradeDto);
+        trade.setCreationDate(Instant.now());
+        tradeRepository.save(trade);
 
         log.debug("====> trade created <====");
     }
