@@ -37,11 +37,13 @@ public class CurveMapperTest {
     @BeforeEach
     public void beforeEach() {
         curvePointDto = new CurvePointDto();
+        curvePointDto.setCurveId(127);
         curvePointDto.setId(1);
         curvePointDto.setTerm(1d);
         curvePointDto.setValue(1d);
 
         curvePoint = new CurvePoint();
+        curvePoint.setCurveId(127);
         curvePoint.setId(1);
         curvePoint.setTerm(1d);
         curvePoint.setValue(1d);
@@ -60,6 +62,7 @@ public class CurveMapperTest {
         CurvePointDto curvePointDtoActual = curveMapper.toCurvePointDto(curvePoint);
 
         // Then
+        assertEquals(curvePointDto.getCurveId(), curvePointDtoActual.getCurveId());
         assertEquals(curvePoint.getId(), curvePointDtoActual.getId());
         assertEquals(curvePoint.getTerm(), curvePointDtoActual.getTerm());
         assertEquals(curvePoint.getValue(), curvePointDtoActual.getValue());
@@ -80,6 +83,7 @@ public class CurveMapperTest {
         CurvePoint curvePointExpected = curveMapper.toCurvePoint(curvePointDto);
 
         // Then
+        assertEquals(curvePoint.getCurveId(), curvePointExpected.getCurveId());
         assertEquals(curvePoint.getId(), curvePointExpected.getId());
         assertEquals(curvePoint.getTerm(), curvePointExpected.getTerm());
         assertEquals(curvePoint.getValue(), curvePointExpected.getValue());

@@ -60,10 +60,16 @@ public class SpringSecurityConfig {
                         .logoutSuccessUrl("/app/login")
                         .permitAll()
                 )
-                // TODO : Gestion erreur 403 - possibilité de remplacer par le méthode standard de spring security (cf. LoginController)
+                // TODO : Gestion erreur 403 - possibilité de remplacer par la méthode standard de spring security (cf. LoginController)
                 .exceptionHandling(
                         exception -> exception
                                 .accessDeniedPage("/app/error")
+                )
+                // TODO : regarder ce que je peux faire pour améliorer la sécurité
+                .sessionManagement(
+                        session -> session
+                                .maximumSessions(1)
+                                .maxSessionsPreventsLogin(true)
                 )
                 .build();
     }

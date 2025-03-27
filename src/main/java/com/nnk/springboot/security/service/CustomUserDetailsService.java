@@ -63,7 +63,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      * @return List<GrantedAuthority>
      */
     private List<GrantedAuthority> getGrantedAuthorities(String role) {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
         return authorities;
     }

@@ -60,7 +60,7 @@ public class CurveController {
         List<CurvePointDto> curvePointList = curveService.findAll();
         model.addAttribute("curvePointList", curvePointList);
 
-        // TODO : dans le template ci après, ce ne serait pas plutôt : crudPoint.curveId ?
+        // TODO : rajouter dans le ADD et UPDATE le champ CurvePointID + TD et TI
         return "curvePoint/list";
     }
 

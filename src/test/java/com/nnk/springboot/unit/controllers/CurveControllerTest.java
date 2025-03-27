@@ -74,6 +74,7 @@ public class CurveControllerTest {
 
         // Given
         CurvePointDto curvePointDto = new CurvePointDto();
+        curvePointDto.setCurveId(127);
         curvePointDto.setTerm(1d);
         curvePointDto.setValue(1d);
 
@@ -81,6 +82,7 @@ public class CurveControllerTest {
         ResultActions resultActions = mockMvc.perform(
                 post("/curvePoint/validate")
                         .with(csrf().asHeader())
+                        .param("curveId", curvePointDto.getCurveId().toString())
                         .param("term", curvePointDto.getTerm().toString())
                         .param("value", curvePointDto.getValue().toString())
         );
@@ -108,6 +110,7 @@ public class CurveControllerTest {
         ResultActions resultActions = mockMvc.perform(
                 post("/curvePoint/validate")
                         .with(csrf().asHeader())
+                        .param("curveId", "")
                         .param("term", "")
                         .param("value", ""));
 
@@ -184,6 +187,7 @@ public class CurveControllerTest {
         ResultActions resultActions = mockMvc.perform(
                 post("/curvePoint/update/1")
                         .with(csrf().asHeader())
+                        .param("curveId", "127")
                         .param("term", "1d")
                         .param("value", "2d"));
 
@@ -209,6 +213,7 @@ public class CurveControllerTest {
         ResultActions resultActions = mockMvc.perform(
                 post("/curvePoint/update/1")
                         .with(csrf().asHeader())
+                        .param("curveId", "")
                         .param("term", "")
                         .param("value", ""));
 
@@ -238,6 +243,7 @@ public class CurveControllerTest {
         ResultActions resultActions = mockMvc.perform(
                 post("/curvePoint/update/1")
                         .with(csrf().asHeader())
+                        .param("curveId", "127")
                         .param("term", "1d")
                         .param("value", "2d"));
 

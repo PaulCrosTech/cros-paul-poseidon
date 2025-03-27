@@ -73,6 +73,7 @@ public class ICurveServiceTest {
         // Given
         CurvePointDto curvePointDto = new CurvePointDto();
         curvePointDto.setId(1);
+        curvePointDto.setCurveId(127);
         curvePointDto.setTerm(10d);
         curvePointDto.setValue(5d);
 

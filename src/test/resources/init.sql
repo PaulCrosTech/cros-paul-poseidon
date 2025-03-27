@@ -132,11 +132,11 @@ VALUES (21, 'Account 3', NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL
 
 
 INSERT INTO `curve_point` (`curve_point_id`, `as_of_date`, `creation_date`, `curve_id`, `term`, `value`)
-VALUES (1, NULL, NULL, NULL, 11, 12);
+VALUES (1, NULL, NULL, 10, 11, 12);
 INSERT INTO `curve_point` (`curve_point_id`, `as_of_date`, `creation_date`, `curve_id`, `term`, `value`)
-VALUES (2, NULL, NULL, NULL, 21, 22);
+VALUES (2, NULL, NULL, 20, 21, 22);
 INSERT INTO `curve_point` (`curve_point_id`, `as_of_date`, `creation_date`, `curve_id`, `term`, `value`)
-VALUES (6, NULL, NULL, NULL, 31, 32);
+VALUES (6, NULL, NULL, 30, 31, 32);
 
 
 INSERT INTO `rating` (`rating_id`, `fitch_rating`, `moodys_rating`, `order_number`, `sand_p_rating`)

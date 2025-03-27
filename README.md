@@ -1,30 +1,80 @@
-# spring-boot
+# Poseidon - Capital Solutions
 
-## Technical:
+## Description
 
-1. Spring Boot 3.1.0
-2. Java 17
-3. Thymeleaf
-4. Bootstrap v.4.3.1
+The application is a financial aggregator that integrates various market tools to process financial transactions.
 
-## Setup with Intellij IDE
+## Getting Started
 
-1. Create project from Initializr: File > New > project > Spring Initializr
-2. Add lib repository into pom.xml
-3. Add folders
-    - Source root: src/main/java
-    - View: src/main/resources
-    - Static: src/main/resource/static
-4. Create database with name "demo" as configuration in application.properties
-5. Run sql script to create table doc/data.sql
+These instructions will get you a copy of the project up and running on your local machine for development and testing
+purposes.
 
-## Implement a Feature
+### Prerequisites
 
-1. Create mapping domain class and place in package com.nnk.springboot.domain
-2. Create repository class and place in package com.nnk.springboot.repositories
-3. Create controller class and place in package com.nnk.springboot.controllers
+What things you need to install the software and how to install them :
 
-## Security
+- Java 21
+- Maven 3.9.9
+- MySQL 8.x
+- Docker (only for running integration tests)
 
-1. Create user service to load user from database and place in package com.nnk.springboot.services
-2. Add configuration class and place in package com.nnk.springboot.config
+### Installing
+
+1.Install Java:  
+https://docs.oracle.com/en/java/javase/21/install/overview-jdk-installation.html
+
+2.Install Maven:  
+https://maven.apache.org/install.html
+
+3.Install MySQL:  
+https://dev.mysql.com/downloads/
+
+4.Install Docker: (only for integration tests)  
+https://www.docker.com/get-started/
+
+### Configuration
+
+Copy and rename the "/src/main/ressources/script/.env.template" file into the projet directory as "/.env".  
+In the ".env" file you have to :
+
+- configure your MySQL connection
+
+There is two profiles available in the "application.properties" file : "dev" and "prod",
+by default the application is set to "dev" mode.
+
+### Database Scripts
+
+Hibernate will automatically create the database schema if it does not exist.  
+The schema is also available in the SQL file "/src/main/resources/script/db_schema.sql".
+
+In order to create the default user, you can use the file "/src/main/resources/script/create_admin.sql".
+
+- username : admin.admin
+- password : Password@1
+
+Please, for security, create a new admin after first connection and delete the default one.
+
+### Run the application
+
+To run the application, you can :
+
+- use the command : `mvn spring-boot:run`
+- run the main class : `PoseidonApplication.java`
+
+Then go to the URL http://localhost:8080/
+
+## Database MPD
+
+![MDP Schema](/src/main/resources/documentation/MPD.png)
+
+## Testing
+
+To run the tests from maven, go to the folder that contains the pom.xml file and execute the below command.
+
+For unit tests and reports : `mvn clean test site`
+
+For unit, integration tests and reports :  `mvn clean verify site`  
+Integration tests used TestContainer, so don't forget to start your docker first (https://testcontainers.com/).
+
+Surefire, JaCoCo, JavaDoc reporting are available in the project directory : "/target/site/index.html"
+

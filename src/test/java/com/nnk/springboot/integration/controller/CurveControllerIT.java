@@ -66,6 +66,7 @@ public class CurveControllerIT extends AbstractContainerDB {
 
         // Given
         CurvePointDto curvePointDto = new CurvePointDto();
+        curvePointDto.setCurveId(100);
         curvePointDto.setTerm(111d);
         curvePointDto.setValue(222d);
 
@@ -73,6 +74,7 @@ public class CurveControllerIT extends AbstractContainerDB {
         ResultActions resultActions = mockMvc.perform(
                 post("/curvePoint/validate")
                         .with(csrf().asHeader())
+                        .param("curveId", curvePointDto.getCurveId().toString())
                         .param("term", curvePointDto.getTerm().toString())
                         .param("value", curvePointDto.getValue().toString()));
 
@@ -82,8 +84,10 @@ public class CurveControllerIT extends AbstractContainerDB {
 
         CurvePoint curvePointCreated = getLastCurvePoint();
         assertNotNull(curvePointCreated);
+        assertEquals(curvePointDto.getCurveId(), curvePointCreated.getCurveId());
         assertEquals(curvePointDto.getTerm(), curvePointCreated.getTerm());
         assertEquals(curvePointDto.getValue(), curvePointCreated.getValue());
+        assertNotNull(curvePointCreated.getCreationDate());
     }
 
     /**
@@ -103,6 +107,7 @@ public class CurveControllerIT extends AbstractContainerDB {
         if (curvePoint == null) {
             throw new AssertionError("No Curve Point found");
         }
+        Integer curveId = 127;
         Double term = 666d;
         Double value = 999d;
 
@@ -110,6 +115,7 @@ public class CurveControllerIT extends AbstractContainerDB {
         ResultActions resultActions = mockMvc.perform(
                 post("/curvePoint/update/" + curvePoint.getId())
                         .with(csrf().asHeader())
+                        .param("curveId", curveId.toString())
                         .param("term", term.toString())
                         .param("value", value.toString()));
 
@@ -122,8 +128,10 @@ public class CurveControllerIT extends AbstractContainerDB {
                 .findById(curvePoint.getId())
                 .orElseThrow(() -> new AssertionError("No Curve Point found"));
 
+        assertEquals(curveId, curvePointUpdated.getCurveId());
         assertEquals(term, curvePointUpdated.getTerm());
         assertEquals(value, curvePointUpdated.getValue());
+        assertEquals(curvePoint.getCreationDate(), curvePointUpdated.getCreationDate());
 
     }
 

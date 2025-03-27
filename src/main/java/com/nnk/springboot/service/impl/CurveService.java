@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +81,9 @@ public class CurveService implements ICurveService {
     public void create(CurvePointDto curvePointDto) {
         log.debug("====> creating a new curve point <====");
 
-        curvePointRepository.save(curveMapper.toCurvePoint(curvePointDto));
+        CurvePoint curvePoint = curveMapper.toCurvePoint(curvePointDto);
+        curvePoint.setCreationDate(Instant.now());
+        curvePointRepository.save(curvePoint);
 
         log.debug("====> curve point created <====");
 
@@ -104,6 +107,7 @@ public class CurveService implements ICurveService {
 
         curvePoint.setTerm(curvePointDto.getTerm());
         curvePoint.setValue(curvePointDto.getValue());
+        curvePoint.setCurveId(curvePointDto.getCurveId());
         curvePointRepository.save(curvePoint);
         log.debug("====> curve point updated <====");
     }
