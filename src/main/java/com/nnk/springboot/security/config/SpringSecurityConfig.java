@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 /**
  * Spring security configuration
@@ -29,6 +30,16 @@ public class SpringSecurityConfig {
     public SpringSecurityConfig(CustomUserDetailsService customUserDetailsService) {
         log.info("====> Loading Spring Security Configuration<====");
         this.customUserDetailsService = customUserDetailsService;
+    }
+
+    /**
+     * HttpSessionEventPublisher
+     *
+     * @return HttpSessionEventPublisher
+     */
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 
     /**
@@ -55,6 +66,11 @@ public class SpringSecurityConfig {
                                 .defaultSuccessUrl("/", true)
                                 .permitAll()
                 )
+                .sessionManagement(session -> session
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false)
+                        .expiredUrl("/app/login?errorSession")
+                )
                 .logout(form -> form
                         .logoutUrl("/app/logout")
                         .logoutSuccessUrl("/app/login")
@@ -64,12 +80,6 @@ public class SpringSecurityConfig {
                 .exceptionHandling(
                         exception -> exception
                                 .accessDeniedPage("/app/error")
-                )
-                // TODO : regarder ce que je peux faire pour améliorer la sécurité
-                .sessionManagement(
-                        session -> session
-                                .maximumSessions(1)
-                                .maxSessionsPreventsLogin(true)
                 )
                 .build();
     }

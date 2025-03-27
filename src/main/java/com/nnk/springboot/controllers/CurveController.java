@@ -59,8 +59,7 @@ public class CurveController {
 
         List<CurvePointDto> curvePointList = curveService.findAll();
         model.addAttribute("curvePointList", curvePointList);
-
-        // TODO : rajouter dans le ADD et UPDATE le champ CurvePointID + TD et TI
+        
         return "curvePoint/list";
     }
 

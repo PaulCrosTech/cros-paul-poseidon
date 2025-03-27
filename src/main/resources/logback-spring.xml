@@ -43,6 +43,13 @@
         <appender-ref ref="FILE"/>
     </logger>
 
+    <!-- Logger : Spring Security -->
+    <logger name="org.springframework.security" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+
     <!-- Logger : pour tout le reste -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
