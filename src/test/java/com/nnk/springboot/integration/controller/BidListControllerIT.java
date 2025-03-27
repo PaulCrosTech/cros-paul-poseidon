@@ -87,6 +87,7 @@ public class BidListControllerIT extends AbstractContainerDB {
         assertEquals(bidDto.getAccount(), bidCreated.getAccount());
         assertEquals(bidDto.getType(), bidCreated.getType());
         assertEquals(bidDto.getBidQuantity(), bidCreated.getBidQuantity());
+        assertNotNull(bidCreated.getCreationDate());
     }
 
     /**
@@ -130,6 +131,7 @@ public class BidListControllerIT extends AbstractContainerDB {
         assertEquals(account, bidUpdated.getAccount());
         assertEquals(type, bidUpdated.getType());
         assertEquals(Double.valueOf(bidQuantity), bidUpdated.getBidQuantity());
+        assertEquals(bid.getCreationDate(), bidUpdated.getCreationDate());
 
     }
 

@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +84,9 @@ public class BidListService implements IBidListService {
     public void create(BidDto bidDto) {
         log.debug("====> creating a new bid <====");
 
-        bidListRepository.save(bidMapper.toBid(bidDto));
+        Bid bid = bidMapper.toBid(bidDto);
+        bid.setCreationDate(Instant.now());
+        bidListRepository.save(bid);
 
         log.debug("====> bid created <====");
 
