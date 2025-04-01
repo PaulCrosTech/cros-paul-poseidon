@@ -5,7 +5,7 @@ import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.UserDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
-import com.nnk.springboot.service.IUserService;
+import com.nnk.springboot.service.impl.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,14 +24,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(path = "/user")
 public class UserController {
 
-    private final IUserService userService;
+    private final UserService userService;
 
     /**
      * Constructor
      *
      * @param userService the user service
      */
-    public UserController(IUserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 

@@ -4,7 +4,7 @@ import com.nnk.springboot.dto.AlertClass;
 import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.TradeDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
-import com.nnk.springboot.service.ITradeService;
+import com.nnk.springboot.service.impl.TradeService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,14 +24,14 @@ import java.util.List;
 public class TradeController {
 
 
-    private final ITradeService tradeService;
+    private final TradeService tradeService;
 
     /**
      * Constructor
      *
      * @param tradeService the Trade service
      */
-    public TradeController(ITradeService tradeService) {
+    public TradeController(TradeService tradeService) {
         this.tradeService = tradeService;
     }
 

@@ -9,9 +9,8 @@ import org.mapstruct.Mapping;
  * User Mapper
  */
 @Mapper(componentModel = "spring")
-public interface UserMapper {
-
-
+public interface UserMapper extends IMapper<User, UserDto> {
+    
     /**
      * UserDto To User
      *
@@ -19,7 +18,7 @@ public interface UserMapper {
      * @return the user
      */
     @Mapping(target = "password", ignore = true)
-    User toUser(UserDto userDto);
+    User toDomain(UserDto userDto);
 
     /**
      * User to UserDto
@@ -28,5 +27,5 @@ public interface UserMapper {
      * @return the userDto
      */
     @Mapping(target = "password", ignore = true)
-    UserDto toUserDto(User user);
+    UserDto toDto(User user);
 }

@@ -1,16 +1,16 @@
 package com.nnk.springboot.dto;
 
-
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 /**
  * The Rule Dto
  */
-@Data
-public class RuleDto {
+@Getter
+@Setter
+public class RuleDto extends AbstractDto {
 
-    private Integer id;
 
     @Length(min = 1, max = 125, message = "Name should be between 1 and 125 characters")
     private String name;

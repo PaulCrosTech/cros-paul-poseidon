@@ -4,7 +4,7 @@ import com.nnk.springboot.dto.AlertClass;
 import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.dto.RuleDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
-import com.nnk.springboot.service.IRuleService;
+import com.nnk.springboot.service.impl.RuleService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -25,14 +25,14 @@ import java.util.List;
 public class RuleNameController {
 
 
-    private final IRuleService ruleService;
+    private final RuleService ruleService;
 
     /**
      * Constructor
      *
      * @param ruleService the ruleService
      */
-    public RuleNameController(IRuleService ruleService) {
+    public RuleNameController(RuleService ruleService) {
         this.ruleService = ruleService;
     }
 

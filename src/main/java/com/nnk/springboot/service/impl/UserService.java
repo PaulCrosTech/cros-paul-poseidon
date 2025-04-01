@@ -2,12 +2,12 @@ package com.nnk.springboot.service.impl;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.dto.UserDto;
-import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
 import com.nnk.springboot.mapper.UserMapper;
 import com.nnk.springboot.repositories.UserRepository;
-import com.nnk.springboot.service.IUserService;
+import com.nnk.springboot.service.AbstractCrudService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,57 +20,24 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class UserService implements IUserService {
+public class UserService extends AbstractCrudService<User, UserDto> {
 
-
-    private final UserMapper userMapper;
-    private final UserRepository userRepository;
+    private final UserRepository repository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * Constructor
      *
-     * @param userRepository        the user repository
-     * @param bCryptPasswordEncoder the BCryptPasswordEncoder
-     * @param userMapper            the user mapper
+     * @param mapper     the mapper
+     * @param repository the repository
      */
-    public UserService(UserRepository userRepository,
-                       BCryptPasswordEncoder bCryptPasswordEncoder,
-                       UserMapper userMapper) {
-        this.userRepository = userRepository;
+    public UserService(@Qualifier("userMapperImpl") UserMapper mapper,
+                       UserRepository repository,
+                       BCryptPasswordEncoder bCryptPasswordEncoder) {
+        super(mapper, repository);
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.userMapper = userMapper;
+        this.repository = repository;
     }
-
-    /**
-     * Find user by id
-     *
-     * @param id the id of the user
-     * @return the userDto
-     * @throws EntityMissingException if the user is not found
-     */
-    @Override
-    public UserDto findById(Integer id) throws EntityMissingException {
-        log.debug("====> find user by user id {} <====", id);
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityMissingException("User not found with id : " + id));
-        return userMapper.toUserDto(user);
-    }
-
-    /**
-     * Find all users
-     *
-     * @return the list of users
-     */
-    @Override
-    public List<UserDto> findAll() {
-        log.debug("====> find all users <====");
-        List<User> users = userRepository.findAll();
-        List<UserDto> userDtos = new ArrayList<>();
-        users.forEach(user -> userDtos.add(userMapper.toUserDto(user)));
-        return userDtos;
-    }
-
 
     /**
      * Find all users except the user with the given username
@@ -78,12 +45,11 @@ public class UserService implements IUserService {
      * @param username the username of the user to exclude
      * @return the list of users
      */
-    @Override
     public List<UserDto> findAllExceptUserWithUsername(String username) {
         log.debug("====> find all users except the user with username '{}' <====", username);
-        List<User> users = userRepository.findAllByUsernameNot(username);
+        List<User> users = repository.findAllByUsernameNot(username);
         List<UserDto> userDtos = new ArrayList<>();
-        users.forEach(user -> userDtos.add(userMapper.toUserDto(user)));
+        users.forEach(user -> userDtos.add(mapper.toDto(user)));
         return userDtos;
     }
 
@@ -98,13 +64,13 @@ public class UserService implements IUserService {
     public void create(UserDto userDto) throws UserWithSameUserNameExistsException {
         log.debug("====> creating new user {} <====", userDto.getUsername());
 
-        if (userRepository.existsByUsername(userDto.getUsername())) {
+        if (repository.existsByUsername(userDto.getUsername())) {
             throw new UserWithSameUserNameExistsException(userDto.getUsername());
         }
 
-        User user = userMapper.toUser(userDto);
+        User user = mapper.toDomain(userDto);
         user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
-        userRepository.save(user);
+        repository.save(user);
         log.debug("====> user created <====");
 
     }
@@ -120,31 +86,15 @@ public class UserService implements IUserService {
     public void update(UserDto userDto) throws UserWithSameUserNameExistsException {
         log.debug("====> update the user with id {} <====", userDto.getId());
 
-        if (userRepository.existsByUsernameAndIdNot(userDto.getUsername(), userDto.getId())) {
+        if (repository.existsByUsernameAndIdNot(userDto.getUsername(), userDto.getId())) {
             throw new UserWithSameUserNameExistsException(userDto.getUsername());
         }
 
-        User user = userMapper.toUser(userDto);
+        User user = mapper.toDomain(userDto);
         user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
-        userRepository.save(user);
+        repository.save(user);
         log.debug("====> user updated <====");
     }
 
-
-    /**
-     * Delete a user
-     *
-     * @param id the id of the user to delete
-     * @throws EntityMissingException if the user is not found
-     */
-    @Transactional
-    @Override
-    public void delete(Integer id) throws EntityMissingException {
-        User user = userRepository.findById(id)
-                .orElseThrow(
-                        () -> new EntityMissingException("Invalid user Id:" + id)
-                );
-        userRepository.delete(user);
-    }
 
 }

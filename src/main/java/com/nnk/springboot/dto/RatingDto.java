@@ -3,16 +3,17 @@ package com.nnk.springboot.dto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 /**
  * The Rating DTO
  */
-@Data
-public class RatingDto {
+@Getter
+@Setter
+public class RatingDto extends AbstractDto {
 
-    private Integer id;
 
     @Length(min = 1, max = 125, message = "Moodys Rating should be between 1 and 125 characters")
     private String moodysRating;

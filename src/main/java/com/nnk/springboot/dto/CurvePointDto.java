@@ -4,15 +4,15 @@ import com.nnk.springboot.validators.annotations.ValidNotNullAndPositive;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The CurveDto class
  */
-@Data
-public class CurvePointDto {
-
-    private Integer id;
+@Getter
+@Setter
+public class CurvePointDto extends AbstractDto {
 
     @NotNull(message = "CurvePoint Id number is mandatory, between -127 and 127")
     @Min(value = -127, message = "CurvePoint Id number should be between -127 and 127")

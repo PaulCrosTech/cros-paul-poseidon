@@ -5,16 +5,16 @@ import com.nnk.springboot.validators.annotations.ValidFullname;
 import com.nnk.springboot.validators.annotations.ValidPassword;
 import com.nnk.springboot.validators.annotations.ValidRole;
 import com.nnk.springboot.validators.annotations.ValidUsername;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * DTO for user
  */
-@Data
-public class UserDto {
-
-    private Integer id;
-
+@Getter
+@Setter
+public class UserDto extends AbstractDto {
+    
     @ValidUsername
     private String username;
 

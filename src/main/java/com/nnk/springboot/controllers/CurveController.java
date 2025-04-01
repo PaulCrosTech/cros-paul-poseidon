@@ -4,7 +4,7 @@ import com.nnk.springboot.dto.AlertClass;
 import com.nnk.springboot.dto.CurvePointDto;
 import com.nnk.springboot.dto.FlashMessage;
 import com.nnk.springboot.exceptions.EntityMissingException;
-import com.nnk.springboot.service.ICurveService;
+import com.nnk.springboot.service.impl.CurveService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,14 +24,14 @@ import java.util.List;
 public class CurveController {
 
 
-    private final ICurveService curveService;
+    private final CurveService curveService;
 
     /**
      * Constructor
      *
      * @param curveService the curveService
      */
-    public CurveController(ICurveService curveService) {
+    public CurveController(CurveService curveService) {
         this.curveService = curveService;
 
     }
@@ -59,7 +59,7 @@ public class CurveController {
 
         List<CurvePointDto> curvePointList = curveService.findAll();
         model.addAttribute("curvePointList", curvePointList);
-        
+
         return "curvePoint/list";
     }
 
