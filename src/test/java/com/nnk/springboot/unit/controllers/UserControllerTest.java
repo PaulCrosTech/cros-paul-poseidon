@@ -4,7 +4,7 @@ import com.nnk.springboot.controllers.UserController;
 import com.nnk.springboot.dto.UserDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
-import com.nnk.springboot.service.IUserService;
+import com.nnk.springboot.service.impl.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,7 +24,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 /**
  * Unit test class for the UserController class.
@@ -38,7 +37,7 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    private IUserService userService;
+    private UserService userService;
 
     /**
      * Test method : home

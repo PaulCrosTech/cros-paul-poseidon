@@ -5,7 +5,7 @@ import com.nnk.springboot.dto.RuleDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.mapper.RuleMapper;
 import com.nnk.springboot.repositories.RuleNameRepository;
-import com.nnk.springboot.service.IRuleService;
+import com.nnk.springboot.service.ICrudService;
 import com.nnk.springboot.service.impl.RuleService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
  * The IRuleServiceTest unit test
  */
 @ExtendWith(MockitoExtension.class)
-public class IRuleServiceTest {
+public class RuleServiceTest {
 
 
     @Mock
@@ -35,14 +35,14 @@ public class IRuleServiceTest {
     @Mock
     private RuleMapper ruleMapper;
 
-    private IRuleService ruleService;
+    private ICrudService<RuleDto> ruleService;
 
     /**
      * Setup before each test
      */
     @BeforeEach
     public void setUp() {
-        ruleService = new RuleService(ruleNameRepository, ruleMapper);
+        ruleService = new RuleService(ruleMapper, ruleNameRepository);
     }
 
 
@@ -84,7 +84,7 @@ public class IRuleServiceTest {
         ruleDtoExpected.setSqlStr("sqlStr");
 
         when(ruleNameRepository.findById(anyInt())).thenReturn(Optional.of(new Rule()));
-        when(ruleMapper.toRuleDto(any(Rule.class))).thenReturn(ruleDtoExpected);
+        when(ruleMapper.toDto(any(Rule.class))).thenReturn(ruleDtoExpected);
 
         // When
         RuleDto ruleDtoActual = ruleService.findById(anyInt());
@@ -122,7 +122,7 @@ public class IRuleServiceTest {
         RuleDto ruleDto = new RuleDto();
         Rule rule = new Rule();
 
-        when(ruleMapper.toRule(ruleDto)).thenReturn(rule);
+        when(ruleMapper.toDomain(ruleDto)).thenReturn(rule);
 
         // When
         ruleService.create(ruleDto);

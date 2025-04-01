@@ -50,16 +50,16 @@ public class UserMapperTest {
     }
 
     /**
-     * Test toUserDto
+     * Test toDto
      * Given: A User
-     * When: toUserDto
+     * When: toDto
      * Then: return UserDto
      */
     @Test
-    public void givenUser_whenToUserDto_thenReturnUserDto() {
+    public void givenUser_whentoDto_thenReturnUserDto() {
 
         // When
-        UserDto userDtoActual = userMapper.toUserDto(user);
+        UserDto userDtoActual = userMapper.toDto(user);
 
         // Then
         assertEquals(userDto.getId(), userDtoActual.getId());
@@ -69,15 +69,15 @@ public class UserMapperTest {
     }
 
     /**
-     * Test toUser
+     * Test toDomain
      * Given: A UserDto
-     * When: toUser
+     * When: toDomain
      * Then: return User
      */
     @Test
-    public void givenUserDto_whenToUser_thenReturnUser() {
+    public void givenUserDto_whentoDomain_thenReturnUser() {
         // When
-        User userActual = userMapper.toUser(userDto);
+        User userActual = userMapper.toDomain(userDto);
 
         // Then
         assertEquals(user.getId(), userActual.getId());

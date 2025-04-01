@@ -5,7 +5,7 @@ import com.nnk.springboot.dto.CurvePointDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.mapper.CurveMapper;
 import com.nnk.springboot.repositories.CurvePointRepository;
-import com.nnk.springboot.service.ICurveService;
+import com.nnk.springboot.service.ICrudService;
 import com.nnk.springboot.service.impl.CurveService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,14 +27,14 @@ import static org.mockito.Mockito.*;
  * The ICurveServiceTest unit test
  */
 @ExtendWith(MockitoExtension.class)
-public class ICurveServiceTest {
+public class CurveServiceTest {
 
     @Mock
     private CurveMapper curveMapper;
     @Mock
     private CurvePointRepository curvePointRepository;
 
-    private ICurveService curveService;
+    private ICrudService<CurvePointDto> curveService;
 
     /**
      * Setup before each test
@@ -78,7 +78,7 @@ public class ICurveServiceTest {
         curvePointDto.setValue(5d);
 
         when(curvePointRepository.findById(anyInt())).thenReturn(Optional.of(new CurvePoint()));
-        when(curveMapper.toCurvePointDto(any(CurvePoint.class))).thenReturn(curvePointDto);
+        when(curveMapper.toDto(any(CurvePoint.class))).thenReturn(curvePointDto);
 
         // When
         CurvePointDto curvePointDtoActual = curveService.findById(anyInt());
@@ -116,7 +116,7 @@ public class ICurveServiceTest {
         CurvePointDto curvePointDto = new CurvePointDto();
         CurvePoint curvePoint = new CurvePoint();
 
-        when(curveMapper.toCurvePoint(curvePointDto)).thenReturn(curvePoint);
+        when(curveMapper.toDomain(curvePointDto)).thenReturn(curvePoint);
 
         // When
         curveService.create(curvePointDto);

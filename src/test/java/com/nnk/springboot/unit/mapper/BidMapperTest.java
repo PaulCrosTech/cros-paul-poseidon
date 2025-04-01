@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(MockitoExtension.class)
 public class BidMapperTest {
 
-    private static BidMapper bidMapper;
+    private static BidMapper BidMapper;
 
     private BidDto bidDto;
     private Bid bid;
@@ -28,7 +28,7 @@ public class BidMapperTest {
      */
     @BeforeAll
     public static void setUp() {
-        bidMapper = Mappers.getMapper(BidMapper.class);
+        BidMapper = Mappers.getMapper(BidMapper.class);
     }
 
     /**
@@ -52,16 +52,16 @@ public class BidMapperTest {
     }
 
     /**
-     * Test toBidDto
+     * Test toDto
      * Given: A Bid
-     * When: toBidDto
+     * When: toDto
      * Then: Return a BidDto
      */
     @Test
-    public void givenBid_whenToBidDto_thenReturnBidDto() {
+    public void givenBid_whentoDto_thenReturnBidDto() {
 
         // When
-        BidDto bidDtoActual = bidMapper.toBidDto(bid);
+        BidDto bidDtoActual = BidMapper.toDto(bid);
 
         // Then
         assertEquals(bid.getId(), bidDtoActual.getId());
@@ -72,16 +72,16 @@ public class BidMapperTest {
 
 
     /**
-     * Test toBid
+     * Test toDomain
      * Given: A BidDto
-     * When: toBid
+     * When: toDomain
      * Then: Return a Bid
      */
     @Test
-    public void givenBidDto_whenToBid_thenReturnBid() {
+    public void givenBidDto_whentoDomain_thenReturnBid() {
 
         // When
-        Bid bidActual = bidMapper.toBid(bidDto);
+        Bid bidActual = BidMapper.toDomain(bidDto);
 
         // Then
         assertEquals(bidDto.getId(), bidActual.getId());

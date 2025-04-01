@@ -1,13 +1,11 @@
 package com.nnk.springboot.unit.service;
 
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.dto.BidDto;
 import com.nnk.springboot.dto.UserDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
 import com.nnk.springboot.mapper.UserMapper;
 import com.nnk.springboot.repositories.UserRepository;
-import com.nnk.springboot.service.IUserService;
 import com.nnk.springboot.service.impl.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +27,7 @@ import static org.mockito.Mockito.*;
  * The IUserServiceTest unit test
  */
 @ExtendWith(MockitoExtension.class)
-public class IUserServiceTest {
+public class UserServiceTest {
 
     @Mock
     private UserMapper userMapper;
@@ -39,14 +36,14 @@ public class IUserServiceTest {
     @Mock
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private IUserService userService;
+    private UserService userService;
 
     /**
      * Setup before each test
      */
     @BeforeEach
     public void setUp() {
-        userService = new UserService(userRepository, bCryptPasswordEncoder, userMapper);
+        userService = new UserService(userMapper, userRepository, bCryptPasswordEncoder);
     }
 
 
@@ -86,7 +83,7 @@ public class IUserServiceTest {
         userDto.setRole("ROLE");
 
         when(userRepository.findById(anyInt())).thenReturn(Optional.of(new User()));
-        when(userMapper.toUserDto(any(User.class))).thenReturn(userDto);
+        when(userMapper.toDto(any(User.class))).thenReturn(userDto);
 
         // When
         UserDto userDtoActual = userService.findById(anyInt());
@@ -124,7 +121,7 @@ public class IUserServiceTest {
         // Given
         String username = "username";
         when(userRepository.findAllByUsernameNot(username)).thenReturn(List.of(new User()));
-        when(userMapper.toUserDto(any(User.class))).thenReturn(new UserDto());
+        when(userMapper.toDto(any(User.class))).thenReturn(new UserDto());
 
         // When
         List<UserDto> userDtoList = userService.findAllExceptUserWithUsername(username);
@@ -151,7 +148,7 @@ public class IUserServiceTest {
 
         when(userRepository.existsByUsername(userDto.getUsername())).thenReturn(false);
 
-        when(userMapper.toUser(userDto)).thenReturn(user);
+        when(userMapper.toDomain(userDto)).thenReturn(user);
         when(bCryptPasswordEncoder.encode(userDto.getPassword())).thenReturn("passwordEncoded");
 
         // When
@@ -198,7 +195,7 @@ public class IUserServiceTest {
         user.setId(1);
 
         when(userRepository.existsByUsernameAndIdNot(userDto.getUsername(), userDto.getId())).thenReturn(false);
-        when(userMapper.toUser(userDto)).thenReturn(user);
+        when(userMapper.toDomain(userDto)).thenReturn(user);
         when(bCryptPasswordEncoder.encode(userDto.getPassword())).thenReturn("passwordEncoded");
 
         // When

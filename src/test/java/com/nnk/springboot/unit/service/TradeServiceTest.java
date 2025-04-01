@@ -5,7 +5,7 @@ import com.nnk.springboot.dto.TradeDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.mapper.TradeMapper;
 import com.nnk.springboot.repositories.TradeRepository;
-import com.nnk.springboot.service.ITradeService;
+import com.nnk.springboot.service.ICrudService;
 import com.nnk.springboot.service.impl.TradeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
  * The ITradeServiceTest unit test
  */
 @ExtendWith(MockitoExtension.class)
-public class ITradeServiceTest {
+public class TradeServiceTest {
 
 
     @Mock
@@ -35,14 +35,14 @@ public class ITradeServiceTest {
     @Mock
     private TradeMapper tradeMapper;
 
-    private ITradeService tradeService;
+    private ICrudService<TradeDto> tradeService;
 
     /**
      * Setup before each test
      */
     @BeforeEach
     public void setUp() {
-        tradeService = new TradeService(tradeRepository, tradeMapper);
+        tradeService = new TradeService(tradeMapper, tradeRepository);
     }
 
     /**
@@ -79,7 +79,7 @@ public class ITradeServiceTest {
         tradeDtoExpected.setBuyQuantity(1d);
 
         when(tradeRepository.findById(anyInt())).thenReturn(Optional.of(new Trade()));
-        when(tradeMapper.toTradeDto(any(Trade.class))).thenReturn(tradeDtoExpected);
+        when(tradeMapper.toDto(any(Trade.class))).thenReturn(tradeDtoExpected);
 
         // When
         TradeDto tradeDtoActual = tradeService.findById(anyInt());
@@ -117,7 +117,7 @@ public class ITradeServiceTest {
         TradeDto tradeDto = new TradeDto();
         Trade trade = new Trade();
 
-        when(tradeMapper.toTrade(tradeDto)).thenReturn(trade);
+        when(tradeMapper.toDomain(tradeDto)).thenReturn(trade);
 
         // When
         tradeService.create(tradeDto);

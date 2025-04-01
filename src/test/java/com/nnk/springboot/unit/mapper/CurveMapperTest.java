@@ -50,16 +50,16 @@ public class CurveMapperTest {
     }
 
     /**
-     * Test toCurvePointDto
+     * Test toDto
      * Given: A CurvePoint
-     * When: toCurvePointDto
+     * When: toDto
      * Then: Return a CurvePointDto
      */
     @Test
-    public void givenCurvePoint_whenToCurvePointDto_thenReturnCurvePointDto() {
+    public void givenCurvePoint_whentoDto_thenReturnCurvePointDto() {
 
         // When
-        CurvePointDto curvePointDtoActual = curveMapper.toCurvePointDto(curvePoint);
+        CurvePointDto curvePointDtoActual = curveMapper.toDto(curvePoint);
 
         // Then
         assertEquals(curvePointDto.getCurveId(), curvePointDtoActual.getCurveId());
@@ -71,16 +71,16 @@ public class CurveMapperTest {
 
 
     /**
-     * Test toCurvePoint
+     * Test toDomain
      * Given: A CurvePointDto
-     * When: toCurvePoint
+     * When: toDomain
      * Then: Return a CurvePoint
      */
     @Test
-    public void givenCurveCurvePointDto_whenToCurvePoint_thenReturnCurvePoint() {
+    public void givenCurveCurvePointDto_whentoDomain_thenReturnCurvePoint() {
 
         // When
-        CurvePoint curvePointExpected = curveMapper.toCurvePoint(curvePointDto);
+        CurvePoint curvePointExpected = curveMapper.toDomain(curvePointDto);
 
         // Then
         assertEquals(curvePoint.getCurveId(), curvePointExpected.getCurveId());

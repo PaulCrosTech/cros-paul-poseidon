@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 
@@ -31,6 +32,7 @@ public class CurvePoint {
     private Double value;
 
     @Column(columnDefinition = "TIMESTAMP")
+    @CreationTimestamp
     private Instant creationDate;
 
 }

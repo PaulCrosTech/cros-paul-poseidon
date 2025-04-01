@@ -3,7 +3,7 @@ package com.nnk.springboot.unit.controllers;
 import com.nnk.springboot.controllers.TradeController;
 import com.nnk.springboot.dto.TradeDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
-import com.nnk.springboot.service.ITradeService;
+import com.nnk.springboot.service.impl.TradeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,7 +18,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 /**
  * Unit test class for the TradeControllerTest class.
@@ -32,7 +31,7 @@ public class TradeControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    private ITradeService tradeService;
+    private TradeService tradeService;
 
     /**
      * Test method : home

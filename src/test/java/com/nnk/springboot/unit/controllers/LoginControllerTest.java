@@ -1,7 +1,7 @@
 package com.nnk.springboot.unit.controllers;
 
 import com.nnk.springboot.controllers.LoginController;
-import com.nnk.springboot.service.IUserService;
+import com.nnk.springboot.service.impl.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,7 +27,7 @@ public class LoginControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    private IUserService userService;
+    private UserService userService;
 
 
     /**

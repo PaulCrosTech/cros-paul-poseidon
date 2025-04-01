@@ -5,7 +5,7 @@ import com.nnk.springboot.dto.BidDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.mapper.BidMapper;
 import com.nnk.springboot.repositories.BidListRepository;
-import com.nnk.springboot.service.IBidListService;
+import com.nnk.springboot.service.ICrudService;
 import com.nnk.springboot.service.impl.BidListService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,21 +27,21 @@ import static org.mockito.Mockito.*;
  * The IBidListServiceTest unit test
  */
 @ExtendWith(MockitoExtension.class)
-public class IBidListServiceTest {
+public class BidListServiceTest {
 
     @Mock
-    private BidMapper bidMapper;
+    private BidMapper BidMapper;
     @Mock
     private BidListRepository bidListRepository;
 
-    private IBidListService bidListService;
+    private ICrudService<BidDto> bidListService;
 
     /**
      * Setup before each test
      */
     @BeforeEach
     public void setUp() {
-        bidListService = new BidListService(bidListRepository, bidMapper);
+        bidListService = new BidListService(BidMapper, bidListRepository);
     }
 
 
@@ -80,7 +80,7 @@ public class IBidListServiceTest {
         bidDtoExpected.setBidQuantity(1d);
 
         when(bidListRepository.findById(anyInt())).thenReturn(Optional.of(new Bid()));
-        when(bidMapper.toBidDto(any(Bid.class))).thenReturn(bidDtoExpected);
+        when(BidMapper.toDto(any(Bid.class))).thenReturn(bidDtoExpected);
 
         // When
         BidDto bidDtoActual = bidListService.findById(anyInt());
@@ -120,7 +120,7 @@ public class IBidListServiceTest {
         BidDto bidDto = new BidDto();
         Bid bid = new Bid();
 
-        when(bidMapper.toBid(bidDto)).thenReturn(bid);
+        when(BidMapper.toDomain(bidDto)).thenReturn(bid);
 
         // When
         bidListService.create(bidDto);

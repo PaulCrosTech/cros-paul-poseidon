@@ -58,16 +58,16 @@ public class RuleMapperTest {
 
 
     /**
-     * Test toRule
+     * Test toDomain
      * Given: A RuleDto
-     * When: toRule
+     * When: toDomain
      * Then: Return a Rule
      */
     @Test
-    public void givenRuleDto_whenToRule_thenReturnRule() {
+    public void givenRuleDto_whentoDomain_thenReturnRule() {
 
         // When
-        Rule ruleActual = ruleMapper.toRule(ruleDto);
+        Rule ruleActual = ruleMapper.toDomain(ruleDto);
 
         // Then
         assertEquals(rule.getId(), ruleActual.getId());
@@ -80,15 +80,15 @@ public class RuleMapperTest {
     }
 
     /**
-     * Test toRuleDto
+     * Test toDto
      * Given: A Rule
-     * When: toRuleDto
+     * When: toDto
      * Then: Return a RuleDto
      */
     @Test
-    public void givenRule_whenToRuleDto_thenReturnRuleDto() {
+    public void givenRule_whentoDto_thenReturnRuleDto() {
         // When
-        RuleDto ruleDtoActual = ruleMapper.toRuleDto(rule);
+        RuleDto ruleDtoActual = ruleMapper.toDto(rule);
 
         // Then
         assertEquals(ruleDto.getId(), ruleDtoActual.getId());

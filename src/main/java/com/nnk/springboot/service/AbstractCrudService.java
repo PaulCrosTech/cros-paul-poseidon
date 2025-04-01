@@ -121,6 +121,7 @@ public abstract class AbstractCrudService<Entity, Dto extends AbstractDto> imple
                 log.error("Error updating field: {}", fieldDto.getName(), e);
             }
         }
+        repository.save(entity);
         log.debug("====> Updated okay<====");
     }
 

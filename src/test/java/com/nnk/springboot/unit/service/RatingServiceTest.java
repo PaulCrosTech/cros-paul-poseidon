@@ -5,7 +5,7 @@ import com.nnk.springboot.dto.RatingDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.mapper.RatingMapper;
 import com.nnk.springboot.repositories.RatingRepository;
-import com.nnk.springboot.service.IRatingService;
+import com.nnk.springboot.service.ICrudService;
 import com.nnk.springboot.service.impl.RatingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,14 +27,14 @@ import static org.mockito.Mockito.*;
  * The IRatingServiceTest unit test
  */
 @ExtendWith(MockitoExtension.class)
-public class IRatingServiceTest {
+public class RatingServiceTest {
 
     @Mock
     private RatingMapper ratingMapper;
     @Mock
     private RatingRepository ratingRepository;
 
-    private IRatingService ratingService;
+    private ICrudService<RatingDto> ratingService;
 
     /**
      * Setup before each test
@@ -80,7 +80,7 @@ public class IRatingServiceTest {
         ratingDtoExpected.setOrderNumber(1);
 
         when(ratingRepository.findById(anyInt())).thenReturn(Optional.of(new Rating()));
-        when(ratingMapper.toRatingDto(any(Rating.class))).thenReturn(ratingDtoExpected);
+        when(ratingMapper.toDto(any(Rating.class))).thenReturn(ratingDtoExpected);
 
         // When
         RatingDto ratingDtoActual = ratingService.findById(anyInt());
@@ -118,7 +118,7 @@ public class IRatingServiceTest {
         RatingDto ratingDto = new RatingDto();
         Rating rating = new Rating();
 
-        when(ratingMapper.toRating(ratingDto)).thenReturn(rating);
+        when(ratingMapper.toDomain(ratingDto)).thenReturn(rating);
 
         // When
         ratingService.create(ratingDto);

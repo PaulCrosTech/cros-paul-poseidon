@@ -54,15 +54,15 @@ public class RatingMapperTest {
     }
 
     /**
-     * Test toRatingDto
+     * Test toDto
      * Given: A Rating
-     * When: toRatingDto
+     * When: toDto
      * Then: Return a RatingDto
      */
     @Test
-    public void givenRating_whenToRatingDto_thenReturnRatingDto() {
+    public void givenRating_whentoDto_thenReturnRatingDto() {
         // When
-        RatingDto ratingDtoActual = ratingMapper.toRatingDto(rating);
+        RatingDto ratingDtoActual = ratingMapper.toDto(rating);
 
         // Then
         assertEquals(rating.getId(), ratingDtoActual.getId());
@@ -74,16 +74,16 @@ public class RatingMapperTest {
 
 
     /**
-     * Test toRating
+     * Test toDomain
      * Given: A RatingDto
-     * When: toRating
+     * When: toDomain
      * Then: Return a Rating
      */
     @Test
-    public void givenRatingDto_whenToRating_thenReturnRating() {
+    public void givenRatingDto_whentoDomain_thenReturnRating() {
 
         // When
-        Rating ratingActual = ratingMapper.toRating(ratingDto);
+        Rating ratingActual = ratingMapper.toDomain(ratingDto);
 
         // Then
         assertEquals(ratingDto.getId(), ratingActual.getId());

@@ -3,7 +3,7 @@ package com.nnk.springboot.unit.controllers;
 import com.nnk.springboot.controllers.RatingController;
 import com.nnk.springboot.dto.RatingDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
-import com.nnk.springboot.service.IRatingService;
+import com.nnk.springboot.service.impl.RatingService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,7 +18,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 /**
  * Unit test class for the RatingController class.
@@ -32,7 +31,7 @@ public class RatingControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    private IRatingService ratingService;
+    private RatingService ratingService;
 
 
     /**

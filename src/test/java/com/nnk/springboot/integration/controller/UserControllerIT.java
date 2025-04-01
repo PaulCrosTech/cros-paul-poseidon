@@ -5,7 +5,7 @@ import com.nnk.springboot.dto.UserDto;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;
 import com.nnk.springboot.integration.config.AbstractContainerDB;
 import com.nnk.springboot.repositories.UserRepository;
-import com.nnk.springboot.service.IUserService;
+import com.nnk.springboot.service.impl.UserService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ public class UserControllerIT extends AbstractContainerDB {
     private UserRepository userRepository;
 
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     /**
      * Test method : validate

@@ -3,7 +3,7 @@ package com.nnk.springboot.unit.controllers;
 import com.nnk.springboot.controllers.BidListController;
 import com.nnk.springboot.dto.BidDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
-import com.nnk.springboot.service.IBidListService;
+import com.nnk.springboot.service.impl.BidListService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,7 +31,7 @@ public class BidListControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    private IBidListService bidListService;
+    private BidListService bidListService;
 
 
     /**

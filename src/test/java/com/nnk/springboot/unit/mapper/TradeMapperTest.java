@@ -52,16 +52,16 @@ public class TradeMapperTest {
     }
 
     /**
-     * Test toTradeDto
+     * Test toDto
      * Given: A Trade
-     * When: toTradeDto
+     * When: toDto
      * Then: Return a TradeDto
      */
     @Test
-    public void givenTrade_whenToTradeDto_thenReturnTradeDto() {
+    public void givenTrade_whentoDto_thenReturnTradeDto() {
 
         // When
-        TradeDto tradeDtoActual = tradeMapper.toTradeDto(trade);
+        TradeDto tradeDtoActual = tradeMapper.toDto(trade);
 
         // Then
         assertEquals(tradeDto.getId(), tradeDtoActual.getId());
@@ -71,16 +71,16 @@ public class TradeMapperTest {
     }
 
     /**
-     * Test toTrade
+     * Test toDomain
      * Given: A TradeDto
-     * When: toTrade
+     * When: toDomain
      * Then: Return a Trade
      */
     @Test
-    public void givenTradeDto_whenToTrade_thenReturnTrade() {
+    public void givenTradeDto_whentoDomain_thenReturnTrade() {
 
         // When
-        Trade tradeActual = tradeMapper.toTrade(tradeDto);
+        Trade tradeActual = tradeMapper.toDomain(tradeDto);
 
         // Then
         assertEquals(trade.getId(), tradeActual.getId());
