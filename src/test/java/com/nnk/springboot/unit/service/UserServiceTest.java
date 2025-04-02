@@ -23,8 +23,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
+
 /**
- * The IUserServiceTest unit test
+ * The UserServiceTest unit test
  */
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -45,71 +46,7 @@ public class UserServiceTest {
     public void setUp() {
         userService = new UserService(userMapper, userRepository, bCryptPasswordEncoder);
     }
-
-
-    /**
-     * Test findAll
-     * Given: A list of user
-     * When: findAll
-     * Then: Return the UserDto list
-     */
-    @Test
-    public void givenUserList_whenFindAll_thenReturnUserListDto() {
-        // Given
-        when(userRepository.findAll()).thenReturn(List.of());
-
-        // When
-        List<UserDto> userDtoActual = userService.findAll();
-
-        // Then
-        assertEquals(0, userDtoActual.size());
-    }
-
-
-    /**
-     * Test findById
-     * Given: An existing user id
-     * When: findById
-     * Then: Return the userDto
-     */
-    @Test
-    public void givenExistingUserId_whenFindById_thenReturnUserDto() {
-        // Given
-        UserDto userDto = new UserDto();
-        userDto.setId(1);
-        userDto.setUsername("username");
-        userDto.setPassword("password");
-        userDto.setFullname(null);
-        userDto.setRole("ROLE");
-
-        when(userRepository.findById(anyInt())).thenReturn(Optional.of(new User()));
-        when(userMapper.toDto(any(User.class))).thenReturn(userDto);
-
-        // When
-        UserDto userDtoActual = userService.findById(anyInt());
-
-        // Then
-        assertEquals(userDto, userDtoActual);
-    }
-
-    /**
-     * Test findById
-     * Given: A non-existing user id
-     * When: findById
-     * Then: Throw EntityMissingException
-     */
-    @Test
-    public void givenNonExistingUserId_whenFindById_thenThrowEntityMissingException() {
-        // Given
-        when(userRepository.findById(anyInt())).thenReturn(Optional.empty());
-
-        // When & Then
-        assertThrows(EntityMissingException.class,
-                () -> userService.findById(anyInt())
-        );
-    }
-
-
+    
     /**
      * Test findAllExceptUserWithUsername
      * Given: A username

@@ -23,8 +23,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
+
 /**
- * The IBidListServiceTest unit test
+ * The BidListServiceTest unit test
  */
 @ExtendWith(MockitoExtension.class)
 public class BidListServiceTest {
@@ -145,6 +146,7 @@ public class BidListServiceTest {
         Bid bid = new Bid();
         bid.setId(1);
 
+
         when(bidListRepository.findById(bidDto.getId())).thenReturn(Optional.of(bid));
 
         // When
@@ -153,6 +155,7 @@ public class BidListServiceTest {
         // Then
         verify(bidListRepository, times(1)).save(any(Bid.class));
     }
+
 
     /**
      * Test update
