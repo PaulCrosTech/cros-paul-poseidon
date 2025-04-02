@@ -63,10 +63,6 @@ To run the application, you can :
 
 Then go to the URL http://localhost:8080/
 
-## Database MPD
-
-![MDP Schema](/src/main/resources/documentation/MPD.png)
-
 ## Testing
 
 To run the tests from maven, go to the folder that contains the pom.xml file and execute the below command.
@@ -74,7 +70,11 @@ To run the tests from maven, go to the folder that contains the pom.xml file and
 For unit tests and reports : `mvn clean test site`
 
 For unit, integration tests and reports :  `mvn clean verify site`  
-Integration tests used TestContainer, so don't forget to start your docker first (https://testcontainers.com/).
+_Integration tests use TestContainer, so don't forget to start your docker first (https://testcontainers.com/).  
+They also use a test dataset available in the file "/src/main/resources/script/test_data.sql"._
 
 Surefire, JaCoCo, JavaDoc reporting are available in the project directory : "/target/site/index.html"
 
+## Database MPD
+
+![MDP Schema](/src/main/resources/documentation/MPD.png)
