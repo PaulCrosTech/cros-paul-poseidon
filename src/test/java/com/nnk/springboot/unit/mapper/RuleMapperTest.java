@@ -11,6 +11,7 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * RuleMapper unit tests.
@@ -64,7 +65,7 @@ public class RuleMapperTest {
      * Then: Return a Rule
      */
     @Test
-    public void givenRuleDto_whentoDomain_thenReturnRule() {
+    public void givenRuleDto_whenToDomain_thenReturnRule() {
 
         // When
         Rule ruleActual = ruleMapper.toDomain(ruleDto);
@@ -80,13 +81,29 @@ public class RuleMapperTest {
     }
 
     /**
+     * Test toDomain
+     * Given: A null RuleDto
+     * When: toDomain
+     * Then: Return null
+     */
+    @Test
+    public void givenNull_whenToDomain_thenReturnNull() {
+
+        // When
+        Rule ruleDtoActual = ruleMapper.toDomain(null);
+
+        // Then
+        assertNull(ruleDtoActual);
+    }
+
+    /**
      * Test toDto
      * Given: A Rule
      * When: toDto
      * Then: Return a RuleDto
      */
     @Test
-    public void givenRule_whentoDto_thenReturnRuleDto() {
+    public void givenRule_whenToDto_thenReturnRuleDto() {
         // When
         RuleDto ruleDtoActual = ruleMapper.toDto(rule);
 
@@ -100,4 +117,22 @@ public class RuleMapperTest {
         assertEquals(ruleDto.getSqlPart(), ruleDtoActual.getSqlPart());
 
     }
+
+    /**
+     * Test toDto
+     * Given: A null Rule
+     * When: toDto
+     * Then: Return null
+     */
+    @Test
+    public void givenNull_whenToDto_thenReturnNull() {
+
+        // When
+        RuleDto ruleDtoActual = ruleMapper.toDto(null);
+
+        // Then
+        assertNull(ruleDtoActual);
+    }
+
+
 }

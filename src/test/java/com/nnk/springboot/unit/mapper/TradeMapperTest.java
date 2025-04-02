@@ -11,6 +11,7 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * TradeMapper unit tests.
@@ -58,7 +59,7 @@ public class TradeMapperTest {
      * Then: Return a TradeDto
      */
     @Test
-    public void givenTrade_whentoDto_thenReturnTradeDto() {
+    public void givenTrade_whenToDto_thenReturnTradeDto() {
 
         // When
         TradeDto tradeDtoActual = tradeMapper.toDto(trade);
@@ -68,6 +69,22 @@ public class TradeMapperTest {
         assertEquals(tradeDto.getAccount(), tradeDtoActual.getAccount());
         assertEquals(tradeDto.getType(), tradeDtoActual.getType());
         assertEquals(tradeDto.getBuyQuantity(), tradeDtoActual.getBuyQuantity());
+    }
+
+    /**
+     * Test toDto
+     * * Given: A null Trade
+     * When: toDto
+     * Then: Return null
+     */
+    @Test
+    public void givenNull_whenToDto_thenReturnNull() {
+
+        // When
+        TradeDto tradeDtoActual = tradeMapper.toDto(null);
+
+        // Then
+        assertNull(tradeDtoActual);
     }
 
     /**
@@ -87,5 +104,21 @@ public class TradeMapperTest {
         assertEquals(trade.getAccount(), tradeActual.getAccount());
         assertEquals(trade.getType(), tradeActual.getType());
         assertEquals(trade.getBuyQuantity(), tradeActual.getBuyQuantity());
+    }
+
+    /**
+     * Test toDomain
+     * Given: A null TradeDto
+     * When: toDomain
+     * Then: Return null
+     */
+    @Test
+    public void givenNull_whenToDomain_thenReturnNull() {
+
+        // When
+        Trade tradeActual = tradeMapper.toDomain(null);
+
+        // Then
+        assertNull(tradeActual);
     }
 }

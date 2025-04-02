@@ -11,6 +11,7 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * BidMapper unit tests.
@@ -58,7 +59,7 @@ public class BidMapperTest {
      * Then: Return a BidDto
      */
     @Test
-    public void givenBid_whentoDto_thenReturnBidDto() {
+    public void givenBid_whenToDto_thenReturnBidDto() {
 
         // When
         BidDto bidDtoActual = BidMapper.toDto(bid);
@@ -70,6 +71,22 @@ public class BidMapperTest {
         assertEquals(bid.getBidQuantity(), bidDtoActual.getBidQuantity());
     }
 
+    /**
+     * Test toDto
+     * Given: A null Bid
+     * When: toDto
+     * Then: Return null
+     */
+    @Test
+    public void givenNull_whenToDto_thenReturnNull() {
+
+        // When
+        BidDto bidDtoActual = BidMapper.toDto(null);
+
+        // Then
+        assertNull(bidDtoActual);
+    }
+
 
     /**
      * Test toDomain
@@ -78,7 +95,7 @@ public class BidMapperTest {
      * Then: Return a Bid
      */
     @Test
-    public void givenBidDto_whentoDomain_thenReturnBid() {
+    public void givenBidDto_whenToDomain_thenReturnBid() {
 
         // When
         Bid bidActual = BidMapper.toDomain(bidDto);
@@ -89,7 +106,22 @@ public class BidMapperTest {
         assertEquals(bidDto.getType(), bidActual.getType());
         assertEquals(bidDto.getBidQuantity(), bidActual.getBidQuantity());
 
-
     }
 
+    /**
+     * Test toDomain
+     * Given: A null BidDto
+     * When: toDomain
+     * Then: Return null
+     */
+    @Test
+    public void givenNull_whenToDomain_thenReturnNull() {
+
+        // When
+        Bid bidActual = BidMapper.toDomain(null);
+
+        // Then
+        assertNull(bidActual);
+    }
+    
 }

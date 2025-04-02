@@ -11,6 +11,7 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * RatingMapper unit tests.
@@ -60,7 +61,7 @@ public class RatingMapperTest {
      * Then: Return a RatingDto
      */
     @Test
-    public void givenRating_whentoDto_thenReturnRatingDto() {
+    public void givenRating_whenToDto_thenReturnRatingDto() {
         // When
         RatingDto ratingDtoActual = ratingMapper.toDto(rating);
 
@@ -74,13 +75,29 @@ public class RatingMapperTest {
 
 
     /**
+     * Test toDto
+     * Given: A null Rating
+     * When: toDto
+     * Then: Return null
+     */
+    @Test
+    public void givenNull_whenToDto_thenReturnNull() {
+
+        // When
+        RatingDto ratingDtoActual = ratingMapper.toDto(null);
+
+        // Then
+        assertNull(ratingDtoActual);
+    }
+
+    /**
      * Test toDomain
      * Given: A RatingDto
      * When: toDomain
      * Then: Return a Rating
      */
     @Test
-    public void givenRatingDto_whentoDomain_thenReturnRating() {
+    public void givenRatingDto_whenToDomain_thenReturnRating() {
 
         // When
         Rating ratingActual = ratingMapper.toDomain(ratingDto);
@@ -93,5 +110,22 @@ public class RatingMapperTest {
         assertEquals(ratingDto.getOrderNumber(), ratingActual.getOrderNumber());
 
     }
+
+    /**
+     * Test toDomain
+     * Given: A null RatingDto
+     * When: toDomain
+     * Then: Return null
+     */
+    @Test
+    public void givenNull_whenToDomain_thenReturnNull() {
+
+        // When
+        Rating ratingActual = ratingMapper.toDomain(null);
+
+        // Then
+        assertNull(ratingActual);
+    }
+
 
 }

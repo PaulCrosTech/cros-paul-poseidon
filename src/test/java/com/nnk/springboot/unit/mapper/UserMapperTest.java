@@ -11,6 +11,7 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * UserMapper unit tests.
@@ -56,7 +57,7 @@ public class UserMapperTest {
      * Then: return UserDto
      */
     @Test
-    public void givenUser_whentoDto_thenReturnUserDto() {
+    public void givenUser_whenToDto_thenReturnUserDto() {
 
         // When
         UserDto userDtoActual = userMapper.toDto(user);
@@ -69,13 +70,29 @@ public class UserMapperTest {
     }
 
     /**
+     * Test toDto
+     * Given: A null User
+     * When: toDto
+     * Then: return null
+     */
+    @Test
+    public void givenNull_whenToDto_thenReturnNull() {
+
+        // When
+        UserDto userDtoActual = userMapper.toDto(null);
+
+        // Then
+        assertNull(userDtoActual);
+    }
+
+    /**
      * Test toDomain
      * Given: A UserDto
      * When: toDomain
      * Then: return User
      */
     @Test
-    public void givenUserDto_whentoDomain_thenReturnUser() {
+    public void givenUserDto_whenToDomain_thenReturnUser() {
         // When
         User userActual = userMapper.toDomain(userDto);
 
@@ -85,5 +102,21 @@ public class UserMapperTest {
         assertEquals(user.getFullname(), userActual.getFullname());
         assertEquals(user.getRole(), userActual.getRole());
 
+    }
+
+    /**
+     * Test toDomain
+     * Given: A null User
+     * When: toDomain
+     * Then: return null
+     */
+    @Test
+    public void givenNull_whenToDomain_thenReturnNull() {
+
+        // When
+        User userActual = userMapper.toDomain(null);
+
+        // Then
+        assertNull(userActual);
     }
 }

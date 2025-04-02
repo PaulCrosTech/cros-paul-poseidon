@@ -11,6 +11,7 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * CurveMapper unit tests.
@@ -56,7 +57,7 @@ public class CurveMapperTest {
      * Then: Return a CurvePointDto
      */
     @Test
-    public void givenCurvePoint_whentoDto_thenReturnCurvePointDto() {
+    public void givenCurvePoint_whenToDto_thenReturnCurvePointDto() {
 
         // When
         CurvePointDto curvePointDtoActual = curveMapper.toDto(curvePoint);
@@ -71,23 +72,56 @@ public class CurveMapperTest {
 
 
     /**
+     * Test toDto
+     * Given: A null CurvePoint
+     * When: toDto
+     * Then: Return null
+     */
+    @Test
+    public void givenNull_whenToDto_thenReturnNull() {
+
+        // When
+        CurvePointDto curvePointDtoActual = curveMapper.toDto(null);
+
+        // Then
+        assertNull(curvePointDtoActual);
+    }
+
+    /**
      * Test toDomain
      * Given: A CurvePointDto
      * When: toDomain
      * Then: Return a CurvePoint
      */
     @Test
-    public void givenCurveCurvePointDto_whentoDomain_thenReturnCurvePoint() {
+    public void givenCurveCurvePointDto_whenToDomain_thenReturnCurvePoint() {
 
         // When
-        CurvePoint curvePointExpected = curveMapper.toDomain(curvePointDto);
+        CurvePoint curvePointActual = curveMapper.toDomain(curvePointDto);
 
         // Then
-        assertEquals(curvePoint.getCurveId(), curvePointExpected.getCurveId());
-        assertEquals(curvePoint.getId(), curvePointExpected.getId());
-        assertEquals(curvePoint.getTerm(), curvePointExpected.getTerm());
-        assertEquals(curvePoint.getValue(), curvePointExpected.getValue());
+        assertEquals(curvePoint.getCurveId(), curvePointActual.getCurveId());
+        assertEquals(curvePoint.getId(), curvePointActual.getId());
+        assertEquals(curvePoint.getTerm(), curvePointActual.getTerm());
+        assertEquals(curvePoint.getValue(), curvePointActual.getValue());
 
+    }
+
+
+    /**
+     * Test toDomain
+     * Given: A null CurvePointDto
+     * When: toDomain
+     * Then: Return null
+     */
+    @Test
+    public void givenNull_whenToDomain_thenReturnNull() {
+
+        // When
+        CurvePoint curvePointActual = curveMapper.toDomain(null);
+
+        // Then
+        assertNull(curvePointActual);
     }
 
 }
