@@ -32,7 +32,7 @@ public class BidListControllerTest {
 
     @MockitoBean
     private BidListService bidListService;
-
+    
 
     /**
      * Test method : home

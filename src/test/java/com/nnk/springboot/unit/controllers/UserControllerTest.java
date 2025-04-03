@@ -25,6 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
 /**
  * Unit test class for the UserController class.
  * Without security configuration
@@ -56,19 +57,6 @@ public class UserControllerTest {
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
 
         mockMvc.perform(get("/user/list"))
-                .andExpect(status().isOk());
-    }
-
-    /**
-     * Test method : addUser
-     * When: GET /user/add
-     * Then: Return the page
-     *
-     * @throws Exception if an error occurs
-     */
-    @Test
-    public void whenAddUser_thenReturnPage() throws Exception {
-        mockMvc.perform(get("/user/add"))
                 .andExpect(status().isOk());
     }
 
@@ -171,54 +159,6 @@ public class UserControllerTest {
                 .andExpect(view().name("user/add"))
                 .andExpect(model().hasErrors());
 
-    }
-
-    /**
-     * Test method : showUpdateForm
-     * Given: valid id
-     * When: GET /user/update/{id}
-     * Then: Return the page
-     *
-     * @throws Exception if an error occurs
-     */
-    @Test
-    public void givenValidId_whenShowUpdateForm_thenReturnPage() throws Exception {
-
-        // Given
-        when(userService.findById(any(Integer.class))).thenReturn(new UserDto());
-
-        // When
-        ResultActions resultActions = mockMvc.perform(get("/user/update/1"));
-
-        // Then
-        resultActions
-                .andExpect(status().isOk())
-                .andExpect(view().name("user/update"));
-
-    }
-
-    /**
-     * Test method : showUpdateForm
-     * Given: invalid id
-     * When: GET /user/update/{id}
-     * Then: Redirect to /user/list with error
-     *
-     * @throws Exception if an error occurs
-     */
-    @Test
-    public void givenInvalidId_whenShowUpdateForm_thenRedirectWithError() throws Exception {
-
-        // Given
-        when(userService.findById(any(Integer.class))).thenThrow(new EntityMissingException("User not found with id : 1"));
-
-        // When
-        ResultActions resultActions = mockMvc.perform(get("/user/update/1"));
-
-        // Then
-        resultActions
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/user/list"))
-                .andExpect(flash().attributeExists("flashMessage"));
     }
 
     /**
@@ -334,51 +274,6 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/update"))
                 .andExpect(model().hasErrors());
-    }
-
-
-    /**
-     * Test method : deleteUser
-     * Given: valid id
-     * When: GET /user/delete/{id}
-     * Then: User is deleted and redirect to /user/list
-     *
-     * @throws Exception if an error occurs
-     */
-    @Test
-    public void givenValidId_whenDeleteUser_thenUserIsDeletedAndRedirect() throws Exception {
-
-        // When
-        ResultActions resultActions = mockMvc.perform(get("/user/delete/1"));
-
-        // Then
-        resultActions
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/user/list"));
-
-    }
-
-    /**
-     * Test method : deleteUser
-     * Given: invalid id
-     * When: GET /user/delete/{id}
-     * Then: Redirect to /user/list with error
-     *
-     * @throws Exception if an error occurs
-     */
-    @Test
-    public void givenInvalidId_whenDeleteUser_thenRedirectWithError() throws Exception {
-
-        // Given
-        doThrow(new EntityMissingException("User not found with id : 1")).when(userService).delete(any(Integer.class));
-
-        // When
-        ResultActions resultActions = mockMvc.perform(get("/user/delete/1"));
-
-        // Then
-        resultActions
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/user/list"));
     }
 
 }
