@@ -2,8 +2,7 @@ package com.nnk.springboot.dto;
 
 import com.nnk.springboot.validators.annotations.ValidNotNullAndPositive;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -11,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class BidDto extends AbstractDto {
 
     @NotEmpty
@@ -23,6 +23,5 @@ public class BidDto extends AbstractDto {
 
     @ValidNotNullAndPositive
     private Double bidQuantity;
-
 
 }

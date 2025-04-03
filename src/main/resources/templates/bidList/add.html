@@ -12,7 +12,7 @@
         </div>
 
         <div class="row">
-            <form action="#" th:action="@{/bidList/validate}" th:object="${bidDto}" method="post"
+            <form action="#" th:action="@{/bidList/validate}" th:object="${dto}" method="post"
                   class="form-horizontal"
                   style="width: 100%">
                 <div class="form-group">
@@ -38,7 +38,7 @@
                            th:errors="*{bidQuantity}"></p>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <div class="col-sm-12">
                         <a class="btn btn-danger btn-sm" href="/bidList/list">Cancel</a>

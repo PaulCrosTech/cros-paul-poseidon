@@ -27,7 +27,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="trade : ${tradeList}">
+            <tr th:each="trade : ${dtoList}">
                 <td style="width: 10%" th:text="${trade.id}"></td>
                 <td th:text="${trade.account}"></td>
                 <td th:text="${trade.type}"></td>

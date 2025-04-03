@@ -12,7 +12,7 @@
         </div>
 
         <div class="row">
-            <form action="#" th:action="@{/curvePoint/update/{id}(id=${curvePointDto.id})}" th:object="${curvePointDto}"
+            <form action="#" th:action="@{/curvePoint/update/{id}(id=${dto.id})}" th:object="${dto}"
                   method="post" class="form-horizontal" style="width: 100%">
                 <div class="form-group">
                     <label for="curveId" class="col-sm-2 control-label">Curve Id</label>

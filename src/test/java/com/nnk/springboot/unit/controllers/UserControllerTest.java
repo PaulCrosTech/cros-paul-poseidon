@@ -1,6 +1,6 @@
 package com.nnk.springboot.unit.controllers;
 
-import com.nnk.springboot.controllers.UserController;
+import com.nnk.springboot.controllers.impl.UserController;
 import com.nnk.springboot.dto.UserDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.exceptions.UserWithSameUserNameExistsException;

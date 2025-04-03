@@ -1,6 +1,6 @@
 package com.nnk.springboot.unit.controllers;
 
-import com.nnk.springboot.controllers.CurveController;
+import com.nnk.springboot.controllers.impl.CurveController;
 import com.nnk.springboot.dto.CurvePointDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.service.impl.CurveService;

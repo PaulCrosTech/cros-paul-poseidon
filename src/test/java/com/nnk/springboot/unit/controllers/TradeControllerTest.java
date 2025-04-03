@@ -1,6 +1,6 @@
 package com.nnk.springboot.unit.controllers;
 
-import com.nnk.springboot.controllers.TradeController;
+import com.nnk.springboot.controllers.impl.TradeController;
 import com.nnk.springboot.dto.TradeDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.service.impl.TradeService;

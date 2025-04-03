@@ -6,6 +6,7 @@ import com.nnk.springboot.validators.annotations.ValidPassword;
 import com.nnk.springboot.validators.annotations.ValidRole;
 import com.nnk.springboot.validators.annotations.ValidUsername;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -13,8 +14,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class UserDto extends AbstractDto {
-    
+
     @ValidUsername
     private String username;
 

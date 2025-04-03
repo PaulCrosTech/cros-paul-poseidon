@@ -3,6 +3,7 @@ package com.nnk.springboot.dto;
 
 import com.nnk.springboot.validators.annotations.ValidNotNullAndPositive;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
@@ -11,8 +12,9 @@ import org.hibernate.validator.constraints.Length;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class TradeDto extends AbstractDto {
-    
+
     @Length(min = 1, max = 30, message = "Account should be between 1 and 30 characters")
     private String account;
 

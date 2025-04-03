@@ -1,6 +1,6 @@
 package com.nnk.springboot.unit.controllers;
 
-import com.nnk.springboot.controllers.BidListController;
+import com.nnk.springboot.controllers.impl.BidListController;
 import com.nnk.springboot.dto.BidDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.service.impl.BidListService;

@@ -13,7 +13,7 @@
         </div>
 
         <div class="row">
-            <form action="#" th:action="@{/rating/update/{id}(id=${ratingDto.id})}" th:object="${ratingDto}"
+            <form action="#" th:action="@{/rating/update/{id}(id=${dto.id})}" th:object="${dto}"
                   method="post"
                   class="form-horizontal" style="width: 100%">
                 <div class="form-group">

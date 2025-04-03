@@ -1,6 +1,6 @@
 package com.nnk.springboot.unit.controllers;
 
-import com.nnk.springboot.controllers.RuleNameController;
+import com.nnk.springboot.controllers.impl.RuleNameController;
 import com.nnk.springboot.dto.RuleDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.service.impl.RuleService;

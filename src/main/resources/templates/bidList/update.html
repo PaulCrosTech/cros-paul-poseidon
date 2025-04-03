@@ -12,7 +12,7 @@
         </div>
 
         <div class="row">
-            <form action="#" th:action="@{/bidList/update/{id}(id=${bidDto.id})}" th:object="${bidDto}"
+            <form action="#" th:action="@{/bidList/update/{id}(id=${dto.id})}" th:object="${dto}"
                   method="post" class="form-horizontal" style="width: 100%">
                 <div class="form-group">
                     <label for="account" class="col-sm-2 control-label">Account</label>

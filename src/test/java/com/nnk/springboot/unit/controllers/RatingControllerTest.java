@@ -1,6 +1,6 @@
 package com.nnk.springboot.unit.controllers;
 
-import com.nnk.springboot.controllers.RatingController;
+import com.nnk.springboot.controllers.impl.RatingController;
 import com.nnk.springboot.dto.RatingDto;
 import com.nnk.springboot.exceptions.EntityMissingException;
 import com.nnk.springboot.service.impl.RatingService;
