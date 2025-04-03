@@ -10,7 +10,7 @@ import java.util.List;
  * @param <T> the type of the DTO
  */
 public interface ICrudService<T> {
-    
+
     /**
      * Find all.
      *
@@ -21,7 +21,7 @@ public interface ICrudService<T> {
     /**
      * Find by id.
      *
-     * @param id the id of the entity
+     * @param id
      * @return the DTO
      * @throws EntityMissingException if the entity is not found
      */

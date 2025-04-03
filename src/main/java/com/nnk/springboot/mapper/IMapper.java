@@ -3,15 +3,16 @@ package com.nnk.springboot.mapper;
 /**
  * The IMapper interface
  *
- * @param <Entity>
- * @param <Dto>
+ * @param <Entity> the entity
+ * @param <Dto>    the DTO
  */
 public interface IMapper<Entity, Dto> {
+
 
     /**
      * Convert a DTO to an Entity
      *
-     * @param dto the Dto
+     * @param dto the DTO
      * @return the Entity
      */
     Entity toDomain(Dto dto);
@@ -19,8 +20,8 @@ public interface IMapper<Entity, Dto> {
     /**
      * Convert an Entity to a DTO
      *
-     * @param e the Entity
-     * @return the Dto
+     * @param e
+     * @return the DTO
      */
     Dto toDto(Entity e);
 

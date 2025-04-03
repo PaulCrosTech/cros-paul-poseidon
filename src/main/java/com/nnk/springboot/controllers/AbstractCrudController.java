@@ -13,11 +13,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+
 /**
  * Abstract controller for CRUD operations
  *
- * @param <Dto>     extends AbstractDto
- * @param <Service> extends ICrudService<Dto>
+ * @param <Dto>     the type of the DTO
+ * @param <Service> the type of the service
  */
 @Slf4j
 public abstract class AbstractCrudController<Dto extends AbstractDto, Service extends ICrudService<Dto>>
@@ -31,7 +32,7 @@ public abstract class AbstractCrudController<Dto extends AbstractDto, Service ex
      * Constructor
      *
      * @param service  the service
-     * @param route    the name of the route (without the leading slash)
+     * @param route    the route (whithout the leading slash)
      * @param dtoClass the class of the DTO
      */
     public AbstractCrudController(Service service, String route, Class<Dto> dtoClass) {
@@ -44,7 +45,7 @@ public abstract class AbstractCrudController<Dto extends AbstractDto, Service ex
     /**
      * Adds the menu activated attribute to the model
      *
-     * @param model the model
+     * @param model the model to add attributes to
      */
     @Override
     public void addAttributes(Model model) {
@@ -54,7 +55,8 @@ public abstract class AbstractCrudController<Dto extends AbstractDto, Service ex
     /**
      * Display the list of all items.
      *
-     * @param model the model
+     * @param model the model to add attributes to
+     * @return the view name
      */
     @Override
     public String home(Model model) {
