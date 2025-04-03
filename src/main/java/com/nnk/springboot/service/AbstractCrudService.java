@@ -15,14 +15,14 @@ import java.util.List;
 /**
  * Abstract CRUD service
  *
- * @param <Entity> the Entity
- * @param <Dto>    the Dto
+ * @param <E>   the Entity
+ * @param <Dto> the Dto
  */
 @Slf4j
-public abstract class AbstractCrudService<Entity, Dto extends AbstractDto> implements ICrudService<Dto> {
+public abstract class AbstractCrudService<E, Dto extends AbstractDto> implements ICrudService<Dto> {
 
-    protected final IMapper<Entity, Dto> mapper;
-    protected final JpaRepository<Entity, Integer> repository;
+    protected final IMapper<E, Dto> mapper;
+    protected final JpaRepository<E, Integer> repository;
 
     /**
      * Constructor
@@ -30,8 +30,8 @@ public abstract class AbstractCrudService<Entity, Dto extends AbstractDto> imple
      * @param repository the repository
      * @param mapper     the mapper
      */
-    public AbstractCrudService(IMapper<Entity, Dto> mapper,
-                               JpaRepository<Entity, Integer> repository) {
+    public AbstractCrudService(IMapper<E, Dto> mapper,
+                               JpaRepository<E, Integer> repository) {
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -44,11 +44,11 @@ public abstract class AbstractCrudService<Entity, Dto extends AbstractDto> imple
     @Override
     public List<Dto> findAll() {
         log.debug("====> find all <====");
-        List<Entity> entityList = repository.findAll();
+        List<E> eList = repository.findAll();
 
         List<Dto> dtoList = new ArrayList<>();
 
-        entityList.forEach(o -> {
+        eList.forEach(o -> {
             dtoList.add(mapper.toDto(o));
         });
 
@@ -65,9 +65,9 @@ public abstract class AbstractCrudService<Entity, Dto extends AbstractDto> imple
     @Override
     public Dto findById(Integer id) throws EntityMissingException {
         log.debug("====> find bid by id {} <====", id);
-        Entity entity = repository.findById(id)
+        E e = repository.findById(id)
                 .orElseThrow(() -> new EntityMissingException("Not found with id : " + id));
-        return mapper.toDto(entity);
+        return mapper.toDto(e);
     }
 
     /**
@@ -80,8 +80,8 @@ public abstract class AbstractCrudService<Entity, Dto extends AbstractDto> imple
     public void create(Dto dto) {
         log.debug("====> creating <====");
 
-        Entity entity = mapper.toDomain(dto);
-        repository.save(entity);
+        E e = mapper.toDomain(dto);
+        repository.save(e);
 
         log.debug("====> created <====");
     }
@@ -97,7 +97,7 @@ public abstract class AbstractCrudService<Entity, Dto extends AbstractDto> imple
     public void update(Dto dto) throws EntityMissingException {
         log.debug("====> update id {} <====", dto.getId());
 
-        Entity entity = repository.findById(dto.getId())
+        E entity = repository.findById(dto.getId())
                 .orElseThrow(
                         () -> new EntityMissingException("Not found with id : " + dto.getId())
                 );
@@ -134,10 +134,10 @@ public abstract class AbstractCrudService<Entity, Dto extends AbstractDto> imple
     @Transactional
     @Override
     public void delete(Integer id) throws EntityMissingException {
-        Entity entity = repository.findById(id)
+        E e = repository.findById(id)
                 .orElseThrow(
                         () -> new EntityMissingException("Not found with id : " + id)
                 );
-        repository.delete(entity);
+        repository.delete(e);
     }
 }

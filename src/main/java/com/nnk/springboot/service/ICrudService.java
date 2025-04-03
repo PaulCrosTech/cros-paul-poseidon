@@ -7,17 +7,16 @@ import java.util.List;
 /**
  * Interface for CRUD operations.
  *
- * @param <Dto> the type of the DTO
+ * @param <T> the type of the DTO
  */
-public interface ICrudService<Dto> {
-
-
+public interface ICrudService<T> {
+    
     /**
      * Find all.
      *
      * @return the list of all DTOs
      */
-    List<Dto> findAll();
+    List<T> findAll();
 
     /**
      * Find by id.
@@ -26,22 +25,22 @@ public interface ICrudService<Dto> {
      * @return the DTO
      * @throws EntityMissingException if the entity is not found
      */
-    Dto findById(Integer id) throws EntityMissingException;
+    T findById(Integer id) throws EntityMissingException;
 
     /**
      * Create a new entity.
      *
-     * @param dto the DTO to create
+     * @param t the DTO to create
      */
-    void create(Dto dto);
+    void create(T t);
 
     /**
      * Update an existing entity.
      *
-     * @param dto the DTO to update
+     * @param t the DTO to update
      * @throws EntityMissingException if the entity is not found
      */
-    void update(Dto dto) throws EntityMissingException;
+    void update(T t) throws EntityMissingException;
 
 
     /**
