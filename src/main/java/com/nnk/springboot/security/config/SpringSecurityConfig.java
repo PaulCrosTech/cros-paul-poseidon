@@ -33,7 +33,7 @@ public class SpringSecurityConfig {
     }
 
     /**
-     * HttpSessionEventPublisher
+     * HttpSessionEventPublisher (for session management)
      *
      * @return HttpSessionEventPublisher
      */
